@@ -23,10 +23,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()  
+    public function index()
     {
-        Role::create(['name'=>'adminstrator']);
-        Permisssion::create(['name'=>'create truck']);
+        Role::create(['name' => 'adminstrator']);
+        Permisssion::create(['name' => 'create truck']);
         return view('home');
     }
 }

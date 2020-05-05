@@ -13,23 +13,23 @@ class StatustypeController extends Controller
     {
 
         $statustypes = Statustype::all();
-        return view('operation.statustype.index')->with('statustypes',$statustypes);
+        return view('operation.statustype.index')->with('statustypes', $statustypes);
     }
 
     public function create()
     {
 
-     return view('operation.statustype.create');
+        return view('operation.statustype.create');
     }
 
     public function store(Request $request)
     {
         // dd( $request->all());
         $this->validate($request, [
-        'name' => 'required|unique:statustypes', 
-        'type' => 'required', 
-        // 'comment' =>  'required',
-       
+            'name' => 'required|unique:statustypes',
+            'type' => 'required',
+            // 'comment' =>  'required',
+
         ]);
 
         $statustype = new Statustype;
@@ -37,7 +37,7 @@ class StatustypeController extends Controller
         $statustype->statusgroup = $request->type;
         $statustype->comment = $request->comment;
         $statustype->save();
-        Session::flash('success', 'Status group registerd successfuly' );
+        Session::flash('success', 'Status group registerd successfuly');
         return redirect()->route('statustype');
     }
 
@@ -50,39 +50,39 @@ class StatustypeController extends Controller
     {
         $statustype = Statustype::findOrFail($id);
         // return $statustype;
-        return view('operation.statustype.edit')->with('statustype',$statustype);
+        return view('operation.statustype.edit')->with('statustype', $statustype);
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required', 
+            'name' => 'required',
             'type' => 'required'
-            
-            ]);
-    
+
+        ]);
+
         $statustype = Statustype::findOrFail($id);
         $statustype->name = $request->name;
         $statustype->statusgroup = $request->type;
         $statustype->comment = $request->comment;
         $statustype->save();
-        Session::flash('success', 'Status group updated successfuly' );
+        Session::flash('success', 'Status group updated successfuly');
         return redirect()->route('statustype');
     }
 
-   
+
     public function destroy($id)
     {
 
         $statustype = Statustype::findOrFail($id);
-        $status = Status::where('statustype_id','=',$statustype->id)->first();
-            if (isset( $status)) {
-            Session::flash('error', 'UNABLE TO DELETE!!  Status Type is registerd !' );
+        $status = Status::where('statustype_id', '=', $statustype->id)->first();
+        if (isset($status)) {
+            Session::flash('error', 'UNABLE TO DELETE!!  Status Type is registerd !');
             return redirect()->back();
-            }else{
+        } else {
             $statustype->delete();
-            Session::flash('success', 'Status Type Deleted successfully!!' );
+            Session::flash('success', 'Status Type Deleted successfully!!');
             return redirect()->back();
-            }
-}
+        }
+    }
 }
