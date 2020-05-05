@@ -163,7 +163,7 @@
 					<div class="form-group row m-0">
 						<label class="col-form-label col-lg-4 m-0">Total Exp.</label>
 						<div class="col-lg-8 m-0">
-							<h4 class="col-form-label m-0 ">{{number_format(($performance->workOnGoing + $performance->perdiem + $performance->fuelInBirr+ $performance->other ), 2)}}</h4>
+							<h4 class="col-form-label m-0 ">{{number_format(($performance->workOnGoing + $performance->perdiem + $performance->fuelInBirr + $performance->other ), 2)}}</h4>
 						</div>
 					</div>
 					

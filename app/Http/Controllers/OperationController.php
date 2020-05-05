@@ -16,59 +16,59 @@ use RealRashid\SweetAlert\Facades\Alert;
 class OperationController extends Controller
 {
 
-    
+
 
     public function index()
     {
-         $operations = Operation::active()->orderBy('created_at','DESC')->get();
-        return view('operation.operation.index')->with('operations',$operations);
+        $operations = Operation::active()->orderBy('created_at', 'DESC')->get();
+        return view('operation.operation.index')->with('operations', $operations);
     }
 
     public function create()
     {
-      
+
         $operation = new Operation;
         $regions = Region::all();
         $customers = Customer::all();
-        if($regions->count() == 0){
+        if ($regions->count() == 0) {
             // alert()->warning('WarningAlert','You must have some Region before attempting to create Operation.')->width('250px');
             // example:
-// alert()->question('Are you sure?','You won\'t be able to revert this!')->showCancelButton()->showConfirmButton()->focusConfirm(true);
-// alert('Info','You must have some Region before attempting to create Operation', 'info')->width('250px');
+            // alert()->question('Are you sure?','You won\'t be able to revert this!')->showCancelButton()->showConfirmButton()->focusConfirm(true);
+            // alert('Info','You must have some Region before attempting to create Operation', 'info')->width('250px');
             // alert()->success('Post Created', '<strong>Successfully</strong>')->toHtml();
-// alert()->question('Are you sure?','You won\'t be able to revert this!')
-// ->showConfirmButton('Yes! Delete it', '#3085d6')
-// ->showCancelButton('Cancel', '#aaa')->reverseButtons();
-       
-// alert()->question('Are you sure?','You won\'t be able to revert this!')->showCancelButton('Cancel', '#aaa');
+            // alert()->question('Are you sure?','You won\'t be able to revert this!')
+            // ->showConfirmButton('Yes! Delete it', '#3085d6')
+            // ->showCancelButton('Cancel', '#aaa')->reverseButtons();
 
-// alert()->error('Delete','Are You shure want to delete.')->persistent(true,false);
+            // alert()->question('Are you sure?','You won\'t be able to revert this!')->showCancelButton('Cancel', '#aaa');
 
-// toast('You must have some Region before attempting to create Operation','info')->autoClose(5000)->position('top-end');
+            // alert()->error('Delete','Are You shure want to delete.')->persistent(true,false);
+
+            // toast('You must have some Region before attempting to create Operation','info')->autoClose(5000)->position('top-end');
             // example:
-// alert()->success('SuccessAlert','Lorem ipsum dolor sit amet.')->persistent(false);
+            // alert()->success('SuccessAlert','Lorem ipsum dolor sit amet.')->persistent(false);
 
             // toast('Info Toast','info');
             // example:
-// alert()->info('SuccessAlert','Lorem ipsum dolor sit amet.')->showConfirmButton('Confirm', '#3085d6');
+            // alert()->info('SuccessAlert','Lorem ipsum dolor sit amet.')->showConfirmButton('Confirm', '#3085d6');
 
             // Alert::info('Info Title', 'Info Message');
             // alert()->info('Title','Lorem Lorem Lorem');
-           Session::flash('info', 'You must have some Region before attempting to create Operation' );
+            Session::flash('info', 'You must have some Region before attempting to create Operation');
             return redirect()->route('region.create');
         }
-        
-        if($customers->count() == 0){
-// toast('You must have some Customer before attempting to create Operation','info')->autoClose(5000)->position('top-end');
 
-            Session::flash('info', 'You must have some Customer before attempting to create Operation' );
+        if ($customers->count() == 0) {
+            // toast('You must have some Customer before attempting to create Operation','info')->autoClose(5000)->position('top-end');
+
+            Session::flash('info', 'You must have some Customer before attempting to create Operation');
             return redirect()->route('customer.create');
         }
-    
-     return view('operation.operation.create')
-     ->with('regions',$regions)
-     ->with('customers',$customers)
-     ->with('operation',$operation);
+
+        return view('operation.operation.create')
+            ->with('regions', $regions)
+            ->with('customers', $customers)
+            ->with('operation', $operation);
     }
 
     public function store(Request $request)
@@ -83,7 +83,7 @@ class OperationController extends Controller
             'ctype' => 'required',
             'tone' => 'required',
             'tariff' => 'required',
-            
+
         ]);
 
         $operation = new Operation;
@@ -95,38 +95,39 @@ class OperationController extends Controller
         $operation->cargotype = $request->ctype;
         $operation->km = $request->tone;
         $operation->tariff = $request->tariff;
-        $operation->user_id = Auth::user()->id ;
+        $operation->user_id = Auth::user()->id;
         $operation->save();
         // alert()->success('SuccessAlert','operation  registerd successfuly.');
-        Session::flash('success', 'operation  registerd successfuly' );
+        Session::flash('success', 'operation  registerd successfuly');
         return redirect()->route('operation');
     }
 
     public function show($id)
     {
 
-         $operation = Operation::where('id','=',$id)->first();
-         $performance =  DB::table('performances')
-        ->select('performances.trip'
-        ,DB::raw('count(performances.trip) as trip')
-        ,DB::raw('SUM(performances.CargoVolumMT) as mt')
-        ,DB::raw('SUM(performances.tonkm) as tonekm')
-        ,DB::raw('SUM(performances.DistanceWCargo) as dwc')
-        ,DB::raw('SUM(performances.DistanceWOCargo) as dwoc')
-        ,DB::raw('SUM(performances.fuelInBirr) as fuel')
-        ,DB::raw('SUM(performances.perdiem) as per')
-        ,DB::raw('SUM(performances.workOnGoing) as wog')
-        ,DB::raw('SUM(performances.other) as other')
-              )
-        ->LEFTJOIN('operations','operations.id','=','performances.operation_id')
-        ->where('performances.operation_id', $operation->id)
-        ->first();
-     
-// dd( $performance);
+        $operation = Operation::where('id', '=', $id)->first();
+        $performance =  DB::table('performances')
+            ->select(
+                'performances.trip',
+                DB::raw('count(performances.trip) as trip'),
+                DB::raw('SUM(performances.CargoVolumMT) as mt'),
+                DB::raw('SUM(performances.tonkm) as tonekm'),
+                DB::raw('SUM(performances.DistanceWCargo) as dwc'),
+                DB::raw('SUM(performances.DistanceWOCargo) as dwoc'),
+                DB::raw('SUM(performances.fuelInBirr) as fuel'),
+                DB::raw('SUM(performances.perdiem) as per'),
+                DB::raw('SUM(performances.workOnGoing) as wog'),
+                DB::raw('SUM(performances.other) as other')
+            )
+            ->LEFTJOIN('operations', 'operations.id', '=', 'performances.operation_id')
+            ->where('performances.operation_id', $operation->id)
+            ->first();
+
+        // dd( $performance);
 
         return view('operation.operation.show')
-        ->with('performance',$performance)
-        ->with('operation',$operation);
+            ->with('performance', $performance)
+            ->with('operation', $operation);
     }
 
     public function edit($id)
@@ -137,27 +138,27 @@ class OperationController extends Controller
 
         $regions = Region::all();
         $customers = Customer::all();
-        if($regions->count() == 0){
+        if ($regions->count() == 0) {
             return redirect()->route('region');
             // toast('You must have some Region before attempting to create Truck','info')->autoClose(5000)->position('top-end');
-            Session::flash('info', 'You must have some Region before attempting to create Truck' );
+            Session::flash('info', 'You must have some Region before attempting to create Truck');
         }
-        
-        if($customers->count() == 0){
+
+        if ($customers->count() == 0) {
             return redirect()->route('customer');
             // toast('YYou must have some Customer before attempting to create Truck','info')->autoClose(5000)->position('top-end');
-            Session::flash('info', 'You must have some Customer before attempting to create Truck' );
+            Session::flash('info', 'You must have some Customer before attempting to create Truck');
         }
-    
+
         return view('operation.operation.edit')
-        ->with('operation',$operation)
-        ->with('regions',$regions)
-        ->with('customers',$customers);
+            ->with('operation', $operation)
+            ->with('regions', $regions)
+            ->with('customers', $customers);
     }
 
     public function update(Request $request, $id)
     {
-        
+
         $this->validate($request, [
             'oid' => 'required',
             'customer' => 'required',
@@ -167,9 +168,9 @@ class OperationController extends Controller
             'ctype' => 'required',
             'tone' => 'required',
             'tariff' => 'required',
-                     
-            ]);
-    
+
+        ]);
+
         $operation = Operation::findOrFail($id);
         $operation->operationid = $request->oid;
         $operation->customer_id = $request->customer;
@@ -179,35 +180,31 @@ class OperationController extends Controller
         $operation->cargotype = $request->ctype;
         $operation->km = $request->tone;
         $operation->tariff = $request->tariff;
-        $operation->user_id = Auth::user()->id ;
+        $operation->user_id = Auth::user()->id;
         $operation->save();
-        alert()->success('SuccessAlert','operation updated successfuly.');
+        alert()->success('SuccessAlert', 'operation updated successfuly.');
         // Session::flash('success', 'operation updated successfuly' );
         return redirect()->route('operation');
     }
-    
-    
+
+
     public function destroy($id)
     {
         $operation = Operation::findOrFail($id);
-        $performance= Performance::where('operation_id','=', $operation->id)->first();
-        if(isset( $performance)){
-            Session::flash('error', 'NOT DELETED ! There are records by this operation id' );
+        $performance = Performance::where('operation_id', '=', $operation->id)->first();
+        if (isset($performance)) {
+            Session::flash('error', 'NOT DELETED ! There are records by this operation id');
             return redirect()->back();
-        }
-        else{
+        } else {
             $operation->delete();
-            Session::flash('success', 'Operation deleted successfuly' );
+            Session::flash('success', 'Operation deleted successfuly');
             return redirect()->route('operation');
         }
-      
-       
-        
     }
     public function close($id)
     {
         $operation = Operation::findOrFail($id);
-        return view('operation.operation.close')->with('operation',$operation);
+        return view('operation.operation.close')->with('operation', $operation);
     }
 
     public function open($id)
@@ -216,10 +213,9 @@ class OperationController extends Controller
         $operation->closed = 1;
         $operation->enddate = Null;
         $operation->save();
-        alert()->success('SuccessAlert','Operation Opend successfuly.');
+        alert()->success('SuccessAlert', 'Operation Opend successfuly.');
         // Session::flash('success', 'Operation Opend successfuly' );
         return redirect()->back();
-
     }
     public function update2(Request $request, $id)
     {
@@ -227,16 +223,16 @@ class OperationController extends Controller
         $this->validate($request, [
             'edate' => 'required',
             'remark' => '',
-             ]);
-    
+        ]);
+
         $operation = Operation::findOrFail($id);
-   
+
         $operation->enddate = $request->edate;
         $operation->remark = $request->remark;
         $operation->closed = 0;
         $operation->save();
-        alert()->success('SuccessAlert','Operation Updated successfuly.');
-   // Session::flash('success', 'operation updated successfuly' );
+        alert()->success('SuccessAlert', 'Operation Updated successfuly.');
+        // Session::flash('success', 'operation updated successfuly' );
         return redirect()->route('operation');
     }
 }

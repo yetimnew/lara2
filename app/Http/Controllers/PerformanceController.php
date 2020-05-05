@@ -48,7 +48,7 @@ class PerformanceController extends Controller
     {
         $performance = new  Performance;
         $operations=  Operation::active()->where('closed','=',1)->get();
-        $place = Place::active()->get();
+        $place = Place::active()->orderBy('name')->get();
         $trucks = Truck::active()->get();
 
         $driver_truck = DB::table('driver_truck')
@@ -132,6 +132,7 @@ class PerformanceController extends Controller
         ->LEFTJOIN('drivers','drivers.driverid','=','driver_truck.driverid')
        ->where('driver_truck.id', '=', $performance->driver_truck_id )
         ->get();
+        // dd( $driver_detail);
         return view('operation.performance.show')
         ->with('performance',$performance)
         ->with('operations',$operations)

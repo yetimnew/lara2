@@ -39,7 +39,8 @@
 						<div class="form-group ">
 							<label class="control-label">Plate Number</label>
 							<select name="plate" class="form-control select" id="plate" readonly>
-								<option class="dropup" value="{{$dts->truck_id}}|{{$dts->plate}}" selected> {{$dts->plate}} </option>
+								<option class="dropup" value="{{$dts->truck_id}}|{{$dts->plate}}" selected>
+									{{$dts->plate}} </option>
 							</select>
 
 							<small class="form-text text-danger" id="error_region"></small>
@@ -48,7 +49,8 @@
 							<label class="control-label">Driver Name</label>
 
 							<select name="dname" class="form-control select" id="dname" readonly>
-								<option class="dropup" value="{{$dts->id}}|{{$dts->driverid}}" selected> {{$dts->NAME}} </option>
+								<option class="dropup" value="{{$dts->driver_id}}|{{$dts->driverid}}" selected>
+									{{$dts->NAME}} </option>
 
 							</select>
 
@@ -89,7 +91,8 @@
 						<div class="form-group required">
 							<label class="control-label">Reson for Detach</label>
 							<div class="">
-								<textarea name="comment" rows="5" class="form-control" id="comment" onfocusout="validateComment()" required> {{ old('comment')}}</textarea>
+								<textarea name="comment" rows="5" class="form-control" id="comment"
+									onfocusout="validateComment()" required> {{ old('comment')}}</textarea>
 
 							</div>
 						</div>
@@ -119,7 +122,7 @@
 	jQuery.datetimepicker.setDateFormatter('moment');
 		  $("#ddate").datetimepicker({
 		timepicker:false,
-		datepicker:true,        
+		datepicker:true,
 		format: "Y-M-D"
 		// format: "YYYY-MM-DD H:mm a"
 		// autoclose: true,
@@ -134,5 +137,5 @@
 
 </script>
 
-	
-	@endsection
+
+@endsection

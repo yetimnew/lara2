@@ -42,7 +42,7 @@
 						<div class="col-lg-8">
 							<h4 class="col-form-label ">{{$truck->vehecletype->name}}</h4>
 						</div>
-                    </div>
+                    </div>>
                     <div class="form-group row m-0">
 						<label class="col-form-label col-lg-4">Chassis Number</label>
 						<div class="col-lg-8">
@@ -67,11 +67,11 @@
 							<h4 class="col-form-label ">{{$truck->serviceIntervalKM}}</h4>
 						</div>
                     </div>
-            
-			
+
+
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-12">
-            
+
                     <div class="form-group row m-0">
 						<label class="col-form-label col-lg-4">Purchase Price</label>
 						<div class="col-lg-8">
@@ -99,13 +99,13 @@
                                 <h4 class="col-form-label ">Active </h4>
                                 @else
                                 <h4 class="col-form-label ">Deleted </h4>
-                                    
+
                                 @endif
-                              
-					
+
+
                     </div>
                     </div>
-                 
+
                     <div class="form-group row m-0">
 						<label class="col-form-label col-lg-4"> Created In</label>
 
@@ -120,7 +120,7 @@
 							<h4 class="col-form-label ">{{$truck->updated_at}}</h4>
 						</div>
                     </div>
-               
+
                 </div>
 				@can('truck edit')
 				<div class='m-1 p-1'>
@@ -130,15 +130,15 @@
                 @endcan
                 @can('truck delete')
                     <div class='m-1 p-1'>
-                    <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$truck->id}})" 
+                    <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$truck->id}})"
                         data-target="#DeleteModal" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</a>
                     </div>
                 @endcan
-		
+
 			</div>
-                          
-              
-			</div>	
+
+
+			</div>
 	</div>
 </div>
 <!-- Button trigger modal -->
@@ -170,7 +170,7 @@
 	  </form>
 	</div>
    </div>
-  
+
 @endsection
 @section('javascript')
 <script>

@@ -17,7 +17,6 @@
 				<div class="ml-auto">
 					<a href="{{route('driver')}}" class="btn btn-outline-primary">
 						<i class="fa fa-caret-left mr-1" aria-hidden="true"></i>Back</a>
-
 				</div>
 				@endcan
 			</div>

@@ -36,21 +36,31 @@ class performanceByStatusController extends Controller
        ->where('statuses.autoid','=',$maxautoid)
        ->orderBy('statuses.statustype_id','ASC')
        ->get();
-     
+//        $allStatus= Status::all();
+//        $platenew = Truck::where('status','=',1)->pluck('plate');
+// $val = '';
+//        foreach( $allStatus as $i){
+
+//                 foreach($platenew as $pl){
+//                         $st= Status::where('plate','=', $pl);
+                
+
+//                 }
+//                 dd( $st);
+//        }
+
+
+//        dd( $platenew);
          return view('operation.report.status_by_date.index')
          ->with('tds',$tds)
          ->with('maxDate',$maxDate)
          ->with('newDate',$newDate)
          ->with('plate',$plate)
          ->with('tdss',$tdss);
+        
  
     }
 
-    public function create()
-    {
-   
-    }
-  
     public function store(Request $request)
     {
           
@@ -121,17 +131,20 @@ class performanceByStatusController extends Controller
         $years = floor( $diff / ( 365 * 60 * 60 * 24 ) );
         $months = floor( ( $diff - $years * 365 * 60 * 60 * 24 ) / ( 30 * 60 * 60 * 24 ) );
         $days = floor( ( $diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24 ) / ( 60 * 60 * 24 ) );
-        $truck_id = Truck::active()->get()->pluck('id');
-        $arr = array();
-        foreach( $truck_id as $id){
-                DB::table('statuses')
-                ->select('statuses.statustype_id','statuses.plate','statuses.registerddate','statustypes.name')
-                               ->where('statuses.plate','=',$id)
-                ->whereBetween('statuses.registerddate', [$first->toDateTimeString(), $second->toDateTimeString()])
-                       ->tosql();
-// dd();
+        $plate = Truck::active()->get()->pluck('plate');
+        $statuses = Status::get();
+        // $arr = array();
+        //  foreach( $statuses as $st){
+        //         $arr = DB::table('statuses')
+        //         ->select('statuses.statustype_id','statuses.plate','statuses.registerddate','statustypes.name')
+        //         ->leftjoin('statustypes','statustypes.id','=','statuses.statustype_id')
+        //         ->where('statuses.plate','=',$st->plate)
+        //         // ->whereBetween('statuses.registerddate', [$first->toDateTimeString(), $second->toDateTimeString()])
+        //         ->orderBy('statuses.registerddate','ASC')
+        //         ->get();
                
-        }
+        // }
+        // dd($arr);
 
         $status_date = DB::table('statuses')
                 ->select('statuses.statustype_id','statuses.plate','statuses.registerddate','statustypes.name'
@@ -144,7 +157,7 @@ class performanceByStatusController extends Controller
                 ->groupBy('statuses.statustype_id')
                 ->orderBy('number','DESC')
                 ->get();
-        $status_summery = DB::table('statuses')
+                 $status_summery = DB::table('statuses')
                 ->select('statuses.statustype_id','statuses.plate','statuses.registerddate','statustypes.name')
                 ->leftjoin('statustypes','statustypes.id','=','statuses.statustype_id')
                 ->where('statuses.plate','=',$plate)

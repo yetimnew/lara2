@@ -10,16 +10,14 @@ use Illuminate\Support\Facades\Session;
 
 class performanceOfAllDriverController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $drivers =DB::table('drivers')->orderBy('name','ASC')->get();
         $tds = DB::table('performance_by_driver_view')
+        // $tds = DB::table('performance_by_driver_view')
        ->get();
+       dd($tds);
 
         return view('operation.report.performance_of_all_driver.index')
          ->with('tds',$tds)
@@ -27,22 +25,7 @@ class performanceOfAllDriverController extends Controller
        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
     {
     $format = 'd-m-Y';
@@ -66,7 +49,7 @@ class performanceOfAllDriverController extends Controller
         ->whereBetween('DateDispach', [$first->toDateTimeString(), $second->toDateTimeString()])
    
        ->get();
-
+       dd($tds);
         return view('operation.report.performance_of_all_driver.create')
         ->with('tds',$tds)
         ->with('start',$start)

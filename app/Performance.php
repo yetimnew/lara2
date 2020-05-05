@@ -36,18 +36,18 @@ class Performance extends Model
         'user_id'
 
     ];
-    protected $dates = ['DateDispach','deleted_at'];
+    protected $dates = ['DateDispach', 'deleted_at'];
     // protected $append=['noOfDateItTakes'];
     public function operation()
     {
         return $this->belongsTo('App\Operation');
     }
-      
+
     public function user()
     {
         return $this->belongsTo('App\User');
     }
-      
+
     public function orgion()
     {
         return $this->belongsTo('App\Place');
@@ -64,40 +64,39 @@ class Performance extends Model
 
     public function scopeReturned($query)
     {
-        return $query->where("is_returned", "=",1)->where("satus", "=",1)->where("trip", "=",1);
+        return $query->where("is_returned", "=", 1)->where("satus", "=", 1)->where("trip", "=", 1);
     }
     public function scopeNotReturned($query)
     {
-        return $query->where("is_returned", "=",0)->where("satus", "=",1)->where("trip", "=",1);
+        return $query->where("is_returned", "=", 0)->where("satus", "=", 1)->where("trip", "=", 1);
     }
     public function scopeActive($query)
     {
-        return $query->where("satus", "=",1);
+        return $query->where("satus", "=", 1);
     }
     public function scopeOpen($query)
     {
-        return $query->where("closed", "=",1);
+        return $query->where("closed", "=", 1);
     }
 
     public function scopeMainTrip($query)
     {
-        return $query->where("trip", "=",1);
+        return $query->where("trip", "=", 1);
     }
     public function scopeMaintrip_returned($query)
     {
-        return $query->where("trip", "=",1)->where("is_returned", "=",1)->where("satus", "=",1);
+        return $query->where("trip", "=", 1)->where("is_returned", "=", 1)->where("satus", "=", 1);
     }
     public function scopeMaintrip_notreturned($query)
     {
-        return $query->where("trip", "=",1)->where("is_returned", "=",0)->where("satus", "=",1);
+        return $query->where("trip", "=", 1)->where("is_returned", "=", 0)->where("satus", "=", 1);
     }
 
 
 
- public function noOfDateItTakes()
- {
-     
-     return  $this->attribute['DisapchDate']->toDateString();
- }
+    public function noOfDateItTakes()
+    {
 
+        return  $this->attribute['DisapchDate']->toDateString();
+    }
 }

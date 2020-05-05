@@ -1,5 +1,4 @@
 </head>
-
 <body>
   <div class="page" id="app">
     <header class="header">
@@ -30,40 +29,39 @@
                 @auth
                 {{count(auth()->user()->unreadNotifications)}}
                     @endauth
-              
+
               </span></a>
                 <ul aria-labelledby="notifications" class="dropdown-menu">
-                  @auth 
+                  @auth
                   @if (count(auth()->user()->unreadNotifications)>0)
-                  @foreach (auth()->user()->unreadNotifications as $notification)
-                     
-                  <li><a rel="nofollow" href="{{route('read')}}" class="dropdown-item"> 
-                      <div class="notification">
-                        <div class="notification-content"><i class="fa fa-envelope bg-green"></i>{{$notification->data['title']}} </div>
-                        <div class="notification-time"><small>{{\Carbon\Carbon::parse($notification->data['repliedTime'])->diffForHumans()}}</small></div>
-                      </div></a>
-                    </li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>view all notifications</strong></a></li>
-                  @endforeach
+                    @foreach (auth()->user()->unreadNotifications as $notification)
+                    <li><a rel="nofollow" href="{{route('read')}}" class="dropdown-item">
+                        <div class="notification">
+                          <div class="notification-content"><i class="fa fa-envelope bg-green"></i>{{$notification->data['title']}} </div>
+                          <div class="notification-time"><small>{{\Carbon\Carbon::parse($notification->data['repliedTime'])->diffForHumans()}}</small></div>
+                        </div></a>
+                      </li>
+                    @endforeach
+                      <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>view all notifications</strong></a></li>
                   @else
-                  <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>No notification</strong></a></li> 
+                  <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>No notification</strong></a></li>
                   @endif
                   @endauth
                 </ul>
               </li>
               {{-- <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope-o"></i><span class="badge bg-orange badge-corner">10</span></a>
                 <ul aria-labelledby="notifications" class="dropdown-menu">
-                  <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
+                  <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
                       <div class="msg-profile"> <img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
                       <div class="msg-body">
                         <h3 class="h5">Jason Doe</h3><span>Sent You Message</span>
                       </div></a></li>
-                  <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
+                  <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
                       <div class="msg-profile"> <img src="img/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
                       <div class="msg-body">
                         <h3 class="h5">Frank Williams</h3><span>Sent You Message</span>
                       </div></a></li>
-                  <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
+                  <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
                       <div class="msg-profile"> <img src="img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
                       <div class="msg-body">
                         <h3 class="h5">Ashley Wood</h3><span>Sent You Message</span>
@@ -79,7 +77,7 @@
               </form>
 
             </ul>
-   
+
           </div>
         </div>
       </nav>

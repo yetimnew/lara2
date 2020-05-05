@@ -303,6 +303,7 @@ class TruckDriverController extends Controller
         ->join('drivers','drivers.id','=','driver_truck.driver_id')
         ->where('driver_truck.id','=',$id) 
         ->first();
+        // dd( $dts);
         return view('operation.drivertruck.detach')->with('dts',$dts);
     }
     

@@ -12,8 +12,7 @@
 	<h3 class="text-center"> REPORT : Status By Date</h3>
 	<div class="col-10">
 		<form method="post" action="{{route('performance_by_status.view')}}" class="form-horizontal" id="truck_form">
-			{{-- @method('GET') --}}
-				@csrf
+			@csrf
 				<div class="row">
 			
 					<div class="col-md-12">
@@ -58,6 +57,7 @@
 <div class="row col-12">
 
 	<?php $no = 0 ?>
+
 	 @if ($tds->count()> 0) 
 	 @foreach ($tds as $td)
 	<div class="col-lg-2 col-md-3 col-sm-4  p-2">
@@ -76,7 +76,6 @@
 
 <div class="row">
 	<?php $no = 0 ;?> 
-{{-- {{ dd($tdss)}} --}}
 	@foreach ($tdss as $item)
 	
 	<div class="col-lg-2 col-md-3 col-sm-4  p-2">

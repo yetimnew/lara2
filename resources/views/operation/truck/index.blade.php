@@ -39,7 +39,7 @@
 						<tr>
 							<th class="m-1 b-1" width="2%">No</th>
 							<th class="m-1 b-1">Plate Number</th>
-							<th class="m-1 b-1">Tyre</th>
+							<th class="m-1 b-1">Model</th>
 							<th class="m-1 b-1">SIIKM</th>
 							<th class="m-1 b-1">Purchase Price</th>
 							<th class="m-1 b-1">Production Date</th>

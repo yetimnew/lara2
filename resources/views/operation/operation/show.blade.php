@@ -57,8 +57,7 @@
 								<label class="col-form-label col-lg-4">Cargo Type</label>
 								<div class="col-lg-8">
 									@if ($operation->cargotype == 1)
-										
-										<h4 class="col-form-label "> Commercial Cargo</h4>
+											<h4 class="col-form-label "> Commercial Cargo</h4>
 										@else
 										<h4 class="col-form-label ">Relief Cargo</h4>
 										
