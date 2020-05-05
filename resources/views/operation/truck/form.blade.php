@@ -162,7 +162,7 @@
             jQuery.datetimepicker.setDateFormatter('moment');
                  $("#pdate").datetimepicker({
                 timepicker:false,
-                datepicker:true,        
+                datepicker:true,
                 // format: "Y-M-d"
                 format: "YYYY-MM-DD"
                 // autoclose: true,
@@ -178,7 +178,7 @@
             jQuery.datetimepicker.setDateFormatter('moment');
                  $("#ssdate").datetimepicker({
                 timepicker:false,
-                datepicker:true,        
+                datepicker:true,
                 // format: "Y-M-d"
                 format: "YYYY-MM-DD"
                 // autoclose: true,
@@ -213,7 +213,7 @@
         validateTyre() &&
         validateSik() &&
         validatePrice()
-            
+
         ) {
             truck_reg_form.submit();
         } else {
@@ -255,7 +255,7 @@
     function validateTyre() {
         if ( !minmax( tyre, 0, 30 ) ) {
             return false;
-        } 
+        }
          else {
             return true;
 
@@ -277,7 +277,7 @@
 
         }
     }
-    
+
 
         </script>
 

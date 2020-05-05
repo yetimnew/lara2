@@ -84,6 +84,8 @@ class PlaceController extends Controller
     }
 
 
+
+
     public function destroy($id)
     {
         $place = Place::findOrFail($id);

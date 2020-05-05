@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Log;
 use Alert;
 use Artisan;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Session;
 
 class BackupController extends Controller
 {
-        public function index()
+    public function index()
     {
         $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
         $files = $disk->files(config('backup.backup.name'));
@@ -32,24 +33,24 @@ class BackupController extends Controller
             }
         }
         // reverse the backups, so the newest one would be on top
-  
+
         $backups = array_reverse($backups);
-//   dd($backups);
+        //   dd($backups);
         return view("backup.index")->with(compact('backups'));
     }
     public function create()
     {
         try {
             // start the backup process
-          Artisan::call('backup:run',['--only-db'=>true]);
-       
+            Artisan::call('backup:run', ['--only-db' => true]);
+
             $output = Artisan::output();
             // dd($output);
             // log the results
             Log::info("Backpack\BackupManager -- new backup started from admin interface \r\n" . $output);
 
 
-            Session::flash('success', 'Bacuping complited sucessfully' );
+            Session::flash('success', 'Bacuping complited sucessfully');
             // Alert::success('New backup created');
             return redirect()->back();
         } catch (Exception $e) {
@@ -87,30 +88,29 @@ class BackupController extends Controller
     {
         $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
         // dd( $disk);
-        if ($disk->exists(config('backup.backup.name') . '/' . $file_name)) 
-        {
+        if ($disk->exists(config('backup.backup.name') . '/' . $file_name)) {
             $disk->delete(config('backup.backup.name') . '/' . $file_name);
             return redirect()->back();
         } else {
             abort(404, "The backup file doesn't exist.");
         }
     }
-//  function for file converssion
-    public function humanFilesize($size, $precision = 2) {
-                $units = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
-                $step = 1024;
-                $i = 0;
+    //  function for file converssion
+    public function humanFilesize($size, $precision = 2)
+    {
+        $units = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+        $step = 1024;
+        $i = 0;
 
-                while (($size / $step) > 0.9) {
-                    $size = $size / $step;
-                    $i++;
-                }
-                
-                return round($size, $precision).$units[$i];
-            }
-        public function getDate($date_modify)
-            {
-               return Carbon::createFromTimeStamp($date_modify)->formatLocalized('%d %B %Y %H:%M');
-            }
-                                            
+        while (($size / $step) > 0.9) {
+            $size = $size / $step;
+            $i++;
+        }
+
+        return round($size, $precision) . $units[$i];
+    }
+    public function getDate($date_modify)
+    {
+        return Carbon::createFromTimeStamp($date_modify)->formatLocalized('%d %B %Y %H:%M');
+    }
 }

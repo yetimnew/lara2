@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Distance;
-use Illuminate\Http\Request;
 
 class CheckDistanceController extends Controller
 {

@@ -267,7 +267,6 @@ class PerformanceController extends Controller
             ->pluck('km')
             ->first();
 
-
         if (!$distance) {
             $distance = Distance::where('origin_id', '=', $destination)
                 ->where('destination_id', '=', $origion)
@@ -281,7 +280,7 @@ class PerformanceController extends Controller
         }
         return $distance;
     }
-    public function driverNameAndPlate(Type $var = null)
+    public function driverNameAndPlate()
     {
         $trucks =  DB::table('driver_truck')
             ->select(

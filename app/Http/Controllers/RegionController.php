@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use App\Place;
 use App\Region;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class RegionController extends Controller
 {
     public function index()
     {
-
         $regions = Region::where('status', '=', 1)->get();
         return view('operation.region.index')->with('regions', $regions);
     }
@@ -81,6 +79,8 @@ class RegionController extends Controller
         } else {
             $region->delete();
             Session::flash('success', 'Region Deleted successfully!!');
+
+
             return redirect()->back();
         }
     }
