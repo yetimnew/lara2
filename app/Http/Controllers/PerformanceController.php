@@ -22,6 +22,8 @@ class PerformanceController extends Controller
 {
     public function index()
     {
+
+
         $performances =  DB::table('performances')
             ->select('performances.*', 'performances.driver_truck_id', 'drivers.name as dname', 'trucks.plate as plate', 'places.name as orgion')
             ->LEFTJOIN('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
@@ -33,7 +35,6 @@ class PerformanceController extends Controller
             ->where('trucks.status', 1)
             ->orderBy('performances.created_at', 'DESC')
             ->get();
-        //    dd($performances);
         $statuslist = $this->statusList();
         $trucks = Truck::all();
         $drivers = Driver::all();
@@ -300,5 +301,42 @@ class PerformanceController extends Controller
             ->where('trucks.status', 1)
             ->get();
         return $trucks;
+    }
+
+    public function despach_data_and_retun_date_diff()
+    {
+        $performances = Performance::orderBy('DateDispach', 'DESC')->limit(100)->get();
+        return view('operation.performance.dipachreturn')
+            ->with('performances', $performances);
+    }
+    public function despach_data_and_retun_date_diff_store(Request $request)
+    {
+        $start = $request->input('startDate');
+        $end = $request->input('endDate');
+
+        $diff = abs(strtotime($end) - strtotime($start));
+
+        $years = floor($diff / (365 * 60 * 60 * 24));
+        $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+        $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+
+        if ($end >= $start) {
+
+            $number =  $request->input('number');
+            $performances = Performance::whereBetween('DateDispach', [$start, $end])
+                ->orderBy('DateDispach', 'DESC')->limit($number ? $number : 15)->get();
+            return view('operation.performance.dipachreturnstore')
+                ->with('start', $start)
+                ->with('end', $end)
+                ->with('months', $months)
+                ->with('days', $days)
+                ->with('years', $years)
+                ->with('performances', $performances);
+        } else {
+
+            Session::flash('info', 'Cheeck the input Date Please');
+            return redirect()->route('performance_by_truck');
+        }
     }
 }

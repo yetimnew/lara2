@@ -107,7 +107,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/statustype/update/{id}', ['uses' => 'StatustypeController@update', 'as' => 'statustype.update']);
     Route::delete('/statustype/destroy/{id}', ['uses' => 'StatustypeController@destroy', 'as' => 'statustype.destroy']);
 
-    // statusType
+    // statusTypeF
     Route::get('/performace',              ['uses' => 'PerformanceController@index', 'as' => 'performace']);
     Route::get('/performace/create',       ['uses' => 'PerformanceController@create', 'as' => 'performace.create'])->middleware('permission:performance create');
     Route::post('/performace/store',       ['uses' => 'PerformanceController@store', 'as' => 'performace.store']);
@@ -115,6 +115,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/performace/show/{id}',    ['uses' => 'PerformanceController@show', 'as' => 'performace.show'])->middleware('permission:performance view');
     Route::post('/performace/update/{id}', ['uses' => 'PerformanceController@update', 'as' => 'performace.update']);
     Route::delete('/performace/destroy/{id}', ['uses' => 'PerformanceController@destroy', 'as' => 'performace.destroy'])->middleware('permission:performance delete');
+    Route::get('/performace/datediff',              ['uses' => 'PerformanceController@despach_data_and_retun_date_diff', 'as' => 'performace.datediff']);
+    Route::post('/performace/datediffstore',              ['uses' => 'PerformanceController@despach_data_and_retun_date_diff_store', 'as' => 'performace.datediffstore']);
     // performance ajax request and response
     Route::get('ajaxRequest', 'PerformanceController@ajaxRequest')->name('performace.distance');
     Route::post('ajaxRequest', 'PerformanceController@ajaxRequestPost')->name('performace.distance');
@@ -146,6 +148,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/distance/destroy/{id}',                       ['uses' => 'DistanceController@destroy', 'as' => 'distance.destroy']);
 
     Route::get('/check_distance/{id}',                         ['uses' => 'CheckDistanceController@check', 'as' => 'check']);
+
     // Route::get('/check_distance/{id}'                           , function($id){ return \App\Distance::find($id);});
     //reports
     Route::get('/performance_by_driver',                     ['uses' => 'operation\Reports\performanceByDriverController@index', 'as' => 'performance_by_driver']);
@@ -163,11 +166,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     //reports
     Route::get('/performance_by_truck',                     ['uses' => 'operation\Reports\PerformanceByTruckController@index', 'as' => 'performance_by_truck']);
-    Route::get('/performance_by_truck/create',              ['uses' => 'operation\Reports\PerformanceByTruckController@create', 'as' => 'performance_by_truck.create']);
     Route::post('/performance_by_truck/store',              ['uses' => 'operation\Reports\PerformanceByTruckController@store', 'as' => 'performance_by_truck.store']);
-    Route::get('/performance_by_truck/edit/{id}',           ['uses' => 'operation\Reports\PerformanceByTruckController@edit', 'as' => 'performance_by_truck.edit']);
-    Route::post('/performance_by_truck/update/{id}',        ['uses' => 'operation\Reports\PerformanceByTruckController@update', 'as' => 'performance_by_truck.update']);
-    Route::get('/performance_by_truck/destroy/{id}',        ['uses' => 'operation\Reports\PerformanceByTruckController@destroy', 'as' => 'performance_by_truck.destroy']);
+    Route::get('/performance_by_truck/alltrucks',             ['uses' => 'operation\Reports\PerformanceByTruckController@all_trucks', 'as' => 'performance_by_truck.alltrucks']);
+    Route::post('/performance_by_truck/alltruckssearch',             ['uses' => 'operation\Reports\PerformanceByTruckController@all_trucks_by_date', 'as' => 'performance_by_truck.all_trucks_search']);
+
+
     //report of the Operations and therir stattus
     Route::get('/performance_by_opration',                     ['uses' => 'operation\Reports\performanceByOprationController@index', 'as' => 'performance_by_opration']);
     Route::post('/performance_by_opration/store',              ['uses' => 'operation\Reports\performanceByOprationController@store', 'as' => 'performance_by_opration.store']);
@@ -178,7 +181,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/performance_by_status',                     ['uses' => 'operation\Reports\performanceByStatusController@index', 'as' => 'performance_by_status']);
     Route::get('/performance_by_status/create',              ['uses' => 'operation\Reports\performanceByStatusController@create', 'as' => 'performance_by_status.create']);
-    // Route::get('/performance_by_status/mukera',              ['uses'=>'operation\Reports\performanceByStatusController@mukera','as'=>'performance_by_status.mukera']);
     Route::post('/performance_by_status/view',              ['uses' => 'operation\Reports\performanceByStatusController@view', 'as' => 'performance_by_status.view']);
     Route::get('/performance_by_status/show',              ['uses' => 'operation\Reports\performanceByStatusController@show', 'as' => 'performance_by_status.show']);
     Route::post('/performance_by_status/store',              ['uses' => 'operation\Reports\performanceByStatusController@store', 'as' => 'performance_by_status.store']);

@@ -182,7 +182,7 @@ class TruckDriverController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+        dd($request->all());
         $this->validate($request, [
             'plate' => 'required',
             'dname' => 'required',
@@ -240,7 +240,6 @@ class TruckDriverController extends Controller
                 $mukera_internal2 =  DriverTuck::where('driver_id', '=', $driver_id)->where('is_attached', '=', 1)->get();
 
                 if ($mukera_internal2->count() > 0) {
-                    //  dd(" shuferu gin lela mekina yizwal ena tithew weta");
                     Session::flash('error ', 'Truck  Already Attached');
                     return redirect()->route('drivertruck');
                 } else {

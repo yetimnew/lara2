@@ -24,22 +24,19 @@
 <script src="{{ asset('js/dataTables.buttons.min.js') }}"> </script>
 <script src="{{ asset('js/buttons.flash.min.js') }}"> </script>
 <script src="{{ asset('js/jszip.min.js')}}"> </script>
-<!-- <script src="{{ asset('js/pdfmake.min.js') }}"> </script> -->
-<!-- <script src="{{ asset('js/vfs_fonts.js') }}"> </script> -->
+
 <script src="{{ asset('js/buttons.html5.min.js') }}"> </script>
 <script src="{{ asset('js/buttons.print.min.js') }}"> </script>
 <script src="{{ asset('js/toastr.min.js') }}"> </script>
-<!-- <script src="{{ asset('js/front.js') }}"> </script> -->
-<!-- <script src="{{ asset('js/charts-home.js') }}" > </script> -->
-<!-- <script src="{{ asset('js/charts-custom.js') }}" > </script> -->
+
 <script src="{{ asset('js/jquery.cookie.js') }}"> </script>
 <script src="{{ asset('js/jquery.datetimepicker.full.js') }}"> </script>
 <script src="{{ asset('js/moment.js') }}"> </script>
-<!-- <script src="{{ asset('js/sweetalert2@8.js') }}"> </script> -->
-<!-- <script src="{{ asset('js/jquery.validate.js') }}" > </script>
+{{-- <!-- <script src="{{ asset('js/sweetalert2@8.js') }}"> </script> --> --}}
+{{-- <!-- <script src="{{ asset('js/jquery.validate.js') }}" > </script> --}}
 <script src="{{ asset('js/jquery.validate.min.js') }}"> </script> -->
-<!-- <script src="{{ asset('js/bootstrap-validate.js') }}"> </script> -->
 <script src="{{ asset('js/custome_validation.js') }}"> </script>
+<script src="{{ asset('js/select2.min.js') }}"> </script>
 
 <script>
     @if (Session::has('success'))

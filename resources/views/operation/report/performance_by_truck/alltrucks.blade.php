@@ -6,20 +6,20 @@
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{{route('dasboard')}}">Home</a>
     </li>
-    <li class="breadcrumb-item ">Report</li>
-    <li class="breadcrumb-item active">Performance Of All Drivers</li>
+    <li class="breadcrumb-item active">Performance</li>
 </ol>
 
 <div class="row col-12">
-    <h3 class="text-center"> REPORT : Performance Of All Drivers</h3>
+    <h3 class="text-center"> REPORT : Performance By Truck</h3>
     <div class="col-10">
-        <form method="post" action="{{route('performance_of_all_driver.store')}}" class="form-horizontal"
-            id="truck_form">
+        <form method="post" action="{{route('performance_by_truck.store')}}" class="form-horizontal" id="truck_form">
             @csrf
-            <div class="row">
 
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
                     <div class="form-row">
+
                         <div class="form-group col-md-3">
                             <label for="inputCity">Start Date</label>
                             <input id="startDate" name="startDate" type="date" placeholder="Start Date"
@@ -33,15 +33,12 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputZip"></label>
-                            <button class="btn btn-secondary btn-block" type="submit" name="register"
-                                id="register">Search</button>
+                            <button class="btn btn-primary btn-block" type="submit" name="register">Search</button>
                         </div>
-
                     </div>
 
                 </div>
             </div>
-
     </div>
 
 </div>
@@ -51,8 +48,8 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Driver Name</th>
                     <th>Plate</th>
+                    <th>D Name</th>
                     <th>Trip</th>
                     <th>Tonage</th>
                     <th>TonKM</th>
@@ -66,14 +63,15 @@
 
                 </tr>
             </thead>
+            {{-- {{dd($tds)}} --}}
             <tbody>
                 <?php $no = 0 ?> {{-- {{ dd($performances->drivers->nam) }} --}}
                 @if ($tds->count()> 0)
                 @foreach ($tds as $td)
                 <tr>
                     <td class='m-1 p-1 text-center'>{{++$no}}</td>
-                    <td class='m-1 p-1'>{{$td->driver_name}}</td>
                     <td class='m-1 p-1'>{{$td->td_plate}}</td>
+                    <td class='m-1 p-1'>{{$td->driver_name}}</td>
                     <td class='m-1 p-1 text-right'>{{$td->trip}}</td>
                     <td class='m-1 p-1 text-right'>{{ number_format( $td->tone,2)}}</td>
                     <td class='m-1 p-1 text-right'>{{ number_format( $td->tonkm,2)}}</td>
@@ -85,7 +83,6 @@
                     <td class='m-1 p-1 text-right'>{{ number_format( $td->other,2)}}</td>
                     <td class='m-1 p-1 text-right'>{{ $td->is_attached ? "yes": "no"}}</td>
 
-
                 </tr>
 
                 @endforeach
@@ -95,7 +92,6 @@
                 </tr>
                 @endif
 
-            </tbody>
 
             </tbody>
         </table>
@@ -105,11 +101,8 @@
         </script>
         <script>
             $( document ).ready( function () {
-				$( '#drivers' ).DataTable({
-                    "pageLength": 25,
-                });
+				$( '#drivers' ).DataTable();
 
-$('#startDate').datepicker()
 			} );
         </script>
         @endsection

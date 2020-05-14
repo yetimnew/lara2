@@ -14,10 +14,30 @@ class performanceOfAllDriverController extends Controller
     public function index()
     {
         $drivers = DB::table('drivers')->orderBy('name', 'ASC')->get();
-        $tds = DB::table('performance_by_driver_view')
-            // $tds = DB::table('performance_by_driver_view')
+        $tds = DB::table('performances')
+            ->select(
+                'driver_truck.driverid AS driverid',
+                'driver_truck.plate AS td_plate',
+                'drivers.name AS driver_name',
+                'driver_truck.is_attached AS is_attached',
+                DB::raw('SUM(performances.CargoVolumMT) as tone'),
+                DB::raw('COUNT(performances.FOnumber) as trip'),
+                DB::raw('SUM(performances.DistanceWCargo) as TDWC'),
+                DB::raw('SUM(performances.DistanceWOCargo) as TDWOC'),
+                DB::raw('SUM(performances.tonkm) as tonkm'),
+                DB::raw('SUM(performances.fuelInLitter) as fl'),
+                DB::raw('SUM(performances.fuelInBirr) as fB'),
+                DB::raw('SUM(performances.perdiem) as perdiem'),
+                DB::raw('SUM(performances.workOnGoing) as workOnGoing'),
+                DB::raw('SUM(performances.other) as other')
+            )
+            ->leftjoin('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
+            ->leftjoin('drivers', 'driver_truck.driverid', '=',  'drivers.driverid')
+            ->groupBy('performances.driver_truck_id')
+            ->orderBy('trip', 'DESC')
             ->get();
-        dd($tds);
+        // dd($tds);
+
 
         return view('operation.report.performance_of_all_driver.index')
             ->with('tds', $tds)
@@ -43,12 +63,31 @@ class performanceOfAllDriverController extends Controller
 
         if ($end > $start) {
 
-            $tds = DB::table('performance_by_driver_view')
-
-                ->whereBetween('DateDispach', [$first->toDateTimeString(), $second->toDateTimeString()])
-
+            $tds = DB::table('performances')
+                ->select(
+                    'driver_truck.driverid AS driverid',
+                    'driver_truck.plate AS td_plate',
+                    'drivers.name AS driver_name',
+                    'driver_truck.is_attached AS is_attached',
+                    DB::raw('SUM(performances.CargoVolumMT) as tone'),
+                    DB::raw('COUNT(performances.FOnumber) as trip'),
+                    // DB::raw('SUM(performances.CargoVolumMT) as CargoVolumMT'),
+                    DB::raw('SUM(performances.DistanceWCargo) as TDWC'),
+                    DB::raw('SUM(performances.DistanceWOCargo) as TDWOC'),
+                    DB::raw('SUM(performances.tonkm) as tonkm'),
+                    DB::raw('SUM(performances.fuelInLitter) as fl'),
+                    DB::raw('SUM(performances.fuelInBirr) as fB'),
+                    DB::raw('SUM(performances.perdiem) as perdiem'),
+                    DB::raw('SUM(performances.workOnGoing) as workOnGoing'),
+                    DB::raw('SUM(performances.other) as other')
+                )
+                ->leftjoin('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
+                ->leftjoin('drivers', 'driver_truck.driverid', '=',  'drivers.driverid')
+                ->whereBetween('performances.DateDispach', [$first->toDateTimeString(), $second->toDateTimeString()])
+                ->groupBy('performances.driver_truck_id')
+                ->orderBy('trip', 'DESC')
                 ->get();
-            dd($tds);
+            // dd($tds);
             return view('operation.report.performance_of_all_driver.create')
                 ->with('tds', $tds)
                 ->with('start', $start)
@@ -62,5 +101,4 @@ class performanceOfAllDriverController extends Controller
             return redirect()->route('performance_by_driver');
         }
     }
-
-
+}

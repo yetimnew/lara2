@@ -101,6 +101,7 @@
 </script>
 <script>
 	$( document ).ready( function () {
+		$('#example').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
 				$( '#drivers' ).DataTable({
 					"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 					"pageLength": 25,

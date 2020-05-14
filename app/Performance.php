@@ -8,7 +8,10 @@ use App\Driver;
 use App\Operation;
 use Carbon\Carbon;
 use App\DriverTuck;
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Date;
+
 // use Carbon\Carbon;
 
 class Performance extends Model
@@ -32,11 +35,12 @@ class Performance extends Model
         'other',
         'comment',
         'DateRegistered',
+        'returned_date',
         'satus',
         'user_id'
 
     ];
-    protected $dates = ['DateDispach', 'deleted_at'];
+    protected $dates = ['DateDispach', 'deleted_at', 'returned_date'];
     // protected $append=['noOfDateItTakes'];
     public function operation()
     {
@@ -93,10 +97,20 @@ class Performance extends Model
     }
 
 
-
-    public function noOfDateItTakes()
+    public function getDateDifferenceAttribute()
     {
+        $dispach_date = new DateTime($this->DateDispach);
+        $retun_date = new DateTime($this->returned_date);
+        $diff =  $retun_date->diff($dispach_date);
+        $formated = $diff->d . ' days ' . $diff->h . ' hours ' .  $diff->i . ' miniutes';
+        return $formated;
+    }
 
-        return  $this->attribute['DisapchDate']->toDateString();
+    public function getTotalKmAttribute()
+    {
+        $dwc = $this->DistanceWCargo;
+        $dwoc = $this->DistanceWOCargo;
+        $totaldistance = $dwc +  $dwoc;
+        return $totaldistance;
     }
 }

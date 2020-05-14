@@ -1,56 +1,56 @@
 <div class="row">
     <div class="col-md-6">
-   <div class="row">
-    <div class="col-md-6 m-0 p-0">
-    <div class="form-group required">
-        <label class="control-label">Is that  A trip?</label>
-        <select name="trip" class="form-control select  {{ $errors->has('trip') ? ' is-invalid' : '' }}"
-            id="trip" onfocusout="validateTrip()">
-            @if ($performance->trip == 0)
-            <option class="dropup" value="0" selected> No, I is not </option>
-            <option class="dropup" value="1">Yes, Trip  </option>
-            @endif
-            @if ($performance->trip == 1)
-            <option class="dropup" value="0" > No, I is not </option>
-            <option class="dropup" value="1" selected>Yes, Trip  </option>
-            @endif
-        </select>
-        @if ($errors->has('trip'))
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('trip') }}</strong>
-        </span>
-        @endif
-        <span class="invalid-feedback" role="alert"></span>
-    </div>
-    </div>
-    <div class="col-md-6 m-0">
-    <div class="form-group required">
-        <label class="control-label">Load Type</label>
-        <select name="chinet" class="form-control select  {{ $errors->has('chinet') ? ' is-invalid' : '' }}"
-            id="chinet" onfocusout="validateChinet()">
-            @if ($performance->LoadType == 0)
-            <option class="dropup" value="0" selected> Return Load </option>
-            <option class="dropup" value="1"> Main Load</option>
-            @endif
-            @if ($performance->LoadType == 1)
-            <option class="dropup" value="1" selected> Main Load</option>
-            <option class="dropup" value="0">Return Load</option>
-            @endif
-        </select>
-        @if ($errors->has('chinet'))
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('chinet') }}</strong>
-        </span>
-        @endif
-        <span class="invalid-feedback" role="alert"></span>
-    </div>
-    </div>
-    
-   </div>
-       
+        <div class="row">
+            <div class="col-md-6 m-0 p-0">
+                <div class="form-group required">
+                    <label class="control-label">Is that A trip?</label>
+                    <select name="trip" class="form-control select  {{ $errors->has('trip') ? ' is-invalid' : '' }}"
+                        id="trip" onfocusout="validateTrip()">
+                        @if ($performance->trip == 0)
+                        <option class="dropup" value="0" selected> No, I is not </option>
+                        <option class="dropup" value="1">Yes, Trip </option>
+                        @endif
+                        @if ($performance->trip == 1)
+                        <option class="dropup" value="0"> No, I is not </option>
+                        <option class="dropup" value="1" selected>Yes, Trip </option>
+                        @endif
+                    </select>
+                    @if ($errors->has('trip'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('trip') }}</strong>
+                    </span>
+                    @endif
+                    <span class="invalid-feedback" role="alert"></span>
+                </div>
+            </div>
+            <div class="col-md-6 m-0">
+                <div class="form-group required">
+                    <label class="control-label">Load Type</label>
+                    <select name="chinet" class="form-control select  {{ $errors->has('chinet') ? ' is-invalid' : '' }}"
+                        id="chinet" onfocusout="validateChinet()">
+                        @if ($performance->LoadType == 0)
+                        <option class="dropup" value="0" selected> Return Load </option>
+                        <option class="dropup" value="1"> Main Load</option>
+                        @endif
+                        @if ($performance->LoadType == 1)
+                        <option class="dropup" value="1" selected> Main Load</option>
+                        <option class="dropup" value="0">Return Load</option>
+                        @endif
+                    </select>
+                    @if ($errors->has('chinet'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('chinet') }}</strong>
+                    </span>
+                    @endif
+                    <span class="invalid-feedback" role="alert"></span>
+                </div>
+            </div>
+
+        </div>
+
         <div class="form-group required">
             <label class="control-label">FO Number</label>
-            <div class="input-group"> 
+            <div class="input-group">
                 <input name="fo" type="text" required class="form-control {{ $errors->has('fo') ? ' is-invalid' : '' }}"
                     id="fo" placeholder="Fright order number" value="{{ old('fo') ?? $performance->FOnumber }}"
                     onfocusout="validateFo()">
@@ -67,12 +67,12 @@
             <label class="control-label">Operation ID</label>
             <select name="operation" class="form-control {{ $errors->has('operation') ? ' is-invalid' : '' }} select"
                 id="operation" value="" onfocusout="validateOperation()">
-                <option class="dropup" value="" > Select One</option>
+                <option class="dropup" value=""> Select One</option>
                 @foreach ($operations as $operation)
-                   <option class="dropup" value="{{$operation->id}}"
+                <option class="dropup" value="{{$operation->id}}"
                     {{ $operation->id == $performance->operation_id ? 'selected' : '' }}> {{ $operation->operationid}}
                 </option>
-                            
+
                 @endforeach
             </select>
             @if ($errors->has('operation'))
@@ -88,11 +88,12 @@
             <label class="control-label">Driver and Truck</label>
             <select name="truck" class="form-control {{ $errors->has('truck') ? ' is-invalid' : '' }} select" id="truck"
                 onfocusout="validateTruck()">
-                <option class="dropup" value="" > Select One</option>
+                <option class="dropup" value=""> Select One</option>
                 @foreach ($driver_truck as $dt)
-                <option class="dropup" value="{{$dt->id}}" {{$dt->id == $performance->driver_truck_id ? 'selected' : '' }}>
+                <option class="dropup" value="{{$dt->id}}"
+                    {{$dt->id == $performance->driver_truck_id ? 'selected' : '' }}>
                     {{$dt->plate}}-{{$dt->name}}
-                    </option>
+                </option>
                 @endforeach
             </select>
             @if ($errors->has('truck'))
@@ -124,7 +125,7 @@
         </div>
         <div class="form-group required">
             <label class="control-label">Cargo Volume In Tone</label>
-            <div class="input-group"> 
+            <div class="input-group">
 
                 <input name="cargovol" type="number"
                     class="form-control {{ $errors->has('cargovol') ? ' is-invalid' : '' }}" id="cargovol"
@@ -141,9 +142,10 @@
             <label class="control-label">Origion Place</label>
             <select name="origion" class="form-control{{ $errors->has('origion') ? ' is-invalid' : '' }} select"
                 id="origion" onfocusout="validateOrigion()">
-                <option class="dropup" value="" > Select One</option>
+                <option class="dropup" value=""> Select One</option>
                 @foreach ($place as $operation)
-                <option class="dropup" value="{{ $operation->id}}  @if(old('origion') == $operation->id) {{ 'selected' }} @endif"
+                <option class="dropup"
+                    value="{{ $operation->id}}  @if(old('origion') == $operation->id) {{ 'selected' }} @endif"
                     {{$operation->id == $performance->orgion_id ? 'selected' : '' }}> {{ $operation->name}} </option>
                 @endforeach
             </select>
@@ -159,7 +161,7 @@
             <select name="destination"
                 class="form-control {{ $errors->has('destination') ? ' is-invalid' : '' }} select" id="destination"
                 onfocusout="validateDestination()">
-                <option class="dropup" value="" > Select One</option>
+                <option class="dropup" value=""> Select One</option>
                 @foreach ($place as $operation)
                 <option class="dropup" value="{{$operation->id}}"
                     {{$operation->id == $performance->destination_id ? 'selected' : '' }}> {{$operation->name}}
@@ -174,10 +176,11 @@
             <span class="invalid-feedback" role="alert"></span>
         </div>
 
-<button  type="button" id="viewDistance">Calculate Distance</button> <span class="badge badge-dark" id="something"></span>
+        <button type="button" id="viewDistance">Calculate Distance</button> <span class="badge badge-dark"
+            id="something"></span>
         <div class="form-group required">
             <label class="control-label">Distance with cargo</label>
-            <div class="input-group"> 
+            <div class="input-group">
                 <input name="diswc" type="number" class="form-control {{ $errors->has('diswc') ? ' is-invalid' : '' }}"
                     id="diswc" value="{{ old('diswc') ?? $performance->DistanceWCargo}}" min="1"
                     onfocusout="validateDisw()">
@@ -191,7 +194,7 @@
         </div>
         <div class="form-group required">
             <label class="control-label">Distance without cargo</label>
-            <div class="input-group"> 
+            <div class="input-group">
                 <input name="diswoc" type="number"
                     class="form-control {{ $errors->has('diswoc') ? ' is-invalid' : '' }}" id="diswoc"
                     value="{{ old('diswoc') ?? $performance->DistanceWOCargo}}" min="1" onfocusout="validateDiswoc()">
@@ -205,10 +208,9 @@
         </div>
         <div class="form-group required">
             <label class="control-label">Tone KM </label>
-            <div class="input-group"> 
-                <input name="tonkm" type="number"
-                    class="form-control {{ $errors->has('tonkm') ? ' is-invalid' : '' }}" id="tonkm"
-                    value="{{ old('tonkm') ?? $performance->tonkm}}" min="1" onfocusout="calculatedTonkm()">
+            <div class="input-group">
+                <input name="tonkm" type="number" class="form-control {{ $errors->has('tonkm') ? ' is-invalid' : '' }}"
+                    id="tonkm" value="{{ old('tonkm') ?? $performance->tonkm}}" min="1" onfocusout="calculatedTonkm()">
                 @if($errors->has('tonkm'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('tonkm') }}</strong>
@@ -224,7 +226,7 @@
         <legend> Expenses</legend>
         <div class="form-group">
             <label class="control-label"> Fuel In Litter</label>
-            <div class="input-group"> 
+            <div class="input-group">
                 <input name="fuell" type="number" class="form-control {{ $errors->has('fuell') ? ' is-invalid' : '' }}"
                     id="fuell" value="{{ old('fuell') ?? $performance->fuelInLitter}}" min="1"
                     onfocusout="validateFuell()">
@@ -239,7 +241,7 @@
 
         <div class="form-group ">
             <label class="control-label"> Fuel In Birr</label>
-            <div class="input-group"> 
+            <div class="input-group">
                 <input name="fuelb" type="number" class="form-control{{ $errors->has('fuelb') ? ' is-invalid' : '' }}"
                     id="fuelb" value="{{ old('fuelb') ?? $performance->fuelInBirr}}" min="1"
                     onfocusout="validateFuelb()">
@@ -254,7 +256,7 @@
 
         <div class="form-group ">
             <label class="control-label"> Perdiem</label>
-            <div class="input-group"> 
+            <div class="input-group">
                 <input name="perdiem" type="number"
                     class="form-control {{ $errors->has('perdiem') ? ' is-invalid' : '' }}" id="perdiem"
                     value="{{ old('perdiem') ?? $performance->perdiem}}" min="1" onfocusout="validatePerdiem()">
@@ -269,7 +271,7 @@
 
         <div class="form-group ">
             <label class="control-label">Operational Expense</label>
-            <div class="input-group"> 
+            <div class="input-group">
                 <input name="wog" type="number" class="form-control {{ $errors->has('wog') ? ' is-invalid' : '' }}"
                     id="wog" value="{{ old('wog') ?? $performance->workOnGoing}}" min="1" onfocusout="validateWog()">
                 @if($errors->has('wog'))
@@ -283,7 +285,7 @@
 
         <div class="form-group ">
             <label class="control-label"> Other Expences</label>
-            <div class="input-group"> 
+            <div class="input-group">
                 <input name="other" type="number" class="form-control {{ $errors->has('other') ? ' is-invalid' : '' }}"
                     id="other" value="{{ old('other') ?? $performance->other}}" min="1" onfocusout="validatOther()">
                 @if($errors->has('other'))
@@ -310,11 +312,16 @@
         </fieldset>
 
         @section( 'javascript' )
+        <script src="{{ asset('js/jquery.dataTables.min.js') }}">
+        </script>
         <script>
+            $( document ).ready( function () {
+                $('#origion').select2();
+            });
             jQuery.datetimepicker.setDateFormatter('moment');
                  $("#ddate").datetimepicker({
                 timepicker:true,
-                datepicker:true,        
+                datepicker:true,
                 // format: "Y-M-d"
                 format: "YYYY-MM-DD H:mm:ss"
                 // autoclose: true,
@@ -329,7 +336,7 @@
             jQuery.datetimepicker.setDateFormatter('moment');
 		 $("#r_date").datetimepicker({
 		timepicker:true,
-		datepicker:true,        
+		datepicker:true,
 		// format: "Y-M-d"
 		format: "YYYY-MM-DD H:mm:ss"
 		// autoclose: true,
@@ -338,12 +345,15 @@
 		// minuteStep: 10
 		// step: 30,
 	});
-	$('#toggle2').on('click', function(){
-		$("#r_date").datetimepicker('toggle');
-	})
+            $('#toggle2').on('click', function(){
+                $("#r_date").datetimepicker('toggle');
+            })
+
+
+
         </script>
         <script>
-                const chinet = document.getElementById( 'chinet' );
+            const chinet = document.getElementById( 'chinet' );
                 const trip = document.getElementById( 'trip' );
                 const fo = document.getElementById( 'fo' );
                 const operation = document.getElementById( 'operation' );
@@ -392,11 +402,11 @@
 			return false;
 		}
     } );
-    
+
 
 	// Validator functions
 	function newTonkm() {
-    
+
   let loadedkm =  diswc.value;
   let toneage=   tonkm.cargovol;
   let totla = loadedkm  * toneage;
@@ -486,7 +496,7 @@
 	}
 
 	function validateDisw() {
-	
+
 		if ( !minmax( diswc, 0, 3000 ) ) {
 			return false;
 		} else {
@@ -497,7 +507,7 @@
 	}
 
 	function validateDiswoc() {
-	
+
 		if ( !minmax( diswoc, 0, 3000 ) ) {
 			return false;
 		} else {
@@ -508,7 +518,7 @@
 	}
 
 	function validateCargovol() {
-	
+
 		if ( !minmax( cargovol, 0, 80 ) ) {
 			return false;
 		} else {
@@ -519,7 +529,7 @@
 
 
 	function validateFuell() {
-	
+
 		if ( !minmax( fuell, 0, 2000 ) ) {
 			return false;
 		} else {
@@ -529,7 +539,7 @@
 	}
 
 	function validateFuelb() {
-	
+
 		if ( !minmax( fuelb, 0, 50000 ) ) {
 			return false;
 		} else {
@@ -549,7 +559,7 @@
 	}
 
 	function validateWog() {
-	
+
 		if ( !minmax( wog, 0, 10000 ) ) {
 			return false;
 		} else {
@@ -572,19 +582,19 @@
         </script>
         <script>
             $.ajaxSetup({
-            
+
                 headers: {
-            
+
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            
+
                 }
-            
+
             });
-            
-            
-            
+
+
+
             $("#viewDistance").click(function(e){
-            
+
                 // const origionval = document.getElementById('origion').value;
                 const destinationval = document.getElementById( 'destination').value;
                 const origionval = document.getElementById('origion').value;
@@ -594,8 +604,8 @@
             // console.log(urlPath)
                 e.preventDefault();
 
-            
-            
+
+
                 $.ajax({
                    type:'POST',
                    url: urlPath,
@@ -609,18 +619,18 @@
                     $('#diswoc').val(data);
                     // return data;
                     // console.log(data)
-            
+
                    },
                    error: function() {
             alert('Error occured');
         },
         dataType:'text'
                 });
-            
-            
-            
+
+
+
             });
-            $("#calculateTonkm").click(function(e){ 
+            $("#calculateTonkm").click(function(e){
                 const diswccal = document.getElementById( 'diswc' ).value;
                 // console.log(diswccal)
                 const toncal = document.getElementById( 'cargovol' ).value;
@@ -628,7 +638,7 @@
                 $('#tonkm').val(tonkmcal);
 
             });
-            
-            </script>
+
+        </script>
 
         @endsection

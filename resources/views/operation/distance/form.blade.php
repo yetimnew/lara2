@@ -5,6 +5,7 @@
             <div class="input-group">
                 <select name="origin" id="origin" class="form-control {{ $errors->has('origin') ? ' is-invalid' : '' }}"
                     onfocusout="validateCustomer()">
+                    <option class="dropup" value=""> Select One</option>
                     @foreach ($places as $place)
                     <option class="dropup" value="{{$place->id}}"
                         {{ $place->id == $distance->origin_id ? 'selected' : '' }}>
@@ -27,7 +28,7 @@
                 <select name="destination" id="destination"
                     class="form-control {{ $errors->has('destination') ? ' is-invalid' : '' }}"
                     onfocusout="validateCustomer()">
-
+                    <option class="dropup" value=""> Select One</option>
                     @foreach ($places as $place)
                     <option class="dropup" value="{{$place->id}}"
                         {{ $place->id == $distance->destination_id ? 'selected' : '' }}>
@@ -135,7 +136,7 @@
     //     // Validator functions
     //     //*******************************************************************
 
-    // 
+    //
         </script>
 
         @endsection
