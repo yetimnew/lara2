@@ -39,7 +39,9 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php $no = 0 ?> {{-- {{ dd($tds) }} --}} @if ($tds->count()> 0) @foreach ($tds as $td)
+                <?php $no = 0 ?>
+                 @if ($tds->count()> 0)
+                 @foreach ($tds as $td)
 				<tr>
 					<td class='m-1 p-1 text-center'>{{++$no}}</td>
 					<td class='m-1 p-1 text-center'>{{$td->name}}</td>
@@ -54,10 +56,7 @@
 					<td class='m-1 p-1 text-center'>{{ number_format( $td->workOnGoing,2)}}</td>
 					<td class='m-1 p-1 text-center'>{{ number_format( $td->other,2)}}</td>
 
-					{{--
-					<td class='m-1 p-1'><a href="{{route('performace.edit',['id'=> $td->id])}}" class="btn btn-info btn-xs"> <i
-						class="fafa-edit"></i> </a>
-					</td> --}}
+
 				</tr>
 
 				@endforeach @else
@@ -71,13 +70,9 @@
 			</tbody>
 		</table>
 
-		@endsection @section('javascript') {{--
-		<script src="{{ asset('js/jquery.dataTables.min.js') }}">
-		</script> --}}
+		@endsection @section('javascript')
 		<script>
 			$( document ).ready( function () {
-
-
 				$( '#drivers' ).DataTable( {
 					dom: 'Bfrtip',
 					buttons: [

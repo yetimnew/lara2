@@ -92,7 +92,7 @@ class DistanceController extends Controller
         $distance->km = $request->km;
 
         $distance->save();
-        Session::flash('success',  ' Distance registerd successfuly');
+        Session::flash('success',  ' Distance Updated successfuly');
         return redirect()->route('distance');
     }
 
@@ -101,7 +101,7 @@ class DistanceController extends Controller
         $distance = Distance::findOrFail($id);
 
         $distance->delete();
-        Session::flash('info', 'The distance b/n' . $distance->origin_name . ' and ' . $distance->destination_name . ' deleted successfuly');
+        Session::flash('info', 'The distance b/n ' . $distance->origin_name . ' and ' . $distance->destination_name . ' deleted successfuly');
         return redirect()->back();
     }
 }

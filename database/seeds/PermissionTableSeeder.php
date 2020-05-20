@@ -19,7 +19,7 @@ class PermissionTableSeeder extends Seeder
             'truck edit',
             'truck delete',
             'truck view',
-                 //Truck
+            //Truck
             'truck_model create',
             'truck_model edit',
             'truck_model delete',
@@ -37,7 +37,7 @@ class PermissionTableSeeder extends Seeder
             'operation edit',
             'operation delete',
             'operation view',
-          
+
             //OPERATION place
             'operation_place create',
             'operation_place edit',
@@ -53,6 +53,16 @@ class PermissionTableSeeder extends Seeder
             'customer edit',
             'customer delete',
             'customer view',
+            //OPERATION Outsource
+            'outsource create',
+            'outsource edit',
+            'outsource delete',
+            'outsource view',
+            //OPERATION Outsource PERFORMANCE
+            'osperformance create',
+            'osperformance edit',
+            'osperformance delete',
+            'osperformance view',
             //performance
             'performance create',
             'performance edit',
@@ -76,9 +86,9 @@ class PermissionTableSeeder extends Seeder
             'truck_driver detach',
 
 
-            ];
-            foreach ($permissions as $permission) {
+        ];
+        foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
+        }
     }
-}
 }

@@ -23,9 +23,17 @@ class PerformanceController extends Controller
     public function index()
     {
 
+        // $performances = Performance::active()->get();
+        // dd($performances);
 
         $performances =  DB::table('performances')
-            ->select('performances.*', 'performances.driver_truck_id', 'drivers.name as dname', 'trucks.plate as plate', 'places.name as orgion')
+            ->select(
+                'performances.*',
+                'performances.driver_truck_id',
+                'drivers.name as dname',
+                'trucks.plate as plate',
+                'places.name as orgion'
+            )
             ->LEFTJOIN('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
             ->LEFTJOIN('drivers', 'drivers.id', '=', 'driver_truck.driver_id')
             ->LEFTJOIN('trucks', 'trucks.id', '=', 'driver_truck.truck_id')

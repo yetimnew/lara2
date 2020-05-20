@@ -139,6 +139,25 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/place/edit/{id}',                          ['uses' => 'PlaceController@edit', 'as' => 'place.edit']);
     Route::post('/place/update/{id}',                       ['uses' => 'PlaceController@update', 'as' => 'place.update']);
     Route::delete('/place/destroy/{id}',                       ['uses' => 'PlaceController@destroy', 'as' => 'place.destroy']);
+
+    // OUTSOURCE
+    Route::get('/outsource',                                    ['uses' => 'OutsourceController@index', 'as' => 'outsource']);
+    Route::get('/outsource/create',                             ['uses' => 'OutsourceController@create', 'as' => 'outsource.create']);
+    Route::post('/outsource/store',                             ['uses' => 'OutsourceController@store', 'as' => 'outsource.store']);
+    Route::get('/outsource/edit/{id}',                          ['uses' => 'OutsourceController@edit', 'as' => 'outsource.edit']);
+    Route::post('/outsource/update/{id}',                       ['uses' => 'OutsourceController@update', 'as' => 'outsource.update']);
+    Route::delete('/outsource/destroy/{id}',                       ['uses' => 'OutsourceController@destroy', 'as' => 'outsource.destroy']);
+
+    // OUTSOURCE PERFOROMANCE
+    Route::get('/osperformance',                                    ['uses' => 'OutsourcePerformanceController@index', 'as' => 'osperformance']);
+    Route::get('/osperformance/create',                             ['uses' => 'OutsourcePerformanceController@create', 'as' => 'osperformance.create']);
+    Route::post('/osperformance/store',                             ['uses' => 'OutsourcePerformanceController@store', 'as' => 'osperformance.store']);
+    Route::get('/osperformance/edit/{id}',                          ['uses' => 'OutsourcePerformanceController@edit', 'as' => 'osperformance.edit']);
+    Route::get('/osperformance/show/{id}',        ['uses' => 'OutsourcePerformanceController@show', 'as' => 'osperformance.show']);
+    Route::post('/osperformance/update/{id}',                       ['uses' => 'OutsourcePerformanceController@update', 'as' => 'osperformance.update']);
+    Route::delete('/osperformance/destroy/{id}',                       ['uses' => 'OutsourcePerformanceController@destroy', 'as' => 'osperformance.destroy']);
+
+
     // statusType
     Route::get('/distance',                                    ['uses' => 'DistanceController@index', 'as' => 'distance']);
     Route::get('/distance/create',                             ['uses' => 'DistanceController@create', 'as' => 'distance.create']);

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Operation extends Model
 {
-    
+
     protected $gurded=[];
     protected $dates = ['startdate','enddate','deleted_at'];
 
@@ -21,7 +21,7 @@ class Operation extends Model
     {
         return $query->where("closed", "=",1);
     }
-    
+
     public function customer()
     {
         return $this->belongsTo('App\Customer');
@@ -38,5 +38,9 @@ class Operation extends Model
     public function performances()
     {
         return $this->belongsToMany('App\Performance');
+    }
+    public function osperformances()
+    {
+        return $this->hasMany('App\Outsource_performance');
     }
 }

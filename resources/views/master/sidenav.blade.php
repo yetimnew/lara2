@@ -102,7 +102,7 @@
                         href="{{ route('performance_by_status')}}">Status By Date</a> </li>
                 <li class="{{ Request::is('performance_by_model') ? 'active' : ''}}"><a
                         href="{{ route('performance_by_model')}}">Performance By Model</a> </li>
-                <li class="{{ Request::is('performance_by_model') ? 'active' : ''}}"><a
+                <li><a
                         href="{{ route('performance_by_model')}}">Detached Driver&Truck</a>
                 </li>
                 <li class="{{ Request::is('performace/datediff') ? 'active' : ''}}"><a

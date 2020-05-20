@@ -1,7 +1,9 @@
 @extends( 'master.app' )
 @section( 'title', 'TIMS | Status Registration' )
 @section( 'styles' )
-<link rel="stylesheet" href="{{asset('/css/jquery.dataTables.min.css')}}"> @endsection @section('content')
+<link rel="stylesheet" href="{{asset('/css/jquery.dataTables.min.css')}}">
+@endsection
+@section('content')
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{{route('dasboard')}}">Home</a>
     </li>
