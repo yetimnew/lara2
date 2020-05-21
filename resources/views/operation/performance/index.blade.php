@@ -62,8 +62,8 @@
                             <td class='m-1 p-1' data-toggle="tooltip" data-placement="top" title="">{{$pr->DateDispach}}
                             </td>
                             <td class='m-1 p-1'>{{$pr->orgion}}</td>
-                            <td class='m-1 p-1'>{{$pr->tonkm}}</td>
-                            <td class='m-1 p-1'>{{number_format($pr->CargoVolumMT,2)}}</td>
+                            <td class='m-1 p-1 text-right'>{{number_format($pr->tonkm, 2)}}</td>
+                            <td class='m-1 p-1 text-center'>{{number_format($pr->CargoVolumMT,2)}}</td>
                             @if($pr->is_returned == 0)
                             <td class='m-1 p-1'><span class="badge badge-danger">Not Returned</span></td>
                             @else

@@ -49,11 +49,18 @@ class performanceByDriverController extends Controller
     {
         $format = 'd-m-Y';
         $driver = $request->input('driver');
-        $start = $request->input('startDate');
-        $end = $request->input('endDate');
+
+        $start1 = $request->input('startDate');
+        $start =  $start1.' 00:00:00';
+
+        $end1 = $request->input('endDate');
+        $end = $end1.' 23:59:59';
+
 
         $first = Carbon::createFromDate($start);
+        $first->format('m-d-Y');
         $second = Carbon::createFromDate($end);
+        // dd( $first );
         $date_diff = (strtotime($start) - strtotime($end));
         $diff = abs(strtotime($end) - strtotime($start));
 
@@ -71,7 +78,6 @@ class performanceByDriverController extends Controller
                     'driver_truck.is_attached AS is_attached',
                     DB::raw('SUM(performances.CargoVolumMT) as tone'),
                     DB::raw('COUNT(performances.FOnumber) as trip'),
-                    // DB::raw('SUM(performances.CargoVolumMT) as CargoVolumMT'),
                     DB::raw('SUM(performances.DistanceWCargo) as TDWC'),
                     DB::raw('SUM(performances.DistanceWOCargo) as TDWOC'),
                     DB::raw('SUM(performances.tonkm) as tonkm'),
@@ -84,9 +90,10 @@ class performanceByDriverController extends Controller
                 ->leftjoin('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
                 ->leftjoin('drivers', 'driver_truck.driverid', '=',  'drivers.driverid')
                 ->where('driver_truck.driverid', '=', $driver)
-                ->whereBetween('performances.DateDispach', [$first->toDateTimeString(), $second->toDateTimeString()])
+                ->whereBetween('performances.DateDispach', [ $start , $end])
                 ->groupBy('performances.driver_truck_id')
                 ->orderBy('trip', 'DESC')
+                // ->tosql();
                 ->get();
 
             // dd($tds);

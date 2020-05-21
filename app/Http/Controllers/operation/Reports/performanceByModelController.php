@@ -45,8 +45,12 @@ class performanceByModelController extends Controller
 
     public function store(Request $request)
     {
-        $start = $request->input('startDate');
-        $end = $request->input('endDate');
+        $start1 = $request->input('startDate');
+        $start =  $start1.' 00:00:00';
+
+        $end1 = $request->input('endDate');
+        $end = $end1.' 23:59:59';
+
         $diff = abs( strtotime( $end ) - strtotime( $start ) );
         $years = floor( $diff / ( 365 * 60 * 60 * 24 ) );
         $months = floor( ( $diff - $years * 365 * 60 * 60 * 24 ) / ( 30 * 60 * 60 * 24 ) );
@@ -92,7 +96,5 @@ class performanceByModelController extends Controller
     }
 
 }
-
-
 
 }

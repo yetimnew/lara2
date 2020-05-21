@@ -15,7 +15,7 @@ class performanceByStatusController extends Controller
 {
     public function index()
     {
-      
+
         $maxDate= DB::table('statuses')->MAX('registerddate');
         $newDate = Carbon::parse($maxDate)->diffForHumans();
         $maxautoid= DB::table('statuses')->MAX('autoid');
@@ -29,7 +29,7 @@ class performanceByStatusController extends Controller
         ->groupBy('statustypes.name')
         ->orderBy('statuses.id','ASC')
        ->get();
-       
+
        $tdss = DB::table('statuses')
        ->select('statuses.id','statuses.autoid','statuses.plate as targa','statustypes.name','statuses.registerddate as registerddate')
        ->join('statustypes','statustypes.id','=','statuses.statustype_id')
@@ -43,7 +43,7 @@ class performanceByStatusController extends Controller
 
 //                 foreach($platenew as $pl){
 //                         $st= Status::where('plate','=', $pl);
-                
+
 
 //                 }
 //                 dd( $st);
@@ -57,20 +57,23 @@ class performanceByStatusController extends Controller
          ->with('newDate',$newDate)
          ->with('plate',$plate)
          ->with('tdss',$tdss);
-        
- 
+
+
     }
 
     public function store(Request $request)
     {
-          
+
         $plate = $request->input('plate');
-        $start = $request->input('startdate');
-        $end = $request->input('enddate');
-        
+        $start1 = $request->input('startDate');
+        $start =  $start1.' 00:00:00';
+
+        $end1 = $request->input('endDate');
+        $end = $end1.' 23:59:59';
+
         $first = Carbon::createFromDate($request->input('startdate'));
         $second = Carbon::createFromDate($request->input('enddate'));
-    
+
         $date_diff = ( strtotime( $start ) - strtotime( $end ) );
         $diff = abs( strtotime( $end ) - strtotime( $start ) );
 
@@ -114,17 +117,17 @@ class performanceByStatusController extends Controller
         ->with('tdss',$tdss);
 
 }
-  
+
     public function view(Request $request)
     {
-        
+
         $plate = $request->input('plate');
         $start = $request->input('startdate');
         $end = $request->input('enddate');
-        
+
         $first = Carbon::createFromDate($request->input('startdate'));
         $second = Carbon::createFromDate($request->input('enddate'));
-    
+
         $date_diff = ( strtotime( $start ) - strtotime( $end ) );
         $diff = abs( strtotime( $end ) - strtotime( $start ) );
 
@@ -142,7 +145,7 @@ class performanceByStatusController extends Controller
         //         // ->whereBetween('statuses.registerddate', [$first->toDateTimeString(), $second->toDateTimeString()])
         //         ->orderBy('statuses.registerddate','ASC')
         //         ->get();
-               
+
         // }
         // dd($arr);
 
@@ -164,7 +167,7 @@ class performanceByStatusController extends Controller
                 ->whereBetween('statuses.registerddate', [$first->toDateTimeString(), $second->toDateTimeString()])
                 ->orderBy('statuses.registerddate','ASC')
                 ->get();
-    
+
         return view('operation.report.status_by_date.view')
         ->with('status_date',$status_date)
         ->with('status_summery',$status_summery);
@@ -188,12 +191,12 @@ public function show(Request $request)
 
         return view('operation.report.status_by_date.show');
 
-    
+
 }
 public function mukera()
 {
- $summery = array();      
- $status = Status::all(); 
+ $summery = array();
+ $status = Status::all();
 //  dd($status);
  foreach ($status as $st ) {
 // echo $st->plate;
@@ -201,5 +204,5 @@ public function mukera()
          return $summery;
  }
 }
-    
+
 }

@@ -103,7 +103,8 @@ class DashbordController extends Controller
     function getAllMonths()
     {
         $now = Carbon::now();
-        $current_year =  $now->year;
+        // $current_year =  $now->year; behwal atikeyirawlake ishi ena ketechim ale on 129
+        $current_year =  '2019';
         $month_array = array();
         $posts_dates = Performance::orderBy('DateDispach', 'ASC')
             ->whereYear('DateDispach', $current_year)
@@ -125,11 +126,13 @@ class DashbordController extends Controller
     function getMonthlyPostCount($month)
     {
         $now = Carbon::now();
-        $current_year =  $now->year;
+        // $current_year =  $now->year;
+        $current_year =  '2019';
         $monthly_post_count = Performance::whereMonth('DateDispach', $month)
             ->whereYear('DateDispach', $current_year)
             ->get()
             ->sum('tonkm');
+        // return  number_format($monthly_post_count);
         return $monthly_post_count;
     }
 
@@ -158,18 +161,5 @@ class DashbordController extends Controller
         );
         // dd($monthly_post_data_array);
         return $monthly_post_data_array;
-    }
-
-    public function monthlyperformance()
-    {
-        // $now = Carbon::now();
-        // $current_year =  $now->year;
-        // $current_mont =  $now->month;
-        // $daylyPerformance = DB::table('performances')
-        // ->whereMonth('DateDispach', $current_mont)
-        // ->groupBy('DateDispach')
-        // ->sum('tonkm');
-        // return $daylyPerformance;
-        // dd($daylyPerformance);
     }
 }

@@ -35,6 +35,8 @@ class performanceOfAllDriverController extends Controller
             ->leftjoin('drivers', 'driver_truck.driverid', '=',  'drivers.driverid')
             ->groupBy('performances.driver_truck_id')
             ->orderBy('trip', 'DESC')
+            ->orderBy('performances.DateDispach', 'DESC')
+            ->limit(100)
             ->get();
         // dd($tds);
 
@@ -48,8 +50,10 @@ class performanceOfAllDriverController extends Controller
     public function store(Request $request)
     {
         $format = 'd-m-Y';
-        $start = $request->input('startDate');
-        $end = $request->input('endDate');
+        $start1 = $request->input('startDate');
+        $start =  $start1.' 00:00:00';
+        $end1 = $request->input('endDate');
+        $end = $end1.' 23:59:59';
 
         $first = Carbon::createFromDate($request->input('startDate'));
         $second = Carbon::createFromDate($request->input('endDate'));
@@ -61,7 +65,7 @@ class performanceOfAllDriverController extends Controller
         $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
 
 
-        if ($end > $start) {
+        if ($end >= $start) {
 
             $tds = DB::table('performances')
                 ->select(
@@ -83,10 +87,11 @@ class performanceOfAllDriverController extends Controller
                 )
                 ->leftjoin('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
                 ->leftjoin('drivers', 'driver_truck.driverid', '=',  'drivers.driverid')
-                ->whereBetween('performances.DateDispach', [$first->toDateTimeString(), $second->toDateTimeString()])
+                ->whereBetween('performances.DateDispach', [$start, $end])
                 ->groupBy('performances.driver_truck_id')
                 ->orderBy('trip', 'DESC')
                 ->get();
+            // ->tosql();
             // dd($tds);
             return view('operation.report.performance_of_all_driver.create')
                 ->with('tds', $tds)
@@ -98,7 +103,7 @@ class performanceOfAllDriverController extends Controller
         } else {
 
             Session::flash('info', 'Cheeck the input Date Please');
-            return redirect()->route('performance_by_driver');
+            return redirect()->route('performance_of_all_driver');
         }
     }
 }

@@ -47,8 +47,11 @@ class PerformanceByTruckController extends Controller
     public function store(Request $request)
     {
         $plate = $request->input('plate');
-        $start = $request->input('startDate');
-        $end = $request->input('endDate');
+        $start1 = $request->input('startDate');
+        $start =  $start1.' 00:00:00';
+
+        $end1 = $request->input('endDate');
+        $end = $end1.' 23:59:59';
 
         $first = Carbon::createFromDate($request->input('startDate'));
         $second = Carbon::createFromDate($request->input('endDate'));

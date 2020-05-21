@@ -1,6 +1,5 @@
 @extends( 'master.app' )
 @section( 'title', 'TIMS | Report performance By model' )
-
 @section( 'styles' )
 <link rel="stylesheet" href="{{asset('/css/jquery.dataTables.min.css')}}"> @endsection @section('content')
 <ol class="breadcrumb">
