@@ -90,8 +90,18 @@
                     <div class="icon bg-green"><i class="fa fa-calendar-o"></i>
                     </div>
                     <div class="text">
-                        <strong id="totalTone">{{number_format($upliftedTone,2)}}</strong><br>
-                        Uplifted Tone
+                        <strong id="totalTone">{{number_format($upliftedTone,2)}}</strong>
+                        <br>
+                        Uplifted Tone ERTE
+                    </div>
+                </div>
+                <div class="statistic d-flex align-items-center bg-white has-shadow">
+                    <div class="icon bg-green"><i class="fa fa-calendar-o"></i>
+                    </div>
+                    <div class="text">
+                        <strong id="totalTone">{{number_format($outsourceupliftedTone,2)}}</strong>
+                        <br>
+                        Uplifted Tone Outsource
                     </div>
                 </div>
                 <div class="statistic d-flex align-items-center bg-white has-shadow">
@@ -332,6 +342,87 @@
                     </div>
                 </div>
             </div>
+
+        </div>
+    </section>
+    <section class="client no-padding-top">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Work Amount  -->
+                <div class="col-lg-8">
+                    <div class="work-amount card">
+                        <div class="card-body">
+                            <div class="text-justify">
+                                <h4 class="text-center" m-2>Operational Status </h4>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="trucks" class="table table-hover table-bordered">
+                                    <thead class="p-0">
+                                        <tr class="bg-info text-white p-0">
+                                            <th>S/No</th>
+                                            <th>Operation ID</th>
+                                            <th>Customer Name</th>
+                                            <th>Trip</th>
+                                            <th>Cargo Volume</th>
+                                            <th>Lifted Tone </th>
+                                            <th>Remaining Tone</th>
+                                            <th>%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 0 ?> @if ($operationsReport->count()> 0) @foreach ($operationsReport
+                                        as
+                                        $td)
+                                        <tr>
+                                            <td class='m-1 p-1'>{{++$no}}</td>
+                                            <td class='m-1 p-1'>{{$td->operationid}}</td>
+                                            <td class='m-1 p-1'>{{$td->name}}</td>
+                                            <td class='m-1 p-1'>{{$td->fo}}</td>
+                                            <td class='m-1 p-1 text-right'>{{number_format($td->Tone_Given,2)}}</td>
+                                            <td class='m-1 p-1 text-right'>{{number_format($td->Tone,2)}}</td>
+                                            <td class='m-1 p-1 text-right'>
+                                                {{number_format($td->Tone_Given - $td->Tone,2)}}
+                                            </td>
+                                            <td class='m-1 p-1'>{{number_format($td->Tone/$td->Tone_Given ,2)*100}}%
+                                            </td>
+
+                                        </tr>
+
+                                        @endforeach @else
+                                        <tr>
+                                            <td class='m-1 p-1 text-center' colspan="12">No Data Avilable</td>
+                                        </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Overdue             -->
+                <div class="col-lg-4">
+                    <div class="overdue card">
+                        <div class="card-close">
+                            <div class="dropdown">
+                                <button type="button" id="closeCard3" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" class="dropdown-toggle"><i
+                                        class="fa fa-ellipsis-v"></i></button>
+                                <div aria-labelledby="closeCard3" class="dropdown-menu dropdown-menu-right has-shadow">
+                                    <a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a><a
+                                        href="#" class="dropdown-item edit"> <i class="fa fa-gear"></i>Edit</a></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h3>Monthly Performance by TonKM </h3>
+                            <br>
+                            <canvas id="myChart" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
     @endsection

@@ -174,7 +174,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/performance_by_driver/create',              ['uses' => 'operation\Reports\performanceByDriverController@create', 'as' => 'performance_by_driver.create']);
     Route::post('/performance_by_driver/store',              ['uses' => 'operation\Reports\performanceByDriverController@store', 'as' => 'performance_by_driver.store']);
     Route::get('/performance_by_driver/edit/{id}',           ['uses' => 'operation\Reports\performanceByDriverController@edit', 'as' => 'performance_by_driver.edit']);
-    Route::post('/performance_by_driver/update/{id}',        ['uses' => 'operation\Reports\performanceByDriverController@update', 'as' => 'performance_by_driver.update']);
+    Route::patch('/performance_by_driver/update/{id}',        ['uses' => 'operation\Reports\performanceByDriverController@update', 'as' => 'performance_by_driver.update']);
     Route::get('/performance_by_driver/destroy/{id}',        ['uses' => 'operation\Reports\performanceByDriverController@destroy', 'as' => 'performance_by_driver.destroy']);
 
 
@@ -186,7 +186,7 @@ Route::group(['middleware' => ['auth']], function () {
     //reports
     Route::get('/performance_by_truck',                     ['uses' => 'operation\Reports\PerformanceByTruckController@index', 'as' => 'performance_by_truck']);
     Route::post('/performance_by_truck/store',              ['uses' => 'operation\Reports\PerformanceByTruckController@store', 'as' => 'performance_by_truck.store']);
-    Route::get('/performance_by_truck/alltrucks',             ['uses' => 'operation\Reports\PerformanceByTruckController@all_trucks', 'as' => 'performance_by_truck.alltrucks']);
+    Route::post('/performance_by_truck/alltrucks',             ['uses' => 'operation\Reports\PerformanceByTruckController@all_trucks', 'as' => 'performance_by_truck.alltrucks']);
     Route::post('/performance_by_truck/alltruckssearch',             ['uses' => 'operation\Reports\PerformanceByTruckController@all_trucks_by_date', 'as' => 'performance_by_truck.all_trucks_search']);
 
 
@@ -211,6 +211,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/performance_by_model',                     ['uses' => 'operation\Reports\performanceByModelController@index', 'as' => 'performance_by_model']);
     Route::get('/performance_by_model/create',              ['uses' => 'operation\Reports\performanceByModelController@create', 'as' => 'performance_by_model.create']);
     Route::post('/performance_by_model/store',              ['uses' => 'operation\Reports\performanceByModelController@store', 'as' => 'performance_by_model.store']);
+    //  Truck Driver attache detach date differnce
+    Route::get('/attach_detach_date',              ['uses' => 'operation\Reports\performanceByTruckDriverAttachDettachDate@index', 'as' => 'attach_detach_date']);
 
     // role and permiision
     Route::get('backup', ['uses' => 'BackupController@index', 'as' => 'backup']);

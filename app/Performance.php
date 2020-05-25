@@ -113,4 +113,10 @@ class Performance extends Model
         $totaldistance = $dwc +  $dwoc;
         return $totaldistance;
     }
+    public function getDateDispachAtribute()
+    {
+        $DateDispach = $this->DateDispach;
+        return Carbon::parse($DateDispach)->format('d-m-Y');
+        // $totaldistance;
+    }
 }

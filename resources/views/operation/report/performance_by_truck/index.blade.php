@@ -12,7 +12,8 @@
 <div class="row col-12">
     <h3 class="text-center"> REPORT : Performance By Truck</h3>
     <div class="col-10">
-        <form method="post" action="{{route('performance_by_truck.store')}}" class="form-horizontal" id="truck_form">
+        <form method="post" action="{{route('performance_by_truck.all_trucks_search')}}" class="form-horizontal"
+            id="truck_form">
             @csrf
 
             <div class="row">

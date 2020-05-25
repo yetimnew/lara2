@@ -72,8 +72,8 @@ class PerformanceController extends Controller
             )
             ->LEFTJOIN('drivers', 'drivers.id', '=', 'driver_truck.driver_id')
             ->where('driver_truck.is_attached', 1)
+            ->orderBy('drivers.name')
             ->get();
-
 
         if ($place->count() < 2) {
             Session::flash('info', 'You must have two or more Place before attempting to create Performance');
@@ -181,7 +181,7 @@ class PerformanceController extends Controller
                 'drivers.name'
             )
             ->LEFTJOIN('drivers', 'drivers.id', '=', 'driver_truck.driver_id')
-            ->where('driver_truck.is_attached', 1)
+            ->orderBy('drivers.name')
             ->get();
 
         return view('operation.performance.edit')

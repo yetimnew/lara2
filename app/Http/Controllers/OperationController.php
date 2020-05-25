@@ -16,8 +16,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 class OperationController extends Controller
 {
 
-
-
     public function index()
     {
         $operations = Operation::active()->orderBy('created_at', 'DESC')->get();

@@ -62,14 +62,13 @@
                             <td class='m-1 p-1'>{{$pr->orgion->name}}</td>
                             <td class='m-1 p-1'>{{$pr->destination->name}}</td>
                             <td class='m-1 p-1'>{{$pr->CargoVolumMT}}</td>
-                            <td class='m-1 p-1'>{{$pr->tonkm}}</td>
+                            <td class='m-1 p-1'>{{number_format($pr->tonkm,2)}}</td>
                             <td class='m-1 p-1'>{{$pr->DistanceWCargo}}</td>
                             <td class='m-1 p-1'>{{$pr->DistanceWOCargo}}</td>
 
                             @can('performance view')
                             <td class='m-1 p-1 text-center'>
-                                <a href="{{route('osperformance.show',['id'=> $pr->id])}}"> <i
-                                        class="fa fa-edit "></i>
+                                <a href="{{route('osperformance.show',['id'=> $pr->id])}}"> <i class="fa fa-edit "></i>
                                 </a>
                             </td>
                             @endcan

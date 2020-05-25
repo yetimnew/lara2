@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Customer;
 use App\Distance;
 use App\Notifications\PerformanceCreated;
 use App\Operation;

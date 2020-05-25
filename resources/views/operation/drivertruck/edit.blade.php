@@ -44,7 +44,8 @@
                         <div class="form-group required">
                             <label class="control-label">Driver Name</label>
                             <select name="dname" class="form-control select" id="dname" required>
-                                <option class="dropup" value="{{$dts->id}}|{{$dts->driverid}}" selected> {{$dts->NAME}}
+                                <option class="dropup" value="{{$dts->driver_id}}|{{$dts->driverid}}" selected>
+                                    {{$dts->NAME}}
                                 </option>
                                 {{-- {{dd($drivers)}} --}}
                                 @foreach ($drivers as $driver)
@@ -67,10 +68,10 @@
                         </div>
                         @if ($dts->is_attached == 0)
                         <div class="form-group required">
-                            <label class="control-label">Detach Date</label>
+                            <label class="control-label" for="ddate">Detach Date</label>
 
                             <div class="input-group"> <span class="input-group-addon"></span>
-                                <input name="rdate" type="date" required class="form-control" id="rdate"
+                                <input name="ddate" type="date" required class="form-control" id="ddate"
                                     value="{{ $dts->date_detach }}">
                             </div>
 
@@ -80,10 +81,8 @@
                             <textarea name="comment" rows="5"
                                 class="form-control {{ $errors->has('comment') ? ' is-invalid' : '' }}"
                                 id="comment">{{ $dts->reason}}</textarea>
-
                         </div>
                         @endif
-
                         <div class="form-group required">
                             <button type="submit" class="btn btn-primary" name="save">Update</button>
 

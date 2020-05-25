@@ -45,7 +45,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if ($vehecletypes->count() > 0) @foreach ($vehecletypes as $vehecletype)
+                        @if ($vehecletypes->count() > 0)
+                        @foreach ($vehecletypes as $vehecletype)
                         <tr>
                             <td class='m-1 p-1'>{{$vehecletype->id}}</td>
                             <td class='m-1 p-1'>{{$vehecletype->name}}</td>

@@ -28,10 +28,12 @@
                 <thead>
                     <tr>
                         <th class="m-1 b-1">No</th>
+                        <th class="m-1 b-1">ID</th>
                         <th class="m-1 b-1">Plate</th>
                         <th class="m-1 b-1">Driver ID</th>
                         <th class="m-1 b-1">Driver Name</th>
                         <th class="m-1 b-1">Recived Date</th>
+                        <th class="m-1 b-1">Dettach Date</th>
                         <th class="m-1 b-1">Status</th>
                         @can('truck_driver view')
                         <th class="m-1 b-1">Show</th>
@@ -46,10 +48,12 @@
                     @foreach ($driver_truck as $dt)
                     <tr>
                         <td class='m-1 p-1'>{{++$no}}</td>
+                        <td class='m-1 p-1'>{{$dt->id}}</td>
                         <td class='m-1 p-1'>{{$dt->Plate}}</td>
                         <td class='m-1 p-1'>{{$dt->DriverId}}</td>
                         <td class='m-1 p-1'>{{$dt->Name}}</td>
                         <td class='m-1 p-1'>{{$dt->date_recived}}</td>
+                        <td class='m-1 p-1'>{{$dt->date_detach}}</td>
                         @if ($dt->is_attached == 1)
                         <td class='m-1 p-1'><span class="badge badge-primary">Attached</span></td>
                         @else

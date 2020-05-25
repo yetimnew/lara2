@@ -59,9 +59,24 @@
         <li class="{{ Request::is('customer') ? 'active' : ''}}"><a href="{{route('customer')}}">
                 <i class="fa fa-users green" aria-hidden="true"></i> Customers </a>
         </li>
-
+        {{--
         <li class="{{ Request::is('performace') ? 'active' : ''}}"><a href="{{route('performace')}}">
-                <i class="fa fa-tasks" aria-hidden="true"></i> Performance </a></li>
+            <i class="fa fa-tasks" aria-hidden="true"></i> Performance </a></li> --}}
+
+        <li class="{{ Request::is('*performace') ? 'active' : ''}}"><a href="#exampledropdownDropdown19"
+                aria-expanded="false" data-toggle="collapse"> <i class="fa fa-tasks" aria-hidden="true">
+                </i> Performance
+            </a>
+            <ul id="exampledropdownDropdown19" class="collapse list-unstyled ">
+                <li class="{{ Request::is('performace') ? 'active' : ''}}"><a href="{{route('performace')}}">ERTE </a>
+                </li>
+
+                <li class="{{ Request::is('osperformance*') ? 'active' : ''}}"><a
+                        href="{{route('osperformance')}}">Outsource</a></li>
+
+            </ul>
+        </li>
+
 
         <li class="{{ Request::is('status*') ? 'active' : ''}}"><a href="#exampledropdownDropdown3"
                 aria-expanded="false" data-toggle="collapse"> <i class="fa fa-assistive-listening-systems red"
@@ -102,8 +117,7 @@
                         href="{{ route('performance_by_status')}}">Status By Date</a> </li>
                 <li class="{{ Request::is('performance_by_model') ? 'active' : ''}}"><a
                         href="{{ route('performance_by_model')}}">Performance By Model</a> </li>
-                <li><a
-                        href="{{ route('performance_by_model')}}">Detached Driver&Truck</a>
+                <li><a href="{{ route('performance_by_model')}}">Detached Driver&Truck</a>
                 </li>
                 <li class="{{ Request::is('performace/datediff') ? 'active' : ''}}"><a
                         href="{{ route('performace.datediff')}}">Dispach and Return Date</a>

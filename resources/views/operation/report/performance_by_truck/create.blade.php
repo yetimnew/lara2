@@ -73,6 +73,7 @@
             $( document ).ready( function () {
 				$( '#drivers' ).DataTable( {
 					dom: 'Bfrtip',
+                    "pageLength": 25,
 					buttons: [
 						'excel', 'print'
 					]

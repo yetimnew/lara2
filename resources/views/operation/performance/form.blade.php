@@ -92,7 +92,7 @@
                 @foreach ($driver_truck as $dt)
                 <option class="dropup" value="{{$dt->id}}"
                     {{$dt->id == $performance->driver_truck_id ? 'selected' : '' }}>
-                    {{$dt->plate}}-{{$dt->name}}
+                    {{$dt->plate}}-{{$dt->name}} {{$dt->is_attached ? '-- Att.-- ': '--Dett.--'}}
                 </option>
                 @endforeach
             </select>

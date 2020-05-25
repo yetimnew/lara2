@@ -11,36 +11,7 @@
 
 <div class="row col-12">
     <h3 class="text-center"> REPORT : Performance By Truck</h3>
-    <div class="col-10">
-        <form method="post" action="{{route('performance_by_truck.alltrucks')}}" class="form-horizontal"
-            id="truck_form">
-            @csrf
 
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-10">
-                    <div class="form-row">
-
-                        <div class="form-group col-md-3">
-                            <label for="inputCity">Start Date</label>
-                            <input id="startDate" name="startDate" type="date" placeholder="Start Date"
-                                class="form-control" required>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputState">Start Date</label>
-                            <input id="endDate" name="endDate" type="date" placeholder="End Date" class="form-control"
-                                required>
-
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputZip"></label>
-                            <button class="btn btn-primary btn-block" type="submit" name="register">Search</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-    </div>
 
 </div>
 <div class="row col-12">
@@ -97,13 +68,17 @@
             </tbody>
         </table>
 
-        @endsection @section('javascript')
-        <script src="{{ asset('js/jquery.dataTables.min.js') }}">
-        </script>
+        @endsection
+        @section('javascript')
         <script>
             $( document ).ready( function () {
-				$( '#drivers' ).DataTable();
-
+				$( '#drivers' ).DataTable( {
+					dom: 'Bfrtip',
+                    "pageLength": 25,
+					buttons: [
+						'excel', 'print'
+					]
+				} );
 			} );
         </script>
         @endsection

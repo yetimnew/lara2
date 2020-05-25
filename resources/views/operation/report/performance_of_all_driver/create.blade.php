@@ -76,12 +76,9 @@
 
 
         @endsection
-        @section('javascript') {{--
-		<script src="{{ asset('js/jquery.dataTables.min.js') }}">
-        </script> --}}
+        @section('javascript')
         <script>
             $( document ).ready( function () {
-
 				$( '#drivers' ).DataTable( {
                     "pageLength": 25,
 					dom: 'Bfrtip',

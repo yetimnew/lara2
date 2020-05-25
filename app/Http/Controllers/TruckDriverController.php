@@ -146,6 +146,7 @@ class TruckDriverController extends Controller
 
         $td = DriverTuck::where('id', '=', $id)->first();
         // dd($td);
+        $performance = Performance::where('driver_truck_id', '=', $td->id)->get();
         $start =  Carbon::parse($td->date_detach);
         $end  =  Carbon::parse($td->date_recived);
         $difinday = $end->diffInDays($start);
@@ -159,17 +160,20 @@ class TruckDriverController extends Controller
             ->with('td', $td)
             ->with('difinday', $difinday)
             ->with('diffinhour', $diffinhour)
+            ->with('performance', $performance)
             ->with('driver', $driver);
     }
 
     public function edit($id)
     {
         // dd($id);
+        $driver_trucks = DriverTuck::findOrFail($id);
+        // dd($driver_trucks->id);
 
         $dts = DB::table('driver_truck')
             ->select('driver_truck.*', 'drivers.name as NAME')
             ->leftjoin('drivers', 'drivers.id', '=', 'driver_truck.driver_id')
-            ->where('driver_truck.id', '=', $id)
+            ->where('driver_truck.id', '=',  $driver_trucks->id)
             ->first();
         // dd($dts);
         $trucks = $this->ready_trucks();
@@ -182,12 +186,14 @@ class TruckDriverController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($request->all());
+
         $this->validate($request, [
             'plate' => 'required',
             'dname' => 'required',
-            'rdate' => 'required'
+            'rdate' => 'required|date',
+            'ddate' => 'nullable|date|after:rdate',
         ]);
+
         $plate = $request->input('plate');
         $expolde_value =   explode('|', $plate);
         $truck_id = $expolde_value[0];
@@ -198,77 +204,29 @@ class TruckDriverController extends Controller
         $driverid = $expolde_name[1];
 
 
-        $truck_driver = DB::table('driver_truck')
-            ->select('driver_truck.driver_id', 'driver_truck.status', 'driver_truck.truck_id', 'driver_truck.is_attached')
-            ->where('driver_truck.truck_id', '=', $truck_id)
-            ->where('driver_truck.driver_id', '=', $driver_id)
-            ->where('driver_truck.status', '=', 1)
-            ->where('driver_truck.is_attached', '=', 1)
-            ->get();
 
-        if ($truck_driver->count() > 0) {
+        // $truck_driver = DriverTuck::findOrFail($id);
 
-            Session::flash('error ', 'Driver and Plate Already registered');
-            return redirect()->route('drivertruck');
-        }
-        $mukera =  DriverTuck::where('truck_id', '=', $truck_id)->where('is_attached', '=', 0)->get();
-
-        if ($mukera->count() > 0) {
-            $mukera_internal =  DriverTuck::where('truck_id', '=', $truck_id)->where('is_attached', '=', 1)->get();
-
-            if ($mukera_internal->count() > 0) {
-
-                Session::flash('error ', 'Truck  Already Attached');
-                return redirect()->route('drivertruck');
-            } else {
-                $dt = DriverTuck::findorFail($id);
-                $dt->truck_id =  $truck_id;
-                $dt->plate =  $plateex;
-                $dt->driver_id = $driver_id;
-                $dt->driverid = $driverid;
-                $dt->date_recived = $request->rdate;
-                $dt->status = 1;
-                $dt->is_attached = 1;
-                $dt->save();
-                Session::flash('success', 'Truck and Driver Assiegned successfuly');
-                return redirect()->route('drivertruck');
-            }
+        $dt = DriverTuck::findorFail($id);
+        $dt->truck_id =  $truck_id;
+        $dt->plate =  $plateex;
+        $dt->driver_id = $driver_id;
+        $dt->driverid = $driverid;
+        $dt->date_recived = $request->rdate;
+        if ($request->has('ddate')) {
+            $dt->date_detach = $request->ddate;
+            $dt->reason = $request->comment;
+            $dt->status = 1;
+            $dt->is_attached = 0;
         } else {
-            $mukera2 =  DriverTuck::where('driver_id', '=', $driver_id)->where('is_attached', '=', 0)->get();
-
-            if ($mukera2->count() > 0) {
-                $mukera_internal2 =  DriverTuck::where('driver_id', '=', $driver_id)->where('is_attached', '=', 1)->get();
-
-                if ($mukera_internal2->count() > 0) {
-                    Session::flash('error ', 'Truck  Already Attached');
-                    return redirect()->route('drivertruck');
-                } else {
-                    $dt = DriverTuck::findorFail($id);
-                    $dt->truck_id =  $truck_id;
-                    $dt->plate =  $plateex;
-                    $dt->driver_id = $driver_id;
-                    $dt->driverid = $driverid;
-                    $dt->date_recived = $request->rdate;
-                    $dt->status = 1;
-                    $dt->is_attached = 1;
-                    $dt->save();
-                    Session::flash('success', 'Truck and Driver Assiegned successfuly');
-                    return redirect()->route('drivertruck');
-                }
-            } else {
-                $dt = DriverTuck::findorFail($id);
-                $dt->truck_id =  $truck_id;
-                $dt->plate =  $plateex;
-                $dt->driver_id = $driver_id;
-                $dt->driverid = $driverid;
-                $dt->date_recived = $request->rdate;
-                $dt->status = 1;
-                $dt->is_attached = 1;
-                $dt->save();
-                Session::flash('success', 'Truck and Driver Assiegned successfuly');
-                return redirect()->route('drivertruck');
-            }
+            $dt->date_detach = NULL;
+            $dt->reason = '';
+            $dt->status = 1;
+            $dt->is_attached = 1;
         }
+        $dt->save();
+        Session::flash('success', 'Truck and Driver Updated successfuly');
+        return redirect()->route('drivertruck');
     }
 
 
@@ -277,7 +235,6 @@ class TruckDriverController extends Controller
         $dt = DriverTuck::findorFail($id);
         $performance =  Performance::where('driver_truck_id', '=', $dt->id)->first();
         if (isset($performance)) {
-
             Session::flash('error', 'There are records by this driver ');
             return redirect()->route('drivertruck');
         } else {

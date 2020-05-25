@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\operation\Reports;
 
 use App\Truck;
-use App\Driver;
-use App\Performance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -48,15 +46,9 @@ class PerformanceByTruckController extends Controller
     {
         $plate = $request->input('plate');
         $start1 = $request->input('startDate');
-        $start =  $start1.' 00:00:00';
-
+        $start =  $start1 . ' 00:00:00';
         $end1 = $request->input('endDate');
-        $end = $end1.' 23:59:59';
-
-        $first = Carbon::createFromDate($request->input('startDate'));
-        $second = Carbon::createFromDate($request->input('endDate'));
-
-        $date_diff = (strtotime($start) - strtotime($end));
+        $end = $end1 . ' 23:59:59';
         $diff = abs(strtotime($end) - strtotime($start));
 
         $years = floor($diff / (365 * 60 * 60 * 24));
@@ -85,8 +77,7 @@ class PerformanceByTruckController extends Controller
                 )
                 ->leftjoin('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
                 ->leftjoin('drivers', 'driver_truck.driverid', '=',  'drivers.driverid')
-                ->where('driver_truck.plate', '=', $plate)
-                ->whereBetween('performances.DateDispach', [$first->toDateTimeString(), $second->toDateTimeString()])
+                ->whereBetween('performances.DateDispach', [$start, $end])
                 ->groupBy('performances.driver_truck_id')
                 ->orderBy('trip', 'DESC')
                 ->get();
@@ -134,15 +125,13 @@ class PerformanceByTruckController extends Controller
         return view('operation.report.performance_by_truck.alltrucks')
             ->with('tds', $tds);
     }
-    public function all_trucks_by_date(Request $request)
+    public function all_trucks_by_date(Request $request, $id)
     {
+        dd($id);
+        $trucks = Truck::active()->orderBy('plate')->get();
         $start = $request->input('startDate');
         $end = $request->input('endDate');
 
-        $first = Carbon::createFromDate($request->input('startDate'));
-        $second = Carbon::createFromDate($request->input('endDate'));
-
-        $date_diff = (strtotime($start) - strtotime($end));
         $diff = abs(strtotime($end) - strtotime($start));
 
         $years = floor($diff / (365 * 60 * 60 * 24));
@@ -171,7 +160,7 @@ class PerformanceByTruckController extends Controller
                 )
                 ->leftjoin('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
                 ->leftjoin('drivers', 'driver_truck.driverid', '=',  'drivers.driverid')
-                ->whereBetween('performances.DateDispach', [$first->toDateTimeString(), $second->toDateTimeString()])
+                ->whereBetween('performances.DateDispach', [$start, $end])
                 ->groupBy('performances.driver_truck_id')
                 ->orderBy('trip', 'DESC')
                 ->get();

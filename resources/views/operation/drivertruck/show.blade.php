@@ -24,7 +24,6 @@
 
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12">
-                {{-- {{  dd($td)}} --}}
                 <div class="form-group row m-0">
                     <label class="col-form-label col-lg-4">Plate Number</label>
                     <div class="col-lg-8">
@@ -87,8 +86,20 @@
 
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
+                <h5> FO By {{$driver->name}}</h5>
+                <ul class="list-group">
+                    @if (count($performance) > 0)
+                    @foreach ($performance as $key => $pr)
+                    <li class="list-group-item">{{$key+1}} - {{$pr->FOnumber}}
+                        <span class="badge badge-pill badge-primary text-right">{{$pr->DateDispach}}</span> </li>
+                    @endforeach
+                    @else
 
+                    <li class="list-group-item"> No Performance found </li>
 
+                    @endif
+
+                </ul>
             </div>
             @can('truck_driver edit')
             <div class='m-1 p-1'><a href="{{route('drivertruck.edit',['id'=> $td->id])}}" class="btn btn-info btn-xs"><i

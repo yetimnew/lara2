@@ -21,16 +21,27 @@ class DashbordController extends Controller
         $operations = Operation::active()->count();
         $totalTone = Operation::active()->sum('volume');
         $upliftedTone = DB::table('performances')->where('satus', '=', 1)->sum('CargoVolumMT');
+        $outsourceupliftedTone = DB::table('outsource_performances')->where('satus', '=', 1)->sum('CargoVolumMT');
         $maxStatus = DB::table('statuses')->MAX('autoid');
         $maxDate = DB::table('statuses')->MAX('registerddate');
         $today =  Carbon::today()->toDateTimeString();
         $now =  Carbon::now()->toDateTimeString();
+
 
         $daylyupliftedtonage = DB::table('performances')
             ->select(
                 DB::raw('SUM(performances.CargoVolumMT) as ton'),
                 DB::raw('COUNT(performances.trip) as trip'),
                 DB::raw('SUM(performances.tonkm) as tonkm')
+            )
+            ->whereBetween('created_at', [$today, $now])
+            ->get();
+
+        $daylyupliftedtonageoutsource = DB::table('outsource_performances')
+            ->select(
+                DB::raw('SUM(outsource_performances.CargoVolumMT) as ton'),
+                DB::raw('COUNT(outsource_performances.trip) as trip'),
+                DB::raw('SUM(outsource_performances.tonkm) as tonkm')
             )
             ->whereBetween('created_at', [$today, $now])
             ->get();
@@ -82,12 +93,14 @@ class DashbordController extends Controller
             ->with('operations', $operations)
             ->with('totalTone', $totalTone)
             ->with('upliftedTone', $upliftedTone)
+            ->with('outsourceupliftedTone', $outsourceupliftedTone)
             ->with('maxDate', $maxDate)
             ->with('maxStatus', $maxStatus)
             ->with('tds', $tds)
             ->with('operationsReport', $operationsReport)
             ->with('statuses', $statuses)
             ->with('daylyupliftedtonage', $daylyupliftedtonage)
+            ->with('daylyupliftedtonageoutsource', $daylyupliftedtonageoutsource)
             ->with('statuslist', $statuslist);
     }
 

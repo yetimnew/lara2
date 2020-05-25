@@ -13,7 +13,7 @@ class performanceOfAllDriverController extends Controller
 
     public function index()
     {
-        $drivers = DB::table('drivers')->orderBy('name', 'ASC')->get();
+        // $drivers = DB::table('drivers')->orderBy('name', 'ASC')->get();
         $tds = DB::table('performances')
             ->select(
                 'driver_truck.driverid AS driverid',
@@ -42,24 +42,18 @@ class performanceOfAllDriverController extends Controller
 
 
         return view('operation.report.performance_of_all_driver.index')
-            ->with('tds', $tds)
-            ->with('drivers', $drivers);
+            ->with('tds', $tds);
+        // ->with('drivers', $drivers);
     }
 
 
     public function store(Request $request)
     {
-        $format = 'd-m-Y';
         $start1 = $request->input('startDate');
-        $start =  $start1.' 00:00:00';
+        $start =  $start1 . ' 00:00:00';
         $end1 = $request->input('endDate');
-        $end = $end1.' 23:59:59';
-
-        $first = Carbon::createFromDate($request->input('startDate'));
-        $second = Carbon::createFromDate($request->input('endDate'));
-        $date_diff = (strtotime($start) - strtotime($end));
+        $end = $end1 . ' 23:59:59';
         $diff = abs(strtotime($end) - strtotime($start));
-
         $years = floor($diff / (365 * 60 * 60 * 24));
         $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
         $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
