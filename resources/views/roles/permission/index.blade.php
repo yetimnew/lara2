@@ -22,7 +22,7 @@
         </div>
         <div class=" card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-bordered table-striped" id="vehecletypes">
+                <table class="table table-bordered table-striped" id="permmission">
 
                     <thead>
                         <tr>
@@ -73,7 +73,7 @@
 @section('javascript')
 <script>
     $( document ).ready( function () {
-				$( '#vehecletypes' ).DataTable({
+				$( '#permmission' ).DataTable({
 					"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 					"pageLength": 25,
 

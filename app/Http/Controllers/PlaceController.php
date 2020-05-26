@@ -6,7 +6,6 @@ use App\Place;
 use App\Region;
 use App\Distance;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class PlaceController extends Controller

@@ -12,8 +12,7 @@
 <div class="row col-12">
     <h3 class="text-center"> REPORT : Performance By Truck</h3>
     <div class="col-10">
-        <form method="post" action="{{route('performance_by_truck.all_trucks_search')}}" class="form-horizontal"
-            id="truck_form">
+        <form method="post" action="{{route('performance_by_truck.store')}}" class="form-horizontal" id="truck_form">
             @csrf
 
             <div class="row">
@@ -36,7 +35,7 @@
                                 class="form-control" required>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="inputState">Start Date</label>
+                            <label for="inputState">End Date</label>
                             <input id="endDate" name="endDate" type="date" placeholder="End Date" class="form-control"
                                 required>
 
@@ -106,7 +105,8 @@
             </tbody>
         </table>
 
-        @endsection @section('javascript')
+        @endsection
+        @section('javascript')
         <script src="{{ asset('js/jquery.dataTables.min.js') }}">
         </script>
         <script>

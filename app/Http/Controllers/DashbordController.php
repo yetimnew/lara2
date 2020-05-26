@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use DateTime;
 use App\Truck;
 use App\Driver;
 use App\Operation;
 use Carbon\Carbon;
 use App\Performance;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DashbordController extends Controller

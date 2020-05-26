@@ -60,7 +60,7 @@
 											<h4 class="col-form-label "> Commercial Cargo</h4>
 										@else
 										<h4 class="col-form-label ">Relief Cargo</h4>
-										
+
 									@endif
 								</div>
 							</div>
@@ -83,7 +83,7 @@
 									<h4 class="col-form-label "> <span class="badge badge-primary">Active</span> </h4>
 									@else
 									<h4 class="col-form-label "> <span class="badge badge-warning">Closed</span> </h4>
-										
+
 									@endif
 								</div>
 							</div>
@@ -92,7 +92,7 @@
 								<label class="col-form-label col-lg-4">End Date</label>
 								<div class="col-lg-8">
 									<h4 class="col-form-label ">{{$operation->enddate}}|| {{$operation->enddate->diffForHumans()}}</h4>
-										
+
 								</div>
 							</div>
 							@endif
@@ -105,10 +105,10 @@
 							<div class="form-group row m-0">
 								<label class="col-form-label col-lg-4">Actual Revenu</label>
 								<div class="col-lg-8">
-								<h4 class="col-form-label ">{{ number_format(($operation->tariff * $performance->tonekm),2) }} 
+								<h4 class="col-form-label ">{{ number_format(($operation->tariff * $performance->tonekm),2) }}
 									<span class="badge badge-primary"> {{number_format((( ($operation->tariff * $performance->tonekm)/($operation->km * $operation->tariff)) *100),2)}} %  </span></h4>
-									
-									
+
+
 								</div>
 							</div>
 						</div>
@@ -184,7 +184,7 @@
 									<label class="col-form-label col-lg-4">Created By</label>
 									<div class="col-lg-8">
 										<h4 class="col-form-label ">{{$operation->user->name}}</h4>
-											
+
 									</div>
 								</div>
 								<div class="form-group row m-0">
@@ -205,31 +205,31 @@
 										<h4 class="col-form-label m-0 ">{{$operation->remark}}</h4>
 									</div>
 								</div>
-						
+
 						</div>
 						@can('operation edit')
 						<div class='ml-1 p-1'>
 							<a href="{{route('operation.edit',['id'=> $operation->id])}}" class="btn btn-info" > <i class="fa fa-edit"></i> Edit </a>
 						</div>
-		
+
 						@endcan
-		
-		
+
+
 						@can('operation delete')
 					<div class='m-1 p-1'>
-					<a href="javascript:;" data-toggle="modal" onclick="deleteData({{$operation->id}})" 
+					<a href="javascript:;" data-toggle="modal" onclick="deleteData({{$operation->id}})"
 						data-target="#DeleteModal" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
 					</div>
 					@endcan
-
+                    @can('operation close')
 						@if ($operation->closed )
 						<div class='ml-1 p-1'>
-							<a href="javascript:;" data-toggle="modal" onclick="closeData({{$operation->id}})" 
+							<a href="javascript:;" data-toggle="modal" onclick="closeData({{$operation->id}})"
 								data-target="#CloseModal" class="btn btn-info"><i class="fa fa-window-close"></i> Close</a>
 								</div>
 						@else
 						<div class='ml-1 p-1'>
-						
+
 									<form action="{{route('operation.open',['id'=> $operation->id])}}"
 										id="delete-form-{{$operation->id}}" style="display: none">
 										@csrf @method('POST')
@@ -241,10 +241,11 @@
 											event.preventDefault();
 										}"> <i class="fa fa-trash blue"> ReOpen</i>
 									</button>
-						
+
 						</div>
-													
-						@endif
+
+                        @endif
+                        @endcan
 				</div>
 				<div class="card-footer">
 					the footer

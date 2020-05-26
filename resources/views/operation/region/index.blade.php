@@ -13,7 +13,9 @@
     <div class="col-10">
     </div>
     <div class="col-2">
+        @can('operation_region create')
         <a href="{{route('region.create')}}" class="btn btn-primary">Add Region</a>
+        @endcan
         {{-- <button class="btn btn-default pull-right" onclick="exportTableToExcel('region', 'members-data')"><img src="../img/xls.png" width="24" class="mr-2">Export To Excel</button> --}}
     </div>
 </div>
@@ -25,8 +27,12 @@
                     <th class="m-1 b-1">Number</th>
                     <th>Region Name</th>
                     <th>Comment</th>
+                    @can('operation_region edit')
                     <th>Edit</th>
+                    @endcan
+                    @can('operation_region delete')
                     <th>Delete</th>
+                    @endcan
 
                 </tr>
             </thead>
@@ -37,10 +43,12 @@
                     <td class='m-1 p-1'>{{$region->id}}</td>
                     <td class='m-1 p-1'>{{$region->name}}</td>
                     <td class='m-1 p-1'>{{$region->comment}}</td>
-
+                    @can('operation_region edit')
                     <td class='m-1 p-1'><a href="{{route('region.edit',['id'=> $region->id])}}"
                             class="btn btn-info btn-xs"><i class="fa fa-edit"> </i></a>
                     </td>
+                    @endcan
+                    @can('operation_region delete')
                     <td class='m-1 p-1'>
 
 
@@ -56,6 +64,7 @@
                         }"> <i class="fa fa-trash"> </i>
                         </button>
                     </td>
+                    @endcan
                 </tr>
 
                 @endforeach @else

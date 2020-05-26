@@ -6,7 +6,6 @@ use App\Truck;
 use App\Status;
 use App\Statustype;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class StatusController extends Controller

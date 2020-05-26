@@ -8,7 +8,6 @@ use App\Driver;
 use App\Distance;
 use App\Operation;
 use Carbon\Carbon;
-use App\DriverTuck;
 use App\Performance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,14 +16,14 @@ use Illuminate\Support\Facades\Session;
 use App\Notifications\PerformanceCreated;
 use App\Http\Requests\PerformanceCreateRequest;
 use App\Http\Requests\PerformanceUpdateRequest;
+use Yajra\DataTables\Contracts\DataTable;
+use Yajra\DataTables\Facades\DataTables;
 
 class PerformanceController extends Controller
 {
     public function index()
     {
 
-        // $performances = Performance::active()->get();
-        // dd($performances);
 
         $performances =  DB::table('performances')
             ->select(
@@ -346,5 +345,26 @@ class PerformanceController extends Controller
             Session::flash('info', 'Cheeck the input Date Please');
             return redirect()->route('performance_by_truck');
         }
+    }
+    public function allperformance()
+    {
+        $performances =  DB::table('performances')
+            ->select(
+                'performances.*',
+                'performances.driver_truck_id',
+                'drivers.name as dname',
+                'trucks.plate as plate',
+                'places.name as orgion'
+            )
+            ->LEFTJOIN('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
+            ->LEFTJOIN('drivers', 'drivers.id', '=', 'driver_truck.driver_id')
+            ->LEFTJOIN('trucks', 'trucks.id', '=', 'driver_truck.truck_id')
+            ->JOIN('places', 'places.id', '=', 'performances.orgion_id')
+            ->where('driver_truck.status', 1)
+            ->where('drivers.status', 1)
+            ->where('trucks.status', 1)
+            ->orderBy('performances.created_at', 'DESC')
+            ->get();
+        return DataTables($performances)->make(true);
     }
 }

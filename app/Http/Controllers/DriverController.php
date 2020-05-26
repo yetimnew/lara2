@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Driver;
 use App\DriverTuck;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class DriverController extends Controller

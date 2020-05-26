@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\operation\Reports;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -29,14 +28,18 @@ class performanceOfAllDriverController extends Controller
                 DB::raw('SUM(performances.fuelInBirr) as fB'),
                 DB::raw('SUM(performances.perdiem) as perdiem'),
                 DB::raw('SUM(performances.workOnGoing) as workOnGoing'),
-                DB::raw('SUM(performances.other) as other')
+                DB::raw('SUM(performances.other) as other'),
+                DB::raw('SUM(performances.tonkm * operations.tariff) as revenu'),
             )
             ->leftjoin('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
             ->leftjoin('drivers', 'driver_truck.driverid', '=',  'drivers.driverid')
+            ->leftjoin('operations', 'operations.id', '=',  'performances.operation_id')
+
             ->groupBy('performances.driver_truck_id')
             ->orderBy('trip', 'DESC')
             ->orderBy('performances.DateDispach', 'DESC')
             ->limit(100)
+            // ->toSql();
             ->get();
         // dd($tds);
 
@@ -77,10 +80,13 @@ class performanceOfAllDriverController extends Controller
                     DB::raw('SUM(performances.fuelInBirr) as fB'),
                     DB::raw('SUM(performances.perdiem) as perdiem'),
                     DB::raw('SUM(performances.workOnGoing) as workOnGoing'),
-                    DB::raw('SUM(performances.other) as other')
+                    DB::raw('SUM(performances.other) as other'),
+                    DB::raw('SUM(performances.tonkm * operations.tariff) as revenu'),
                 )
                 ->leftjoin('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
                 ->leftjoin('drivers', 'driver_truck.driverid', '=',  'drivers.driverid')
+                ->leftjoin('operations', 'operations.id', '=',  'performances.operation_id')
+
                 ->whereBetween('performances.DateDispach', [$start, $end])
                 ->groupBy('performances.driver_truck_id')
                 ->orderBy('trip', 'DESC')

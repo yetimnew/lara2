@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Profile;
-// use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Session;
 

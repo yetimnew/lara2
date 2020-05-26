@@ -77,6 +77,7 @@ class PerformanceByTruckController extends Controller
                 )
                 ->leftjoin('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
                 ->leftjoin('drivers', 'driver_truck.driverid', '=',  'drivers.driverid')
+                ->where('driver_truck.plate', '=',  $plate)
                 ->whereBetween('performances.DateDispach', [$start, $end])
                 ->groupBy('performances.driver_truck_id')
                 ->orderBy('trip', 'DESC')
@@ -125,9 +126,8 @@ class PerformanceByTruckController extends Controller
         return view('operation.report.performance_by_truck.alltrucks')
             ->with('tds', $tds);
     }
-    public function all_trucks_by_date(Request $request, $id)
+    public function all_trucks_by_date(Request $request)
     {
-        dd($id);
         $trucks = Truck::active()->orderBy('plate')->get();
         $start = $request->input('startDate');
         $end = $request->input('endDate');

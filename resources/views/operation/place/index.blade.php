@@ -34,9 +34,13 @@
 							<th>no</th>
 							<th>Place Name</th>
 							<th>Region Name</th>
-							<th>Comment</th>
-							<th>Edit</th>
-							<th>Delete</th>
+                            <th>Comment</th>
+                            @can('operation_place edit')
+                            <th>Edit</th>
+                            @endcan
+                            @can('operation_place delete')
+                            <th>Delete</th>
+                            @endcan
 
 						</tr>
 					</thead>
@@ -47,12 +51,15 @@
 							<td class='m-1 p-1'>{{$place->id}}</td>
 							<td class='m-1 p-1'>{{$place->name}}</td>
 							<td class='m-1 p-1'>{{$place->region->name}}</td>
-							<td class='m-1 p-1'>{{$place->comment}}</td>
+                            <td class='m-1 p-1'>{{$place->comment}}</td>
+                            @can('operation_place edit')
 							<td class='m-1 p-1 text-center'><a href="{{route('place.edit',['id'=> $place->id])}}"
 									><i class="fa fa-edit"> </i></a>
-							</td>
+                            </td>
+                            @endcan
+                            @can('operation_place delete')
 							<td class='m-1 p-1 text-center'>
-								<form action="{{route('place.destroy',['id'=> $place->id])}}"
+                                <form action="{{route('place.destroy',['id'=> $place->id])}}"
 									id="detach-form-{{$place->id}}" style="display: none" method="POST">
 									@csrf @method('DELETE')
 								</form>
@@ -62,8 +69,9 @@
                         }else{
                             event.preventDefault();
                         }"> <i class="fa fa-trash red"> </i>
-							</td>
 							</button>
+                        </td>
+                        @endcan
 
 
 

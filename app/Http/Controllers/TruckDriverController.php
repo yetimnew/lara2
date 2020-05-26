@@ -144,7 +144,7 @@ class TruckDriverController extends Controller
     public function show($id)
     {
 
-        $td = DriverTuck::where('id', '=', $id)->first();
+        $td = DriverTuck::findOrFail($id);
         // dd($td);
         $performance = Performance::where('driver_truck_id', '=', $td->id)->get();
         $start =  Carbon::parse($td->date_detach);

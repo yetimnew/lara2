@@ -81,8 +81,6 @@
             </span>
             @endif
             <span class="invalid-feedback" role="alert"></span>
-
-
         </div>
         <div class="form-group required">
             <label class="control-label">Driver and Truck</label>
@@ -92,7 +90,7 @@
                 @foreach ($driver_truck as $dt)
                 <option class="dropup" value="{{$dt->id}}"
                     {{$dt->id == $performance->driver_truck_id ? 'selected' : '' }}>
-                    {{$dt->plate}}-{{$dt->name}} {{$dt->is_attached ? '-- Att.-- ': '--Dett.--'}}
+                    {{$dt->plate}}-{{$dt->name}} {{$dt->is_attached ? '-- Att.-- ': '--Dett.--'}} {{ $dt->id}}
                 </option>
                 @endforeach
             </select>

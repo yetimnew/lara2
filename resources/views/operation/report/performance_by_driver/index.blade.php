@@ -20,7 +20,8 @@
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label class="control-label">Driver Name</label>
-                            <select name="driver" class="form-control" id="driver" onfocusout="validateDestination()">
+                            <select name="driver" class="form-control" id="driver" required
+                                onfocusout="validateDestination()">
                                 <option class="dropup" value=""> Select One</option>
                                 @foreach ($drivers as $driver)
                                 <option class="dropup" value="{{$driver->driverid}}"> {{$driver->name}} </option>
@@ -72,8 +73,8 @@
                     <th>perdiem</th>
                     <th>Oprating Exp.</th>
                     <th>Other Exp.</th>
-                    <th>Attached</th>
-
+                    <th>Revenu</th>
+                    <th>Total Exp</th>
 
                 </tr>
             </thead>
@@ -94,7 +95,8 @@
                     <td class='m-1 p-1 text-right'>{{ number_format( $td->perdiem,2)}}</td>
                     <td class='m-1 p-1 text-right'>{{ number_format( $td->workOnGoing,2)}}</td>
                     <td class='m-1 p-1 text-right'>{{ number_format( $td->other,2)}}</td>
-                    <td class='m-1 p-1 text-right'>{{ $td->is_attached ? "yes": "no"}}</td>
+                    <td class='m-1 p-1 text-right'>{{ number_format( $td->revenu,2)}}</td>
+                    <td class='m-1 p-1 text-right'>{{ number_format( $td->totalexpense,2)}}</td>
 
                 </tr>
 

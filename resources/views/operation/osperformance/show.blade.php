@@ -178,7 +178,7 @@
                         </div>
                     </div>
                 </div>
-                @can('performance edit')
+                @can('performanceos edit')
                 <div class='ml-1 p-1'>
                     <a href="{{route('osperformance.edit',['id'=> $osperformance->id])}}" class="btn btn-info"> <i
                             class="fa fa-edit"></i> Edit </a>
@@ -187,7 +187,7 @@
                 @endcan
 
 
-                @can('performance delete')
+                @can('performanceos delete')
                 <div class='m-1 p-1'>
                     <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$osperformance->id}})"
                         data-target="#DeleteModal" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>

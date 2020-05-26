@@ -14,7 +14,7 @@
         <div class="card-header">
             <div class="d-flex align-items-center">
                 <h2>All Outsource Performances </h2>
-                @can('performance create')
+                @can('performanceos create')
                 <div class="ml-auto">
                     <a href="{{route('osperformance.create')}}" class="btn btn-outline-primary"><i
                             class="fafa-plus mr-1"></i>Add OS Performance</a>
@@ -42,7 +42,7 @@
                             <th>DWC</th>
                             <th>DWOC</th>
 
-                            @can('performance view')
+                            @can('performanceos view')
                             <th class="text-center" width="4%">Details</th>
                             @endcan
                         </tr>
@@ -66,7 +66,7 @@
                             <td class='m-1 p-1'>{{$pr->DistanceWCargo}}</td>
                             <td class='m-1 p-1'>{{$pr->DistanceWOCargo}}</td>
 
-                            @can('performance view')
+                            @can('performanceos view')
                             <td class='m-1 p-1 text-center'>
                                 <a href="{{route('osperformance.show',['id'=> $pr->id])}}"> <i class="fa fa-edit "></i>
                                 </a>

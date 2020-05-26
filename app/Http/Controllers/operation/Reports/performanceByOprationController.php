@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\operation\Reports;
 
-use App\Truck;
-use App\Driver;
-use App\Performance;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -29,15 +27,11 @@ class performanceByOprationController extends Controller
                 'operations.enddate as enddate',
                 'operations.status',
                 'operations.tariff',
-                // 'outsource_performances.CargoVolumMT',
                 DB::raw('SUM(performances.CargoVolumMT) as Tone'),
-                // DB::raw('SUM(outsource_performances.CargoVolumMT) as ostone'),
 
             )
             ->leftjoin('customers', 'operations.customer_id', '=', 'customers.id')
             ->leftjoin('performances', 'performances.operation_id', '=', 'operations.id')
-            // ->leftjoin('outsource_performances', 'outsource_performances.operation_id', '=', 'operations.id')
-            // ->where('operations.status','=',1)
             ->groupBy('operations.id')
             ->get();
 
@@ -65,7 +59,7 @@ class performanceByOprationController extends Controller
             // ->where('operations.status','=',1)
             ->groupBy('operations.id')
             ->get();
-        dd($osoperationsReport);
+        // dd($osoperationsReport);
         return view('operation.report.performance_by_operation.index')
             ->with('osoperationsReport', $osoperationsReport)
             ->with('operationsReport', $operationsReport);
@@ -111,17 +105,12 @@ class performanceByOprationController extends Controller
 
     public function store(Request $request)
     {
-        $format = 'd-m-Y';
         $start1 = $request->input('startDate');
         $start =  $start1 . ' 00:00:00';
 
         $end1 = $request->input('endDate');
         $end = $end1 . ' 23:59:59';
 
-        $first = Carbon::createFromDate($request->input('startDate'));
-        $second = Carbon::createFromDate($request->input('endDate'));
-
-        $date_diff = (strtotime($start) - strtotime($end));
         $diff = abs(strtotime($end) - strtotime($start));
 
         $years = floor($diff / (365 * 60 * 60 * 24));
@@ -144,7 +133,7 @@ class performanceByOprationController extends Controller
                 ->join('customers', 'operations.customer_id', '=', 'customers.id')
                 ->leftjoin('performances', 'performances.operation_id', '=', 'operations.id')
                 ->where('operations.status', '=', 1)
-                ->whereBetween('operations.startdate', [$first->toDateTimeString(), $second->toDateTimeString()])
+                ->whereBetween('operations.startdate', [$start, $end])
                 ->groupBy('operations.id')
                 ->get();
             return view('operation.report.performance_by_operation.create')

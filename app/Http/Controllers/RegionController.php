@@ -12,7 +12,6 @@ class RegionController extends Controller
     public function index()
     {
         $regions = Region::with('places')->get();
-        // $regions = Region::where('status', '=', 1)->get();
         return view('operation.region.index')->with('regions', $regions);
     }
 
@@ -42,10 +41,7 @@ class RegionController extends Controller
         return redirect()->route('region');
     }
 
-    public function show($id)
-    {
-        //
-    }
+
 
     public function edit($id)
     {

@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers\operation\Reports;
 
-use App\Truck;
-use App\Driver;
-use App\Performance;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -32,14 +29,18 @@ class performanceByDriverController extends Controller
                 DB::raw('SUM(performances.fuelInBirr) as fB'),
                 DB::raw('SUM(performances.perdiem) as perdiem'),
                 DB::raw('SUM(performances.workOnGoing) as workOnGoing'),
-                DB::raw('SUM(performances.other) as other')
+                DB::raw('SUM(performances.other) as other'),
+                DB::raw('SUM(performances.tonkm * operations.tariff) as revenu'),
+                DB::raw('SUM(performances.fuelInBirr + performances.perdiem + performances.workOnGoing + performances.other  ) as totalexpense'),
+                // DB::raw('SUM(performances.fuelInBirr + performances.perdiem + performances.workOnGoing + performances.other  ) - (revenu) as profit')
             )
             ->leftjoin('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
             ->leftjoin('drivers', 'driver_truck.driverid', '=',  'drivers.driverid')
+            ->leftjoin('operations', 'operations.id', '=',  'performances.operation_id')
             ->groupBy('performances.driver_truck_id')
             ->orderBy('trip', 'DESC')
             ->get();
-
+        // dd($tds);
         return view('operation.report.performance_by_driver.index')
             ->with('tds', $tds)
             ->with('drivers', $drivers);
@@ -47,21 +48,17 @@ class performanceByDriverController extends Controller
 
     public function store(Request $request)
     {
-        $format = 'd-m-Y';
         $driver = $request->input('driver');
-
+        if (!$driver) {
+            Session::flash('info', 'Driver name is required');
+            return redirect()->route('performance_by_driver');
+        }
         $start1 = $request->input('startDate');
         $start =  $start1 . ' 00:00:00';
 
         $end1 = $request->input('endDate');
         $end = $end1 . ' 23:59:59';
 
-
-        $first = Carbon::createFromDate($start);
-        $first->format('m-d-Y');
-        $second = Carbon::createFromDate($end);
-        // dd( $first );
-        $date_diff = (strtotime($start) - strtotime($end));
         $diff = abs(strtotime($end) - strtotime($start));
 
         $years = floor($diff / (365 * 60 * 60 * 24));
@@ -85,10 +82,14 @@ class performanceByDriverController extends Controller
                     DB::raw('SUM(performances.fuelInBirr) as fB'),
                     DB::raw('SUM(performances.perdiem) as perdiem'),
                     DB::raw('SUM(performances.workOnGoing) as workOnGoing'),
-                    DB::raw('SUM(performances.other) as other')
+                    DB::raw('SUM(performances.other) as other'),
+                    DB::raw('SUM(performances.fuelInBirr + performances.perdiem + performances.workOnGoing + performances.other  ) as totalexpense'),
+                    DB::raw('SUM(performances.tonkm * operations.tariff) as revenu'),
+
                 )
                 ->leftjoin('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
                 ->leftjoin('drivers', 'driver_truck.driverid', '=',  'drivers.driverid')
+                ->leftjoin('operations', 'operations.id', '=',  'performances.operation_id')
                 ->where('driver_truck.driverid', '=', $driver)
                 ->whereBetween('performances.DateDispach', [$start, $end])
                 ->groupBy('performances.driver_truck_id')

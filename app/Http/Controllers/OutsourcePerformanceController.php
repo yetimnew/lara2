@@ -23,7 +23,7 @@ class OutsourcePerformanceController extends Controller
 
     public function create()
     {
-        $osperformance = new  Outsource_performance;
+        $osperformance =  new  Outsource_performance;
         $osperformanceold =  Outsource_performance::active()->get();
         $operations =  Operation::active()->where('closed', '=', 1)->get();
         $place = Place::active()->orderBy('name')->get();
@@ -39,7 +39,7 @@ class OutsourcePerformanceController extends Controller
             Session::flash('info', 'You must have some Operation  before attempting to create Performance');
             return redirect()->route('operation.create');
         }
-        if ($osperformanceold->count() == 0) {
+        if ($osperformanceold->count() <= 0) {
             Session::flash('info', 'You must have some Outsource  before attempting to create oustsource Performance');
             return redirect()->route('outsource.create');
         }

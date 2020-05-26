@@ -1,8 +1,7 @@
 @extends( 'master.app' )
 @section( 'title', 'TIMS | Performance By Truck' )
 
-@section( 'styles' )
-<link rel="stylesheet" href="{{asset('/css/jquery.dataTables.min.css')}}"> @endsection @section('content')
+@section('content')
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{{route('dasboard')}}">Home</a>
     </li>
@@ -14,7 +13,7 @@
 <div class="row col-12">
     <div class="col-12 mb-3">
 
-        <a href="{{route('performance_by_driver')}}" class="btn btn-primary pull-right">Back</a>
+        <a href="{{route('performance_by_truck')}}" class="btn btn-primary pull-right">Back</a>
     </div>
     <div class="table-responsive text-nowrap">
         <h2 class="text-center"> Report From {{ $start}} To {{ $end}} For @if($years > 0){{ $years }} Years @endif

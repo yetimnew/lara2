@@ -103,7 +103,8 @@ class OperationController extends Controller
     public function show($id)
     {
 
-        $operation = Operation::where('id', '=', $id)->first();
+        $operation = Operation::findOrFail($id);
+        // $operation = Operation::where('id', '=', $id)->first();
         $performance =  DB::table('performances')
             ->select(
                 'performances.trip',
@@ -132,7 +133,6 @@ class OperationController extends Controller
     {
 
         $operation = Operation::findorfail($id);
-        // dd($operation);
 
         $regions = Region::all();
         $customers = Customer::all();

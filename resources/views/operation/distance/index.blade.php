@@ -18,14 +18,13 @@
 		<div class="card-header">
 			<div class="d-flex align-items-center">
 				<h2>City and There distance </h2>
-				{{-- @can('distance create') --}}
-
+				@can('distance create')
 				<div class="ml-auto">
+
 					<a href="{{route('distance.create')}}" class="btn btn-outline-primary"><i
 							class="fafa-plus mr-1"></i>Add Distance</a>
-
 				</div>
-				{{-- @endcan --}}
+				@endcan
 			</div>
 		</div>
 
@@ -41,18 +40,17 @@
 							<th class="m-1 b-1"> Destination Name</th>
 							<th class="m-1 b-1"> Distance KM</th>
 
-							{{-- @can('distance edit') --}}
+							@can('distance edit')
 							<th class="m-1 b-1" width="3%">Edit</th>
-							{{-- @endcan --}}
-							{{-- @can('distance delete') --}}
+							@endcan
+							@can('distance delete')
 							<th class="m-1 b-1" width="3%">Delete</th>
-							{{-- @endcan --}}
+							@endcan
 
 
 						</tr>
 					</thead>
 					<tbody>
-						{{-- {{dd($place)}} --}}
 						<?php $no = 0 ?>
 						@if ($distances->count()> 0)
 						@foreach ($distances as $distance)
@@ -65,13 +63,13 @@
 							<td class='p-1'>{{$distance->destination_name}}</td>
 							<td class='p-1 text-center'>{{$distance->km}}</td>
 
-							{{-- @can('distance edit') --}}
+							@can('distance edit')
 							<td class='p-1 text-center' data-toggle="tooltip" data-placement="top" title="Edit"><a
 									href="{{route('distance.edit',['id'=> $distance->id])}}"><i
 										class="fa fa-edit"></i></a>
 							</td>
-							{{-- @endcan --}}
-							{{-- @can('distance delete') --}}
+							@endcan
+							@can('distance delete')
 
 							<td class='p-1 text-center' data-toggle="tooltip" data-placement="top" title="Delete">
 
@@ -88,8 +86,7 @@
 									}"> <i class="fa fa-trash red"></i>
 								</button>
 							</td>
-							{{-- @endcan --}}
-							{{-- @can('distance deactivate') --}}
+							@endcan
 
 
 						</tr>

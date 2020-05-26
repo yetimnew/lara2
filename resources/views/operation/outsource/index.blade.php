@@ -38,12 +38,12 @@
                             <th class="text-center">Office No</th>
                             <th class="text-center">Mobile </th>
                             <th class="text-center">Remark</th>
-                            {{-- @can('outsource edit') --}}
+                            @can('outsource edit')
                             <th width="5%">Edit</th>
-                            {{-- @endcan --}}
-                            {{-- @can('outsource delete') --}}
+                            @endcan
+                            @can('outsource delete')
                             <th width="5%">Delete</th>
-                            {{-- @endcan --}}
+                            @endcan
 
                         </tr>
                     </thead>
@@ -58,13 +58,13 @@
                             <td>{{$outsource->officenumber}}</td>
                             <td>{{$outsource->mobile}}</td>
                             <td>{{$outsource->remark}}</td>
-                            {{-- @can('outsource edit') --}}
+                            @can('outsource edit')
                             <td class='m-1 p-1 text-center'><a
                                     href="{{route('outsource.edit',['id'=> $outsource->id])}}">
                                     <i class="fa fa-edit "></i> </a>
                             </td>
-                            {{-- @endcan
-                            @can('outsource delete') --}}
+                            @endcan
+                            @can('outsource delete')
                             <td class='m-1 p-1 text-center '>
                                 <form action="{{route('outsource.destroy',['id'=> $outsource->id])}}"
                                     id="delete-form-{{$outsource->id}}" style="display: none" method="POST">
@@ -81,7 +81,7 @@
 								}"> <i class="fa fa-trash red"></i>
                                 </button>
                             </td>
-                            {{-- @endcan --}}
+                            @endcan
 
                         </tr>
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -16,7 +15,7 @@ class profileController extends Controller
      */
     public function index()
     {
-        return view('users.profile')->with('user',Auth::user());
+        return view('users.profile')->with('user', Auth::user());
     }
 
     /**
@@ -26,7 +25,6 @@ class profileController extends Controller
      */
     public function create()
     {
-     
     }
 
     /**
@@ -62,38 +60,36 @@ class profileController extends Controller
         //
     }
 
-   
+
     public function update(Request $request)
     {
-        $this->validate($request,[
-            'name'=> 'required',
-            'email'=>'required',
-            ]);
-           
-            $user = Auth::user();
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+        ]);
 
-        if($request->hasFile('image')){
+        $user = Auth::user();
+
+        if ($request->hasFile('image')) {
             $image = $request->image;
-            $new_image_name = time().$image->getClientOriginalName();
-            $image->move('uploads/images',$new_image_name);
+            $new_image_name = time() . $image->getClientOriginalName();
+            $image->move('uploads/images', $new_image_name);
 
-            $user->profile->image = 'uploads/images/'.$new_image_name;
+            $user->profile->image = 'uploads/images/' . $new_image_name;
             $user->profile->save();
-
         }
         $user->name = $request->name;
         $user->email = $request->email;
-     
+
         $user->save();
         $user->profile->save();
-        if($request->has('password')){
+        if ($request->has('password')) {
             $user->password = bcrypt($request->password);
             $user->save();
         }
 
-       Session::flash('success','Account profile Updated');
-       return redirect()->route('home');
-
+        Session::flash('success', 'Account profile Updated');
+        return redirect()->route('home');
     }
 
     /**

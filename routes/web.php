@@ -108,6 +108,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/statustype/destroy/{id}', ['uses' => 'StatustypeController@destroy', 'as' => 'statustype.destroy']);
 
     // statusTypeF
+    Route::get('/performace/allperfprmance',              ['uses' => 'PerformanceController@allperformance', 'as' => 'performace.allperformance']);
     Route::get('/performace',              ['uses' => 'PerformanceController@index', 'as' => 'performace']);
     Route::get('/performace/create',       ['uses' => 'PerformanceController@create', 'as' => 'performace.create'])->middleware('permission:performance create');
     Route::post('/performace/store',       ['uses' => 'PerformanceController@store', 'as' => 'performace.store']);
@@ -186,7 +187,7 @@ Route::group(['middleware' => ['auth']], function () {
     //reports
     Route::get('/performance_by_truck',                     ['uses' => 'operation\Reports\PerformanceByTruckController@index', 'as' => 'performance_by_truck']);
     Route::post('/performance_by_truck/store',              ['uses' => 'operation\Reports\PerformanceByTruckController@store', 'as' => 'performance_by_truck.store']);
-    Route::post('/performance_by_truck/alltrucks',             ['uses' => 'operation\Reports\PerformanceByTruckController@all_trucks', 'as' => 'performance_by_truck.alltrucks']);
+    Route::get('/performance_by_truck/alltrucks',             ['uses' => 'operation\Reports\PerformanceByTruckController@all_trucks', 'as' => 'performance_by_truck.alltrucks']);
     Route::post('/performance_by_truck/alltruckssearch',             ['uses' => 'operation\Reports\PerformanceByTruckController@all_trucks_by_date', 'as' => 'performance_by_truck.all_trucks_search']);
 
 

@@ -15,7 +15,7 @@
 			<div class="d-flex">
 				<h2>Operational Place Registration</h2>
 				<div class="ml-auto">
-					<a href="{{route('vehecletype')}}" class="btn btn-outline-primary"> <i class="fa fa-backward mr-1"
+					<a href="{{route('place')}}" class="btn btn-outline-primary"> <i class="fa fa-backward mr-1"
 							aria-hidden="true"> Back</i> </a>
 				</div>
 			</div>

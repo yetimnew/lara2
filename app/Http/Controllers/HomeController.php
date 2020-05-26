@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use view;
-use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller

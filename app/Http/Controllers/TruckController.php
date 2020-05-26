@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Truck;
 use App\Driver;
 use App\DriverTuck;
 use App\Vehecletype;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Session;
-use Spatie\Permission\Models\Permission;
 
 class TruckController extends Controller
 {
