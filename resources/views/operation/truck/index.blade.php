@@ -58,6 +58,7 @@
                         <tr>
                             <td class='p-1'>{{++$no }}</td>
                             <td class='p-1'>{{$truck->plate}}</td>
+
                             <td class='p-1'>{{$truck->vehecletype->name}}</td>
 
                             <td class='p-1'>{{$truck->tyreSyze}}</td>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\PerformanceChart;
 use App\Truck;
 use App\Driver;
 use App\Operation;
@@ -16,10 +17,19 @@ class DashbordController extends Controller
     {
         $number_of_trucks = Truck::active()->count();
         $number_of_drivers = Driver::active()->count();
-        $operations = Operation::active()->count();
-        $totalTone = Operation::active()->sum('volume');
-        $upliftedTone = DB::table('performances')->where('satus', '=', 1)->sum('CargoVolumMT');
-        $outsourceupliftedTone = DB::table('outsource_performances')->where('satus', '=', 1)->sum('CargoVolumMT');
+        $operations = Operation::active()->open()->count();
+        $totalTone = Operation::active()->open()->sum('volume');
+        $upliftedTone =  DB::table('performances')
+            ->join('operations', 'performances.operation_id', '=', 'operations.id')
+            ->where('operations.status', 1)
+            ->where('operations.closed', 1)
+            ->SUM('performances.CargoVolumMT');
+
+        $outsourceupliftedTone = DB::table('outsource_performances')
+            ->join('operations', 'outsource_performances.operation_id', '=', 'operations.id')
+            ->where('operations.status', 1)
+            ->where('operations.closed', 1)
+            ->SUM('outsource_performances.CargoVolumMT');
         $maxStatus = DB::table('statuses')->MAX('autoid');
         $maxDate = DB::table('statuses')->MAX('registerddate');
         $today =  Carbon::today()->toDateTimeString();
@@ -43,9 +53,6 @@ class DashbordController extends Controller
             )
             ->whereBetween('created_at', [$today, $now])
             ->get();
-
-
-
 
         $tds = DB::table('statuses')
             ->select(
@@ -75,15 +82,67 @@ class DashbordController extends Controller
                 'operations.volume as Tone_Given',
                 'customers.name',
                 DB::raw('SUM(performances.CargoVolumMT)as Tone'),
-                DB::raw('SUM(performances.trip)as fo')
+                DB::raw('COUNT(performances.trip)as fo'),
+                // DB::raw('sum(outsource_performances.CargoVolumMT)as osTone'),
             )
-            ->join('customers', 'operations.customer_id', '=', 'customers.id')
-            ->leftjoin('performances', 'performances.operation_id', '=', 'operations.id')
+            ->leftJoin('customers', 'operations.customer_id', '=', 'customers.id')
+            ->leftJoin('performances', 'performances.operation_id', '=', 'operations.id')
+            // ->leftJoin('outsource_performances', 'outsource_performances.operation_id', '=', 'operations.id')
+            // ->SUM('outsource_performances.CargoVolumMT)as osTone')
+            ->where('operations.status', '=', 1)
+            ->where('operations.closed', '=', 1)
+            ->groupBy('operations.id')
+            ->get();
+        // dd( $operationsReport);
+        $outsource_operationsReport = DB::table('operations')
+            ->select(
+                'operations.operationid',
+                'customers.name',
+                DB::raw('SUM(outsource_performances.CargoVolumMT)as osTone'),
+                DB::raw('SUM(outsource_performances.trip)as osfo')
+            )
+            // ->leftJoin('performances', 'performances.operation_id', '=', 'operations.id')
+            ->leftJoin('customers', 'operations.customer_id', '=', 'customers.id')
+            ->rightJoin('outsource_performances', 'outsource_performances.operation_id', '=', 'operations.id')
             ->where('operations.status', '=', 1)
             ->where('operations.closed', '=', 1)
             ->groupBy('operations.id')
             ->get();
         $statuslist = $this->statusList();
+        $today = Carbon::now();
+        $day7 = Carbon::now()->subDays(15);
+        // dd( $day7);
+
+        $performance = DB::table('performances')
+            ->select(
+                DB::raw('DATE(created_at) as dispachdate'),
+                DB::raw('SUM(CargoVolumMT)as Tone'),
+            )
+
+            ->whereBetween('created_at', [$day7, $today])
+            ->groupBy('dispachdate')
+            ->orderBy('dispachdate', 'ASC')
+            ->pluck('Tone', 'dispachdate');
+
+        $osperformance = DB::table('outsource_performances')
+            ->select(
+                DB::raw('DATE(created_at) as dispachdate'),
+                DB::raw('SUM(CargoVolumMT)as Tone'),
+            )
+            ->whereBetween('created_at', [$day7, $today])
+            ->groupBy('dispachdate')
+            ->orderBy('dispachdate', 'ASC')
+            ->pluck('Tone', 'dispachdate');
+        // return  $osperformance;
+
+        $charts = new PerformanceChart;
+        $charts->labels($performance->keys());
+        $charts->dataset('Ton', 'line', $performance->values())->backgroundColor('rgba(78,240,15,0.2)');
+        $charts->dataset(' Plan Ton', 'line', ['250', '250', '250', '250', '250', '250', '250', '250', '250', '250'])
+            ->backgroundColor('rgba(2,117,216,0.2)');
+        // $charts->dataset('OS Ton', 'line', $osperformance->values())->backgroundColor('red');
+
+
 
         return view('dashboard')
             ->with('number_of_trucks', $number_of_trucks)
@@ -96,10 +155,12 @@ class DashbordController extends Controller
             ->with('maxStatus', $maxStatus)
             ->with('tds', $tds)
             ->with('operationsReport', $operationsReport)
+            ->with('outsource_operationsReport', $outsource_operationsReport)
             ->with('statuses', $statuses)
             ->with('daylyupliftedtonage', $daylyupliftedtonage)
             ->with('daylyupliftedtonageoutsource', $daylyupliftedtonageoutsource)
-            ->with('statuslist', $statuslist);
+            ->with('statuslist', $statuslist)
+            ->with('charts', $charts);
     }
 
     public function statusList()

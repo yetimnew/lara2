@@ -43,4 +43,12 @@
 </div>
 
 @endsection
+@section( 'javascript' )
+{{-- <script>
+// In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.origin_place').select2();
+    });
+</script> --}}
+@endsection
 

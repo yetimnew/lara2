@@ -32,13 +32,10 @@ class performanceByTruckDriverAttachDettachDate extends Controller
             ->leftjoin('drivers', 'drivers.id', '=',  'driver_truck.driver_id')
             ->leftjoin('trucks', 'trucks.id', '=',  'driver_truck.truck_id')
             ->orderBy('driver_truck.created_at', 'DESC')
-            // ->tosql();
             ->get();
         // dd( $dt );
         return view('operation.report.attach_detach_date.index')
-            // ->with('dt', $dt);
-            // return view('operation.report.performance_by_truck.index')
-            // ->with('tds', $tds)
+
             ->with('dt', $dt);
     }
 }

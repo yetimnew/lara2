@@ -122,6 +122,15 @@
                 <li class="{{ Request::is('performace/datediff') ? 'active' : ''}}"><a
                         href="{{ route('performace.datediff')}}">Dispach and Return Date</a>
                 </li>
+                <li class="{{ Request::is('performanceall') ? 'active' : ''}}"><a
+                        href="{{ route('performanceall')}}">Performance Details</a>
+                </li>
+                <li class="{{ Request::is('outsource_performance_report') ? 'active' : ''}}"><a
+                        href="{{ route('outsource_performance_report')}}">Outsource Performance Report</a>
+                </li>
+                <li class="{{ Request::is('truck.free_trucks') ? 'active' : ''}}"><a
+                        href="{{ route('truck.free_trucks')}}">Free Trucks and Drivers</a>
+                </li>
 
             </ul>
 

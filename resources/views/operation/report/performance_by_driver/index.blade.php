@@ -111,14 +111,21 @@
             </tbody>
         </table>
 
-        @endsection @section('javascript')
+        @endsection
+
+        @section('javascript')
         <script src="{{ asset('js/jquery.dataTables.min.js') }}">
         </script>
         <script>
             $( document ).ready( function () {
 				$( '#drivers' ).DataTable();
 
-// $('#startDate').datepicker()
-			} );
+                    $('#driver').select2({
+                        placeholder: "Select Driver Name",
+                        allowClear: true
+                         });
+
+                });
+
         </script>
         @endsection

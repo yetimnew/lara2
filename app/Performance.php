@@ -60,6 +60,10 @@ class Performance extends Model
     {
         return $this->belongsTo('App\Place');
     }
+    public function vehecletype()
+    {
+        return $this->belongsTo('App\Operation');
+    }
 
     public function driver_truck()
     {

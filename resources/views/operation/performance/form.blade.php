@@ -136,46 +136,56 @@
                 <span class="invalid-feedback" role="alert"></span>
             </div>
         </div>
-        <div class="form-group required">
-            <label class="control-label">Origion Place</label>
-            <select name="origion" class="form-control{{ $errors->has('origion') ? ' is-invalid' : '' }} select"
-                id="origion" onfocusout="validateOrigion()">
-                <option class="dropup" value=""> Select One</option>
-                @foreach ($place as $operation)
-                <option class="dropup"
-                    value="{{ $operation->id}}  @if(old('origion') == $operation->id) {{ 'selected' }} @endif"
-                    {{$operation->id == $performance->orgion_id ? 'selected' : '' }}> {{ $operation->name}} </option>
-                @endforeach
-            </select>
-            @if ($errors->has('origion'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('origion') }}</strong>
-            </span>
-            @endif
-            <span class="invalid-feedback" role="alert"></span>
-        </div>
-        <div class="form-group required">
-            <label class="control-label">Destination Place</label>
-            <select name="destination"
-                class="form-control {{ $errors->has('destination') ? ' is-invalid' : '' }} select" id="destination"
-                onfocusout="validateDestination()">
-                <option class="dropup" value=""> Select One</option>
-                @foreach ($place as $operation)
-                <option class="dropup" value="{{$operation->id}}"
-                    {{$operation->id == $performance->destination_id ? 'selected' : '' }}> {{$operation->name}}
-                </option>
-                @endforeach
-            </select>
-            @if ($errors->has('destination'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('destination') }}</strong>
-            </span>
-            @endif
-            <span class="invalid-feedback" role="alert"></span>
-        </div>
 
-        <button type="button" id="viewDistance">Calculate Distance</button> <span class="badge badge-dark"
-            id="something"></span>
+            <div class="form-group required">
+                <label class="control-label">Origion Place</label>
+                <select name="origion" class="form-control{{ $errors->has('origion') ? ' is-invalid' : '' }} select origin_place"
+                    id="origion" onfocusout="validateOrigion()">
+                    <option class="dropup"> </option>
+                    @foreach ($place as $operation)
+                    <option class="dropup"
+                        value="{{ $operation->id}}  @if(old('origion') == $operation->id) {{ 'selected' }} @endif"
+                        {{$operation->id == $performance->orgion_id ? 'selected' : '' }}> {{ $operation->name}} </option>
+                    @endforeach
+                </select>
+                @if ($errors->has('origion'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('origion') }}</strong>
+                </span>
+                @endif
+                <span class="invalid-feedback" role="alert"></span>
+            </div>
+
+            <div class="form-group required">
+                <label class="control-label">Destination Place</label>
+                <select name="destination"
+                    class="form-control {{ $errors->has('destination') ? ' is-invalid' : '' }} select destination_place" id="destination"
+                    onfocusout="validateDestination()">
+                    <option class="dropup"> </option>
+                    @foreach ($place as $operation)
+                    <option class="dropup" value="{{$operation->id}}"
+                        {{$operation->id == $performance->destination_id ? 'selected' : '' }}> {{$operation->name}}
+                    </option>
+                    @endforeach
+                </select>
+                @if ($errors->has('destination'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('destination') }}</strong>
+                </span>
+                @endif
+                <span class="invalid-feedback" role="alert"></span>
+            </div>
+
+
+
+
+    <div class="form-group required">
+        <div class="input-group">
+
+            <button type="button" id="viewDistance">Calculate Distance</button> <span class="badge badge-dark"  id="something"></span>
+        </div>
+            </div>
+
         <div class="form-group required">
             <label class="control-label">Distance with cargo</label>
             <div class="input-group">
@@ -310,12 +320,20 @@
         </fieldset>
 
         @section( 'javascript' )
-        <script src="{{ asset('js/jquery.dataTables.min.js') }}">
-        </script>
         <script>
-            $( document ).ready( function () {
-                $('#origion').select2();
-            });
+
+            // In your Javascript (external .js resource or <script> tag)
+                $(document).ready(function() {
+                    $('.origin_place').select2({
+                        placeholder: "Select Origin Place",
+                        allowClear: true
+                         });
+                    $('.destination_place').select2({
+                        placeholder: "Select Destination Place",
+                        allowClear: true
+                         });
+                });
+
             jQuery.datetimepicker.setDateFormatter('moment');
                  $("#ddate").datetimepicker({
                 timepicker:true,
@@ -358,11 +376,7 @@
                 const truck = document.getElementById( 'truck' );
                 const ddate = document.getElementById( 'ddate' );
                 const origion = document.getElementById( 'origion' );
-                // const orgionIndex = origion.options[origion.selectedIndex].value;
-
                 const destination = document.getElementById( 'destination' );
-                // const destinationIndex = destination.options[destination.selectedIndex].value;
-
                 const diswc = document.getElementById( 'diswc' );
                 const diswoc = document.getElementById( 'diswoc' );
                 const cargovol = document.getElementById( 'cargovol' );
@@ -400,8 +414,6 @@
 			return false;
 		}
     } );
-
-
 	// Validator functions
 	function newTonkm() {
 
@@ -575,12 +587,9 @@
 
 		}
 	}
-
-
         </script>
         <script>
             $.ajaxSetup({
-
                 headers: {
 
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -615,9 +624,6 @@
                    success:function(data){
                     $('#diswc').val(data);
                     $('#diswoc').val(data);
-                    // return data;
-                    // console.log(data)
-
                    },
                    error: function() {
             alert('Error occured');

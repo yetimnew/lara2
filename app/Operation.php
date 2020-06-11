@@ -10,16 +10,20 @@ use Illuminate\Database\Eloquent\Model;
 class Operation extends Model
 {
 
-    protected $gurded=[];
-    protected $dates = ['startdate','enddate','deleted_at'];
+    protected $gurded = [];
+    protected $dates = ['startdate', 'enddate', 'deleted_at'];
 
     public function scopeActive($query)
     {
-        return $query->where("status", "=",1);
+        return $query->where("status", "=", 1);
     }
     public function scopeClosed($query)
     {
-        return $query->where("closed", "=",1);
+        return $query->where("closed", 0);
+    }
+    public function scopeOpen($query)
+    {
+        return $query->where("closed", "=", 1);
     }
 
     public function customer()

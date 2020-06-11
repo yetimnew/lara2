@@ -16,7 +16,11 @@ class OutsourcePerformanceController extends Controller
 {
     public function index()
     {
-        $osperformances =  Outsource_performance::orderBy('created_at', 'DESC')->get();
+        $osperformances =  Outsource_performance::with('operation')
+            ->with('orgion')
+            ->with('destination')
+            ->orderBy('DateDispach', 'DESC')
+            ->get();
         return view('operation.osperformance.index')
             ->with('osperformances', $osperformances);
     }
@@ -24,6 +28,7 @@ class OutsourcePerformanceController extends Controller
     public function create()
     {
         $osperformance =  new  Outsource_performance;
+        $outsource =  Outsource::active()->get();
         $osperformanceold =  Outsource_performance::active()->get();
         $operations =  Operation::active()->where('closed', '=', 1)->get();
         $place = Place::active()->orderBy('name')->get();
@@ -39,7 +44,7 @@ class OutsourcePerformanceController extends Controller
             Session::flash('info', 'You must have some Operation  before attempting to create Performance');
             return redirect()->route('operation.create');
         }
-        if ($osperformanceold->count() <= 0) {
+        if ($outsource->count() <= 0) {
             Session::flash('info', 'You must have some Outsource  before attempting to create oustsource Performance');
             return redirect()->route('outsource.create');
         }

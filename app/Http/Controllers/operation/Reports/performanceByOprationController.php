@@ -28,13 +28,15 @@ class performanceByOprationController extends Controller
                 'operations.status',
                 'operations.tariff',
                 DB::raw('SUM(performances.CargoVolumMT) as Tone'),
+                // DB::raw('SUM(outsource_performances.CargoVolumMT) as ostone'),
 
             )
             ->leftjoin('customers', 'operations.customer_id', '=', 'customers.id')
             ->leftjoin('performances', 'performances.operation_id', '=', 'operations.id')
+            // ->leftjoin('outsource_performances', 'outsource_performances.operation_id', '=', 'operations.id')
             ->groupBy('operations.id')
             ->get();
-
+        // dd($operationsReport);
         $osoperationsReport = DB::table('operations')
             ->select(
                 'operations.id',

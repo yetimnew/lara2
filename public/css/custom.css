@@ -177,3 +177,47 @@ table.dataTable tbody td {
 .form-group {
     margin-bottom: 0.25rem;
 }
+
+.form-group>.select2-container--bootstrap {
+    width: auto;
+    flex: 1 1 auto;
+}
+
+.form-group>.select2-container--bootstrap .select2-selection--single {
+    height: 100%;
+    line-height: inherit;
+    padding: 0.5rem 1rem;
+}
+
+.form-check {
+    position: relative;
+    display: block;
+    padding-left: 1.875rem;
+}
+
+.form-check:not(.form-check-inline) {
+    margin-bottom: .5rem;
+}
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+.form-check .uniform-checker,
+.form-check .uniform-choice {
+    position: absolute;
+    top: .00002rem;
+    left: 0;
+}
+
+.uniform-checker,
+.uniform-checker input,
+.uniform-checker span,
+.uniform-choice,
+.uniform-choice input,
+.uniform-choice span {
+    width: 1.25rem;
+    height: 1.25rem;
+}

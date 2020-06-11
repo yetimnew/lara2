@@ -17,28 +17,28 @@ class Truck extends Model
         'vehecletype_id',
         'chasisNumber',
         'engineNumber',
-        'tyreSyze', 
+        'tyreSyze',
         'serviceIntervalKM',
-        'purchasePrice', 
+        'purchasePrice',
         'productionDate',
         'serviceStartDate',
         'status',
         'created_at',
         'updated_at',
     ];
-    protected $dates =['productionDate','serviceStartDate','deleted_at'];
-   
+    protected $dates = ['productionDate', 'serviceStartDate', 'deleted_at'];
+
     public function drivers()
-    
+
     {
-        return $this->belongsToMany('App\Driver', 'driver_truck','driver_id','truck_id');
+        return $this->belongsToMany('App\Driver');
     }
 
     public function performances()
     {
         return $this->hasMany('App\Performance');
     }
-   
+
     public function vehecletype()
     {
         return $this->belongsTo('App\Vehecletype');
@@ -46,11 +46,6 @@ class Truck extends Model
 
     public function scopeActive($query)
     {
-      return $query->where('status',1);
+        return $query->where('status', 1);
     }
-
-
-
-    
-
 }

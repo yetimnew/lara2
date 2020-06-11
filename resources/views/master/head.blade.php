@@ -27,4 +27,5 @@
     <link rel="stylesheet" href="{{asset('/css/jquery.datetimepicker.css')}}">
     <link rel="stylesheet" href="{{asset('/css/jquery.dataTables.min.css')}}">
     <link rel="stylesheet" href="{{asset('/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/select2-bootstrap.min.css')}}">
     @yield('styles')

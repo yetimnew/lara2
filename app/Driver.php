@@ -33,9 +33,9 @@ class Driver extends Model
     }
     public function trucks()
     {
-        return $this->belongsToMany('App\Truck','driver_truck','driver_id', 'truck_id');
+        return $this->belongsToMany('App\Truck');
     }
-    
+
 
     public function performances()
     {
@@ -43,11 +43,10 @@ class Driver extends Model
     }
     public function scopeActive($query)
     {
-      return $query->where('status',1);
+        return $query->where('status', 1);
     }
     public function getNameAttribute($value)
     {
         return  ucwords($value);
     }
-    
 }

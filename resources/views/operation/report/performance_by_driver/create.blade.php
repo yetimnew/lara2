@@ -60,7 +60,7 @@
                     <td class='m-1 p-1 text-right'>{{ number_format( $td->perdiem,2)}}</td>
                     <td class='m-1 p-1 text-right'>{{ number_format( $td->workOnGoing,2)}}</td>
                     <td class='m-1 p-1 text-right'>{{ number_format( $td->other,2)}}</td>
-                    <td class='m-1 p-1 text-right'>{{ number_format( $td->totalexpense,2)}}</td>
+                    <td class='m-1 p-1 text-right'>{{ number_format( ( $td->perdiem +  $td->fB + $td->workOnGoing +  $td->other)  ,2)}}</td>
                     <td class='m-1 p-1 text-right'>{{ number_format( $td->revenu,2)}}</td>
 
 

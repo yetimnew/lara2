@@ -82,9 +82,6 @@ class PlaceController extends Controller
         return redirect()->route('place');
     }
 
-
-
-
     public function destroy($id)
     {
         $place = Place::findOrFail($id);

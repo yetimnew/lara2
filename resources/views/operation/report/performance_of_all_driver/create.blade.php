@@ -49,7 +49,7 @@
                 <tr>
                     <td class='m-1 p-1 text-center'>{{++$no}}</td>
                     <td class='m-1 p-1'>{{$td->driver_name}}</td>
-                    <td class='m-1 p-1'>{{$td->td_plate}}</td>
+                    <td class='m-1 p-1'>{{$td->td_plate}}-{{ Str::limit($td->model ,2)}}</td>
                     <td class='m-1 p-1 text-right'>{{$td->trip}}</td>
                     <td class='m-1 p-1 text-right'>{{ number_format( $td->tone,2)}}</td>
                     <td class='m-1 p-1 text-right'>{{ number_format( $td->tonkm,2)}}</td>

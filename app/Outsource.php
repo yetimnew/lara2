@@ -6,8 +6,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class Outsource extends Model
 {
-    protected $guarded = [];
-    protected $dates = ['deleted_at'];
+    protected $fillable =
+     [
+     'id',
+    'trip',
+    'LoadType',
+    'fonumber',
+    'operation_id',
+    'driver_name',
+    'plate_number',
+    'DateDispach',
+    'orgion_id',
+    'destination_id',
+    'tonkm',
+    'tariff',
+    'DistanceWCargo',
+    'DistanceWOCargo',
+    'CargoVolumMT',
+    'comment',
+    'satus',
+
+     ];
+    protected $dates = ['deleted_at','DateDispach'];
     public function operations()
     {
         return $this->hasMany('App\Operation');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\PerformanceChart;
 use App\Place;
 use App\Truck;
 use App\Driver;
@@ -9,6 +10,7 @@ use App\Distance;
 use App\Operation;
 use Carbon\Carbon;
 use App\Performance;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -16,13 +18,13 @@ use Illuminate\Support\Facades\Session;
 use App\Notifications\PerformanceCreated;
 use App\Http\Requests\PerformanceCreateRequest;
 use App\Http\Requests\PerformanceUpdateRequest;
-use Yajra\DataTables\Contracts\DataTable;
-use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Notifications\Notification;
 
 class PerformanceController extends Controller
 {
     public function index()
     {
+
 
 
         $performances =  DB::table('performances')
@@ -89,7 +91,6 @@ class PerformanceController extends Controller
             return redirect()->route('operation.create');
         }
 
-
         return view('operation.performance.create')
             ->with('operations', $operations)
             ->with('trucks', $trucks)
@@ -124,10 +125,17 @@ class PerformanceController extends Controller
         $performance->user_id = Auth::user()->id;
 
         $performance->save();
-        auth()->user()->notify(new PerformanceCreated);
+        $unreturended = Performance::where('driver_truck_id', '=', $performance->driver_truck_id)->where('is_returned', '=', 0)->get();
+        if ($unreturended->count() > 0) {
+            Session::flash('error', 'This Truck Or Driver is not returned yet. Don not forget to return');
+            return redirect()->route('performace');
+        } else {
 
-        Session::flash('success', 'Performance  registerd successfuly');
-        return redirect()->route('performace');
+            Session::flash('success', 'Performance  registerd successfuly');
+            return redirect()->route('performace');
+        }
+
+        auth()->user()->notify(new PerformanceCreated);
     }
 
 
@@ -318,8 +326,11 @@ class PerformanceController extends Controller
     }
     public function despach_data_and_retun_date_diff_store(Request $request)
     {
-        $start = $request->input('startDate');
-        $end = $request->input('endDate');
+        $start1 = $request->input('startDate');
+        $start =  $start1 . ' 00:00:00';
+
+        $end1 = $request->input('endDate');
+        $end = $end1 . ' 23:59:59';
 
         $diff = abs(strtotime($end) - strtotime($start));
 
@@ -331,7 +342,8 @@ class PerformanceController extends Controller
         if ($end >= $start) {
 
             $number =  $request->input('number');
-            $performances = Performance::whereBetween('DateDispach', [$start, $end])
+            $performances = Performance::with('orgion')->with('destination')->with('driver_truck')
+                ->whereBetween('DateDispach', [$start, $end])
                 ->orderBy('DateDispach', 'DESC')->limit($number ? $number : 15)->get();
             return view('operation.performance.dipachreturnstore')
                 ->with('start', $start)
@@ -366,5 +378,11 @@ class PerformanceController extends Controller
             ->orderBy('performances.created_at', 'DESC')
             ->get();
         return DataTables($performances)->make(true);
+    }
+    public function forchart()
+    {
+        $pr = Performance::all();
+        $chart = new PerformanceChart;
+        return view('operation.performance.dipachreturnstore')->with('chart', $chart);
     }
 }

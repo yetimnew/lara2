@@ -6,6 +6,7 @@ Route::group(['middleware' => ['auth']], function () {
     //Dashbord
     Route::get('/', 'DashbordController@index');
     Route::get('/home', 'DashbordController@index')->name('home');
+    Route::get('/driverdashboard', 'DriverDashbordController@index')->name('driver');
     Route::get('/get-post-chart-data', 'DashbordController@getMonthlyPostData')->name('dashboard.show');
     // Route::get('/mukera', 'DashbordController@monthlyperformance')->name('mukera');
     Route::get('/markasread', function () {
@@ -49,6 +50,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/truck/deactivate/{id}',  ['uses' => 'TruckController@deactivate', 'as' => 'truck.deactivate'])->middleware('permission:truck deactivate');;
     Route::post('/truck/update/{id}',     ['uses' => 'TruckController@update', 'as' => 'truck.update']);
     Route::delete('/truck/destroy/{id}',  ['uses' => 'TruckController@destroy', 'as' => 'truck.destroy'])->middleware('permission:truck delete');;
+    Route::get('/free_trucks',                  ['uses' => 'TruckController@freeTrucks', 'as' => 'truck.free_trucks']);
 
     // Truck
     Route::get('/vehecletype',              ['uses' => 'VehecleController@index', 'as' => 'vehecletype']);
@@ -158,7 +160,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/osperformance/update/{id}',                       ['uses' => 'OutsourcePerformanceController@update', 'as' => 'osperformance.update']);
     Route::delete('/osperformance/destroy/{id}',                       ['uses' => 'OutsourcePerformanceController@destroy', 'as' => 'osperformance.destroy']);
 
-
     // statusType
     Route::get('/distance',                                    ['uses' => 'DistanceController@index', 'as' => 'distance']);
     Route::get('/distance/create',                             ['uses' => 'DistanceController@create', 'as' => 'distance.create']);
@@ -189,7 +190,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/performance_by_truck/store',              ['uses' => 'operation\Reports\PerformanceByTruckController@store', 'as' => 'performance_by_truck.store']);
     Route::get('/performance_by_truck/alltrucks',             ['uses' => 'operation\Reports\PerformanceByTruckController@all_trucks', 'as' => 'performance_by_truck.alltrucks']);
     Route::post('/performance_by_truck/alltruckssearch',             ['uses' => 'operation\Reports\PerformanceByTruckController@all_trucks_by_date', 'as' => 'performance_by_truck.all_trucks_search']);
+    // Peformance of Report
+    Route::get('/performanceall',                     ['uses' => 'operation\Reports\PerformanceAllContoller@index', 'as' => 'performanceall']);
+    Route::get('/performanceall/create',              ['uses' => 'operation\Reports\PerformanceAllContoller@create', 'as' => 'performanceall.create']);
+    Route::post('/performanceall/store',              ['uses' => 'operation\Reports\PerformanceAllContoller@store', 'as' => 'performanceall.store']);
 
+    // OUT SOURCE PERFORMANCE REPORT
+    Route::get('/outsource_performance_report',                                    ['uses' => 'operation\Reports\OutsourcePerformanceReportController@index', 'as' => 'outsource_performance_report']);
+    Route::get('/outsource_performance_report/create',                             ['uses' => 'operation\Reports\OutsourcePerformanceReportController@create', 'as' => 'outsource_performance_report.create']);
+    Route::post('/outsource_performance_report/store',                             ['uses' => 'operation\Reports\OutsourcePerformanceReportController@store', 'as' => 'outsource_performance_report.store']);
 
     //report of the Operations and therir stattus
     Route::get('/performance_by_opration',                     ['uses' => 'operation\Reports\performanceByOprationController@index', 'as' => 'performance_by_opration']);

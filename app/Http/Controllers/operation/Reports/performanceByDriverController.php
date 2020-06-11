@@ -13,7 +13,7 @@ class performanceByDriverController extends Controller
 
     public function index()
     {
-        $drivers = DB::table('drivers')->orderBy('name', 'ASC')->get();
+        $drivers = DB::table('drivers')->where('status', 1)->orderBy('name', 'ASC')->get();
         $tds = DB::table('performances')
             ->select(
                 'driver_truck.driverid AS driverid',
@@ -83,7 +83,7 @@ class performanceByDriverController extends Controller
                     DB::raw('SUM(performances.perdiem) as perdiem'),
                     DB::raw('SUM(performances.workOnGoing) as workOnGoing'),
                     DB::raw('SUM(performances.other) as other'),
-                    DB::raw('SUM(performances.fuelInBirr + performances.perdiem + performances.workOnGoing + performances.other  ) as totalexpense'),
+                    // DB::raw('SUM(performances.fuelInBirr + performances.perdiem + performances.workOnGoing + performances.other  ) as totalexpense'),
                     DB::raw('SUM(performances.tonkm * operations.tariff) as revenu'),
 
                 )

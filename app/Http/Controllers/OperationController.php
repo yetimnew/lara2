@@ -18,7 +18,7 @@ class OperationController extends Controller
 
     public function index()
     {
-        $operations = Operation::active()->orderBy('created_at', 'DESC')->get();
+        $operations = Operation::active()->orderBy('updated_at', 'DESC')->get();
         return view('operation.operation.index')->with('operations', $operations);
     }
 
@@ -107,8 +107,7 @@ class OperationController extends Controller
         // $operation = Operation::where('id', '=', $id)->first();
         $performance =  DB::table('performances')
             ->select(
-                'performances.trip',
-                DB::raw('count(performances.trip) as trip'),
+                DB::raw('SUM(performances.trip) as trip'),
                 DB::raw('SUM(performances.CargoVolumMT) as mt'),
                 DB::raw('SUM(performances.tonkm) as tonekm'),
                 DB::raw('SUM(performances.DistanceWCargo) as dwc'),
@@ -122,10 +121,38 @@ class OperationController extends Controller
             ->where('performances.operation_id', $operation->id)
             ->first();
 
-        // dd( $performance);
+        $outsource_performance =  DB::table('outsource_performances')
+            ->select(
+                // 'outsource_performances.trip',
+                DB::raw('SUM(outsource_performances.trip) as trip'),
+                DB::raw('SUM(outsource_performances.CargoVolumMT) as mt'),
+                DB::raw('SUM(outsource_performances.tonkm) as tonekm'),
+                DB::raw('SUM(outsource_performances.DistanceWCargo) as dwc'),
+                DB::raw('SUM(outsource_performances.DistanceWOCargo) as dwoc'),
+                DB::raw('SUM(outsource_performances.tonkm * outsource_performances.tariff) as revenue')
+
+            )
+            ->LEFTJOIN('operations', 'operations.id', '=', 'outsource_performances.operation_id')
+            ->where('outsource_performances.operation_id', $operation->id)
+            ->first();
+
+            $outsource_performance_km =  DB::table('outsource_performances')
+            ->select(
+                DB::raw('SUM(outsource_performances.DistanceWCargo) as dwc'),
+                DB::raw('SUM(outsource_performances.DistanceWOCargo) as dwoc'),
+
+            )
+            ->LEFTJOIN('operations', 'operations.id', '=', 'outsource_performances.operation_id')
+            ->where('outsource_performances.operation_id', $operation->id)
+            ->Where('outsource_performances.trip',1)
+            ->first();
+
+        // dd( $outsource_performance);
 
         return view('operation.operation.show')
             ->with('performance', $performance)
+            ->with('outsource_performance', $outsource_performance)
+            ->with('outsource_performance_km', $outsource_performance_km)
             ->with('operation', $operation);
     }
 

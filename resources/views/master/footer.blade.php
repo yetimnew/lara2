@@ -20,6 +20,7 @@
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{asset('js/jquery.min.js') }}"> </script>
 
+<script src="{{ asset('js/select2.min.js') }}"> </script>
 <script src="{{ asset('js/jquery.dataTables.min.js') }}"> </script>
 <script src="{{ asset('js/dataTables.buttons.min.js') }}"> </script>
 <script src="{{ asset('js/buttons.flash.min.js') }}"> </script>
@@ -36,7 +37,7 @@
 {{-- <!-- <script src="{{ asset('js/jquery.validate.js') }}" > </script> --}}
 <script src="{{ asset('js/jquery.validate.min.js') }}"> </script> -->
 <script src="{{ asset('js/custome_validation.js') }}"> </script>
-<script src="{{ asset('js/select2.min.js') }}"> </script>
+<script src="{{ asset('js/Chart.min.js') }}"> </script>
 
 <script>
     @if (Session::has('success'))

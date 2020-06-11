@@ -109,7 +109,8 @@
                     </div>
 
                     <div class="text">
-                        <strong id="totalTone">{{number_format($totalTone - $upliftedTone,2)}}</strong><br>
+                        <strong
+                            id="totalTone">{{number_format($totalTone - ($upliftedTone +  $outsourceupliftedTone),2)}}</strong><br>
                         Remaining Tone
                     </div>
                 </div>
@@ -189,7 +190,7 @@
                 <div class="work-amount card">
                     <div class="card-body">
                         <div class="text-justify">
-                            <h4 class="text-center" m-2>Operational Status </h4>
+                            <h4 class="text-center  m-2"> ERTE Operational Status </h4>
                         </div>
                         <div class="table-responsive">
                             <table id="trucks" class="table table-hover table-bordered">
@@ -206,8 +207,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no = 0 ?> @if ($operationsReport->count()> 0) @foreach ($operationsReport as
-                                    $td)
+                                    <?php $no = 0 ?> @if ($operationsReport->count()> 0)
+                                    @foreach ($operationsReport as $td)
                                     <tr>
                                         <td class='m-1 p-1'>{{++$no}}</td>
                                         <td class='m-1 p-1'>{{$td->operationid}}</td>
@@ -281,6 +282,46 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="work-amount card">
+                            <div class="card-body">
+                                <div class="text-justify">
+                                    <h4 class="text-center  m-2"> Outsource Operational Status </h4>
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="trucks" class="table table-hover table-bordered">
+                                        <thead class="p-0">
+                                            <tr class="bg-info text-white p-0">
+                                                <th>S/No</th>
+                                                <th>Operation ID</th>
+                                                <th>Customer Name</th>
+                                                <th>Trip</th>
+                                                <th> Lifted Tone </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $no = 0 ?> @if ($outsource_operationsReport->count()> 0)
+                                            @foreach ($outsource_operationsReport as $td)
+                                            <tr>
+                                                <td class='m-1 p-1'>{{++$no}}</td>
+                                                <td class='m-1 p-1'>{{$td->operationid}}</td>
+                                                <td class='m-1 p-1'>{{$td->name}}</td>
+                                                <td class='m-1 p-1'>{{$td->osfo}}</td>
+                                                <td class='m-1 p-1 text-right'>{{number_format($td->osTone,2)}}</td>
+
+
+                                            </tr>
+
+                                            @endforeach @else
+                                            <tr>
+                                                <td class='m-1 p-1 text-center' colspan="12">No Data Avilable</td>
+                                            </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -294,27 +335,28 @@
                 <div class="col-lg-4">
                     <div class="work-amount card">
                         <div class="card-close">
-                            <div class="dropdown">
-                                <button type="button" id="closeCard1" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false" class="dropdown-toggle"><i
-                                        class="fa fa-ellipsis-v"></i></button>
-                                <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow">
-                                    <a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a><a
-                                        href="#" class="dropdown-item edit"> <i class="fa fa-gear"></i>Edit</a></div>
-                            </div>
+
                         </div>
                         <div class="card-body">
-                            <h3>Todays Status</h3><small></small>
+                            <h3>Todays ERTE Status</h3><small></small>
                             @foreach ($daylyupliftedtonage as $today)
-                            <div class="text">
-                                <strong> 1. Uplifted Ton: {{number_format($today->ton,2)}}</strong>
-                            </div>
-                            <div class="text">
-                                <strong> 2. Number Of Trips: {{number_format($today->trip,2)}}</strong>
-                            </div>
-                            <div class="text">
-                                <strong> 3. Ton KMe: {{number_format($today->tonkm,2)}}</strong>
-                            </div>
+
+                            <h5> 1. Uplifted Ton: <span class="text-right">{{number_format($today->ton,2)}}</span></h5>
+
+                            <h5> 2. Number Of Trips: <span class="text-right">{{number_format($today->trip,2)}}</span>
+                            </h5>
+
+                            <h5> 3. Ton KMe: <span class="text-right">{{number_format($today->tonkm,2)}}</span></h5>
+                            @endforeach
+
+                            <h3 class="py-3">Todays Outsource Status</h3><small></small>
+                            @foreach ($daylyupliftedtonageoutsource as $os)
+
+                            <h5> 1. Uplifted Ton: <span class="text-right">{{number_format($os->ton,2)}}</span> </h5>
+
+                            <h5> 2. Number Of Trips: <span class="text-right">{{number_format($os->trip,2)}}</span></h5>
+
+                            <h5> 3. Ton KMe: <span class="text-right">{{number_format($os->tonkm,2)}}</span></h5>
                             @endforeach
 
                         </div>
@@ -350,55 +392,9 @@
             <div class="row">
                 <!-- Work Amount  -->
                 <div class="col-lg-8">
-                    <div class="work-amount card">
-                        <div class="card-body">
-                            <div class="text-justify">
-                                <h4 class="text-center" m-2>Operational Status </h4>
-                            </div>
-                            <div class="table-responsive">
-                                <table id="trucks" class="table table-hover table-bordered">
-                                    <thead class="p-0">
-                                        <tr class="bg-info text-white p-0">
-                                            <th>S/No</th>
-                                            <th>Operation ID</th>
-                                            <th>Customer Name</th>
-                                            <th>Trip</th>
-                                            <th>Cargo Volume</th>
-                                            <th>Lifted Tone </th>
-                                            <th>Remaining Tone</th>
-                                            <th>%</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $no = 0 ?> @if ($operationsReport->count()> 0) @foreach ($operationsReport
-                                        as
-                                        $td)
-                                        <tr>
-                                            <td class='m-1 p-1'>{{++$no}}</td>
-                                            <td class='m-1 p-1'>{{$td->operationid}}</td>
-                                            <td class='m-1 p-1'>{{$td->name}}</td>
-                                            <td class='m-1 p-1'>{{$td->fo}}</td>
-                                            <td class='m-1 p-1 text-right'>{{number_format($td->Tone_Given,2)}}</td>
-                                            <td class='m-1 p-1 text-right'>{{number_format($td->Tone,2)}}</td>
-                                            <td class='m-1 p-1 text-right'>
-                                                {{number_format($td->Tone_Given - $td->Tone,2)}}
-                                            </td>
-                                            <td class='m-1 p-1'>{{number_format($td->Tone/$td->Tone_Given ,2)*100}}%
-                                            </td>
 
-                                        </tr>
+                    {!! $charts->container()!!}
 
-                                        @endforeach @else
-                                        <tr>
-                                            <td class='m-1 p-1 text-center' colspan="12">No Data Avilable</td>
-                                        </tr>
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Total Overdue             -->
@@ -429,7 +425,8 @@
     @section('javascript')
     <script src="{{ asset('js/Chart.bundle.js') }}"></script>
     <script src="{{ asset('js/Chart.min.js') }}"></script>
-    {{-- <script src="{{ asset('js/create-charts.js') }}"></script> --}}
+    {!! $charts->script()!!}
+
     <script>
         (function ($) {
 
@@ -490,17 +487,22 @@ var charts = {
 							unit: 'date'
 						},
 						gridLines: {
-							display: false
+							display: true
 						},
 						ticks: {
-							maxTicksLimit: 7
+							maxTicksLimit: 12
 						}
 					}],
 					yAxes: [{
 						ticks: {
 							min: 0,
 							max: response.max, // The response got from the ajax request containing max limit for y axis
-							maxTicksLimit: 5
+                            maxTicksLimit: 5,
+                            beginAtZero: true,
+                            userCallback: function(value, index, values) {
+                                return value.toLocaleString();   // this is all we need
+                            }
+
 						},
 						gridLines: {
 							color: "rgba(0, 0, 0, .125)",
@@ -518,5 +520,11 @@ var charts = {
 charts.init();
 
 })(jQuery);
+
+    </script>
+    <script>
+        setTimeout(function(){
+           parent.location.reload(1);
+        }, 180000);
     </script>
     @endsection

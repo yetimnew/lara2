@@ -205,6 +205,7 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
             'League\\Fractal\\' => 15,
             'League\\Flysystem\\' => 17,
             'Laravel\\Tinker\\' => 15,
+            'LaravelDaily\\LaravelCharts\\' => 27,
         ),
         'J' => 
         array (
@@ -244,6 +245,7 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
         'C' => 
         array (
             'Cron\\' => 5,
+            'ConsoleTVs\\Charts\\' => 18,
             'Complex\\' => 8,
             'Collective\\Html\\' => 16,
             'Clue\\React\\Buzz\\' => 16,
@@ -254,6 +256,7 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
             'BeyondCode\\LaravelWebSockets\\' => 29,
             'BeyondCode\\DumpServer\\' => 22,
             'Barryvdh\\Debugbar\\' => 18,
+            'Balping\\JsonRaw\\' => 16,
         ),
         'A' => 
         array (
@@ -540,6 +543,10 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
         ),
+        'LaravelDaily\\LaravelCharts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laraveldaily/laravel-charts/src',
+        ),
         'JakubOnderka\\PhpConsoleHighlighter\\' => 
         array (
             0 => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src',
@@ -612,6 +619,10 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
         ),
+        'ConsoleTVs\\Charts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/consoletvs/charts/src',
+        ),
         'Complex\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
@@ -639,6 +650,10 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
         'Barryvdh\\Debugbar\\' => 
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src',
+        ),
+        'Balping\\JsonRaw\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/balping/json-raw-encoder/src',
         ),
         'App\\' => 
         array (
@@ -694,6 +709,7 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
         'App\\Http\\Controllers\\DriverController' => __DIR__ . '/../..' . '/app/Http/Controllers/DriverController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\OperationController' => __DIR__ . '/../..' . '/app/Http/Controllers/OperationController.php',
+        'App\\Http\\Controllers\\OutsourceController' => __DIR__ . '/../..' . '/app/Http/Controllers/OutsourceController.php',
         'App\\Http\\Controllers\\OutsourcePerformanceController' => __DIR__ . '/../..' . '/app/Http/Controllers/OutsourcePerformanceController.php',
         'App\\Http\\Controllers\\PerformanceController' => __DIR__ . '/../..' . '/app/Http/Controllers/PerformanceController.php',
         'App\\Http\\Controllers\\PermissionController' => __DIR__ . '/../..' . '/app/Http/Controllers/PermissionController.php',
@@ -711,6 +727,7 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
         'App\\Http\\Controllers\\operation\\Reports\\performanceByModelController' => __DIR__ . '/../..' . '/app/Http/Controllers/operation/Reports/performanceByModelController.php',
         'App\\Http\\Controllers\\operation\\Reports\\performanceByOprationController' => __DIR__ . '/../..' . '/app/Http/Controllers/operation/Reports/performanceByOprationController.php',
         'App\\Http\\Controllers\\operation\\Reports\\performanceByStatusController' => __DIR__ . '/../..' . '/app/Http/Controllers/operation/Reports/performanceByStatusController.php',
+        'App\\Http\\Controllers\\operation\\Reports\\performanceByTruckDriverAttachDettachDate' => __DIR__ . '/../..' . '/app/Http/Controllers/operation/Reports/performanceByTruckDriverAttachDettachDate.php',
         'App\\Http\\Controllers\\operation\\Reports\\performanceOfAllDriverController' => __DIR__ . '/../..' . '/app/Http/Controllers/operation/Reports/performanceOfAllDriverController.php',
         'App\\Http\\Controllers\\profileController' => __DIR__ . '/../..' . '/app/Http/Controllers/profileController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -748,6 +765,9 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
         'App\\Truck' => __DIR__ . '/../..' . '/app/Truck.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\Vehecletype' => __DIR__ . '/../..' . '/app/Vehecletype.php',
+        'Balping\\JsonRaw\\Encoder' => __DIR__ . '/..' . '/balping/json-raw-encoder/src/Encoder.php',
+        'Balping\\JsonRaw\\Raw' => __DIR__ . '/..' . '/balping/json-raw-encoder/src/Raw.php',
+        'Balping\\JsonRaw\\Replacer' => __DIR__ . '/..' . '/balping/json-raw-encoder/src/Replacer.php',
         'Barryvdh\\Debugbar\\Console\\ClearCommand' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/Console/ClearCommand.php',
         'Barryvdh\\Debugbar\\Controllers\\AssetController' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/Controllers/AssetController.php',
         'Barryvdh\\Debugbar\\Controllers\\BaseController' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/Controllers/BaseController.php',
@@ -896,6 +916,34 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
         'Collective\\Html\\HtmlServiceProvider' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlServiceProvider.php',
         'Complex\\Complex' => __DIR__ . '/..' . '/markbaker/complex/classes/src/Complex.php',
         'Complex\\Exception' => __DIR__ . '/..' . '/markbaker/complex/classes/src/Exception.php',
+        'ConsoleTVs\\Charts\\ChartsServiceProvider' => __DIR__ . '/..' . '/consoletvs/charts/src/ChartsServiceProvider.php',
+        'ConsoleTVs\\Charts\\Classes\\BaseChart' => __DIR__ . '/..' . '/consoletvs/charts/src/Classes/BaseChart.php',
+        'ConsoleTVs\\Charts\\Classes\\C3\\Chart' => __DIR__ . '/..' . '/consoletvs/charts/src/Classes/C3/Chart.php',
+        'ConsoleTVs\\Charts\\Classes\\C3\\Dataset' => __DIR__ . '/..' . '/consoletvs/charts/src/Classes/C3/Dataset.php',
+        'ConsoleTVs\\Charts\\Classes\\Chartjs\\Chart' => __DIR__ . '/..' . '/consoletvs/charts/src/Classes/Chartjs/Chart.php',
+        'ConsoleTVs\\Charts\\Classes\\Chartjs\\Dataset' => __DIR__ . '/..' . '/consoletvs/charts/src/Classes/Chartjs/Dataset.php',
+        'ConsoleTVs\\Charts\\Classes\\DatasetClass' => __DIR__ . '/..' . '/consoletvs/charts/src/Classes/DatasetClass.php',
+        'ConsoleTVs\\Charts\\Classes\\Echarts\\Chart' => __DIR__ . '/..' . '/consoletvs/charts/src/Classes/Echarts/Chart.php',
+        'ConsoleTVs\\Charts\\Classes\\Echarts\\Dataset' => __DIR__ . '/..' . '/consoletvs/charts/src/Classes/Echarts/Dataset.php',
+        'ConsoleTVs\\Charts\\Classes\\Frappe\\Chart' => __DIR__ . '/..' . '/consoletvs/charts/src/Classes/Frappe/Chart.php',
+        'ConsoleTVs\\Charts\\Classes\\Frappe\\Dataset' => __DIR__ . '/..' . '/consoletvs/charts/src/Classes/Frappe/Dataset.php',
+        'ConsoleTVs\\Charts\\Classes\\Fusioncharts\\Chart' => __DIR__ . '/..' . '/consoletvs/charts/src/Classes/Fusioncharts/Chart.php',
+        'ConsoleTVs\\Charts\\Classes\\Fusioncharts\\Dataset' => __DIR__ . '/..' . '/consoletvs/charts/src/Classes/Fusioncharts/Dataset.php',
+        'ConsoleTVs\\Charts\\Classes\\Highcharts\\Chart' => __DIR__ . '/..' . '/consoletvs/charts/src/Classes/Highcharts/Chart.php',
+        'ConsoleTVs\\Charts\\Classes\\Highcharts\\Dataset' => __DIR__ . '/..' . '/consoletvs/charts/src/Classes/Highcharts/Dataset.php',
+        'ConsoleTVs\\Charts\\Commands\\ChartsCommand' => __DIR__ . '/..' . '/consoletvs/charts/src/Commands/ChartsCommand.php',
+        'ConsoleTVs\\Charts\\Features\\C3\\Chart' => __DIR__ . '/..' . '/consoletvs/charts/src/Features/C3/Chart.php',
+        'ConsoleTVs\\Charts\\Features\\C3\\Dataset' => __DIR__ . '/..' . '/consoletvs/charts/src/Features/C3/Dataset.php',
+        'ConsoleTVs\\Charts\\Features\\Chartjs\\Chart' => __DIR__ . '/..' . '/consoletvs/charts/src/Features/Chartjs/Chart.php',
+        'ConsoleTVs\\Charts\\Features\\Chartjs\\Dataset' => __DIR__ . '/..' . '/consoletvs/charts/src/Features/Chartjs/Dataset.php',
+        'ConsoleTVs\\Charts\\Features\\Echarts\\Chart' => __DIR__ . '/..' . '/consoletvs/charts/src/Features/Echarts/Chart.php',
+        'ConsoleTVs\\Charts\\Features\\Echarts\\Dataset' => __DIR__ . '/..' . '/consoletvs/charts/src/Features/Echarts/Dataset.php',
+        'ConsoleTVs\\Charts\\Features\\Frappe\\Chart' => __DIR__ . '/..' . '/consoletvs/charts/src/Features/Frappe/Chart.php',
+        'ConsoleTVs\\Charts\\Features\\Frappe\\Dataset' => __DIR__ . '/..' . '/consoletvs/charts/src/Features/Frappe/Dataset.php',
+        'ConsoleTVs\\Charts\\Features\\Fusioncharts\\Chart' => __DIR__ . '/..' . '/consoletvs/charts/src/Features/Fusioncharts/Chart.php',
+        'ConsoleTVs\\Charts\\Features\\Fusioncharts\\Dataset' => __DIR__ . '/..' . '/consoletvs/charts/src/Features/Fusioncharts/Dataset.php',
+        'ConsoleTVs\\Charts\\Features\\Highcharts\\Chart' => __DIR__ . '/..' . '/consoletvs/charts/src/Features/Highcharts/Chart.php',
+        'ConsoleTVs\\Charts\\Features\\Highcharts\\Dataset' => __DIR__ . '/..' . '/consoletvs/charts/src/Features/Highcharts/Dataset.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
         'Cron\\DayOfMonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/DayOfMonthField.php',
@@ -2511,6 +2559,8 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
         'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/InvalidStyleException.php',
         'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src/Highlighter.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
+        'LaravelDaily\\LaravelCharts\\Classes\\LaravelChart' => __DIR__ . '/..' . '/laraveldaily/laravel-charts/src/Classes/LaravelChart.php',
+        'LaravelDaily\\LaravelCharts\\LaravelChartsServiceProvider' => __DIR__ . '/..' . '/laraveldaily/laravel-charts/src/LaravelChartsServiceProvider.php',
         'Laravel\\Tinker\\ClassAliasAutoloader' => __DIR__ . '/..' . '/laravel/tinker/src/ClassAliasAutoloader.php',
         'Laravel\\Tinker\\Console\\TinkerCommand' => __DIR__ . '/..' . '/laravel/tinker/src/Console/TinkerCommand.php',
         'Laravel\\Tinker\\TinkerCaster' => __DIR__ . '/..' . '/laravel/tinker/src/TinkerCaster.php',

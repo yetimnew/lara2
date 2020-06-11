@@ -51,7 +51,7 @@
 							@endif
 						</div>
 					</div>
-					
+
 					<div class="form-group row m-0">
 						<label class="col-form-label col-lg-4">Operation ID</label>
 						<div class="col-lg-8">
@@ -102,7 +102,7 @@
 							<h4 class="col-form-label m-0 ">{{$performance->destination->name}}</h4>
 						</div>
 					</div>
-			
+
 					<div class="form-group row m-0">
 						<label class="col-form-label col-lg-4 m-0">Distance with Cargo</label>
 						<div class="col-lg-8 m-0">
@@ -114,7 +114,9 @@
 						<div class="col-lg-8 m-0">
 							<h4 class="col-form-label m-0 ">{{number_format($performance->DistanceWOCargo,2)}}</h4>
 						</div>
-					</div>
+                    </div>
+
+
 					<div class="form-group row m-0">
 						<label class="col-form-label col-lg-4 m-0">Load by Tone</label>
 						<div class="col-lg-8 m-0">
@@ -129,7 +131,7 @@
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-12">
-			
+
 					<div class="form-group row m-0">
 						<label class="col-form-label col-lg-4 m-0">Fuel by Litter</label>
 						<div class="col-lg-8 m-0">
@@ -166,14 +168,14 @@
 							<h4 class="col-form-label m-0 ">{{number_format(($performance->workOnGoing + $performance->perdiem + $performance->fuelInBirr + $performance->other ), 2)}}</h4>
 						</div>
 					</div>
-					
+
 					<div class="form-group row m-0">
 						<label class="col-form-label col-lg-4 m-0">Revenue</label>
 						<div class="col-lg-8 m-0">
 							<h4 class="col-form-label m-0 ">{{number_format(($performance->operation->tariff * $performance->tonkm ), 2)}}</h4>
 						</div>
 					</div>
-					
+
 					<div class="form-group row m-0">
 						<label class="col-form-label col-lg-4">Current Status</label>
 						<div class="col-lg-8">
@@ -190,10 +192,10 @@
 						<label class="col-form-label col-lg-4">Returned Date</label>
 						<div class="col-lg-8">
 							<h4 class="col-form-label m-0 ">{{$performance->returned_date}}</h4>
-							
+
 						</div>
 					</div>
-			
+
 					<div class="form-group row m-0">
 						<label class="col-form-label col-lg-4">Returned After</label>
 						<div class="col-lg-8">
@@ -202,14 +204,7 @@
 						@else
 						<h4 class="col-form-label m-0 ">{{$difinday}} days or <span>{{$diffinhour}} hours </span> </h4>
 						@endif
-						
-						</h4>
-						</div>
-					</div>
-					<div class="form-group row m-0">
-						<label class="col-form-label col-lg-4 m-0">Total KM</label>
-						<div class="col-lg-8 m-0">
-						<h4 class="col-form-label m-0 ">{{number_format(($performance->DistanceWOCargo + $performance->DistanceWCargo),2) }}
+
 						</h4>
 						</div>
 					</div>
@@ -259,12 +254,12 @@
 
 				@can('performance delete')
 			<div class='m-1 p-1'>
-			<a href="javascript:;" data-toggle="modal" onclick="deleteData({{$performance->id}})" 
+			<a href="javascript:;" data-toggle="modal" onclick="deleteData({{$performance->id}})"
 				data-target="#DeleteModal" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
 			</div>
 			@endcan
 		</div>
-		</div>	
+		</div>
 	</div>
 </div>
 <!-- Button trigger modal -->
@@ -296,7 +291,7 @@
 	  </form>
 	</div>
    </div>
-  
+
 @endsection
 @section('javascript')
 <script>

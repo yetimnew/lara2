@@ -10,10 +10,12 @@
     "require": {
         "php": "^7.3.9",
         "beyondcode/laravel-websockets": "^1.4",
+        "consoletvs/charts": "6.*",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "laraveldaily/laravel-charts": "^0.1.18",
         "pusher/pusher-http-laravel": "^4.2",
         "pusher/pusher-php-server": "~3.0",
         "realrashid/sweet-alert": "^2.0",

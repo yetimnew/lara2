@@ -34,9 +34,9 @@
 					<thead>
 						<tr>
 							<th class="m-1 b-1" width="3%">No</th>
-							<th class="m-1 b-1">Origin ID </th>
+							{{-- <th class="m-1 b-1">Origin ID </th> --}}
 							<th class="m-1 b-1">Origin Name </th>
-							<th class="m-1 b-1"> Destination ID</th>
+							{{-- <th class="m-1 b-1"> Destination ID</th> --}}
 							<th class="m-1 b-1"> Destination Name</th>
 							<th class="m-1 b-1"> Distance KM</th>
 
@@ -57,9 +57,9 @@
 						<tr>
 
 							<td class='p-1'>{{++$no}}</td>
-							<td class='p-1'>{{$distance->origin_id}}</td>
+							{{-- <td class='p-1'>{{$distance->origin_id}}</td> --}}
 							<td class='p-1'>{{$distance->origin_name}}</td>
-							<td class='p-1'>{{$distance->destination_id}}</td>
+							{{-- <td class='p-1'>{{$distance->destination_id}}</td> --}}
 							<td class='p-1'>{{$distance->destination_name}}</td>
 							<td class='p-1 text-center'>{{$distance->km}}</td>
 

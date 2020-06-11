@@ -1,5 +1,50 @@
 [
     {
+        "name": "balping/json-raw-encoder",
+        "version": "v1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/balping/json-raw-encoder.git",
+            "reference": "c404b7fc0e04ddf5d298e53105c5fc306f523195"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/balping/json-raw-encoder/zipball/c404b7fc0e04ddf5d298e53105c5fc306f523195",
+            "reference": "c404b7fc0e04ddf5d298e53105c5fc306f523195",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^7.1"
+        },
+        "time": "2018-05-04T15:38:02+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Balping\\JsonRaw\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0-only"
+        ],
+        "authors": [
+            {
+                "name": "Balázs Dura-Kovács"
+            }
+        ],
+        "description": "Encode arrays to json with raw JS objects (eg. callbacks) in them",
+        "keywords": [
+            "callback",
+            "encode",
+            "json"
+        ]
+    },
+    {
         "name": "barryvdh/laravel-debugbar",
         "version": "v3.3.3",
         "version_normalized": "3.3.3.0",
@@ -327,6 +372,60 @@
             "http client",
             "psr-7",
             "reactphp"
+        ]
+    },
+    {
+        "name": "consoletvs/charts",
+        "version": "6.5.4",
+        "version_normalized": "6.5.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ConsoleTVs/Charts.git",
+            "reference": "524257b5d525666385bd2e91b06e376994a7b683"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ConsoleTVs/Charts/zipball/524257b5d525666385bd2e91b06e376994a7b683",
+            "reference": "524257b5d525666385bd2e91b06e376994a7b683",
+            "shasum": ""
+        },
+        "require": {
+            "balping/json-raw-encoder": "^1.0",
+            "illuminate/console": "^5.0|^6.0|^7.0",
+            "illuminate/support": "^5.0|^6.0|^7.0",
+            "php": ">=7.0"
+        },
+        "time": "2020-03-03T23:16:14+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "ConsoleTVs\\Charts\\ChartsServiceProvider"
+                ]
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "ConsoleTVs\\Charts\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Èrik Campobadal Forés",
+                "email": "soc@erik.cat"
+            }
+        ],
+        "description": "The laravel charting package",
+        "funding": [
+            {
+                "url": "https://www.patreon.com/ErikCampobadal",
+                "type": "patreon"
+            }
         ]
     },
     {
@@ -1666,6 +1765,48 @@
         ],
         "description": "HTML and Form Builders for the Laravel Framework",
         "homepage": "https://laravelcollective.com"
+    },
+    {
+        "name": "laraveldaily/laravel-charts",
+        "version": "0.1.18",
+        "version_normalized": "0.1.18.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/LaravelDaily/laravel-charts.git",
+            "reference": "6edaecf6d9983c71897c6c76727169745d6b38d2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/LaravelDaily/laravel-charts/zipball/6edaecf6d9983c71897c6c76727169745d6b38d2",
+            "reference": "6edaecf6d9983c71897c6c76727169745d6b38d2",
+            "shasum": ""
+        },
+        "time": "2020-05-18T11:17:50+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "LaravelDaily\\LaravelCharts\\LaravelChartsServiceProvider"
+                ]
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "LaravelDaily\\LaravelCharts\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Povilas Korop",
+                "email": "povilas@laraveldaily.com"
+            }
+        ],
+        "description": "Create charts and reports from Laravel"
     },
     {
         "name": "league/flysystem",

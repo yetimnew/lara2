@@ -49,7 +49,8 @@
                   @endauth
                 </ul>
               </li>
-              {{-- <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope-o"></i><span class="badge bg-orange badge-corner">10</span></a>
+              {{--
+                <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope-o"></i><span class="badge bg-orange badge-corner">10</span></a>
                 <ul aria-labelledby="notifications" class="dropdown-menu">
                   <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
                       <div class="msg-profile"> <img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
@@ -68,7 +69,8 @@
                       </div></a></li>
                   <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>Read all messages   </strong></a></li>
                 </ul>
-              </li> --}}
+              </li>
+               --}}
               <li class="nav-item"><a class="nav-link logout" href="{{ route('logout') }}" onclick="event.preventDefault();
             document.getElementById('logout-form').submit();"> <span class="d-none d-sm-inline">{{ __('Logout') }}
                   </span> <i class="fa fa-sign-out" aria-hidden="true"></i></a></li>

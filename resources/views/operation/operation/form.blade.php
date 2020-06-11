@@ -25,7 +25,7 @@
                     class="form-control {{ $errors->has('customer') ? ' is-invalid' : '' }}"
                     onfocusout="validateCustomer()">
                     <option class="dropup" value="" selected> Select One</option>
- 
+
                     @foreach ($customers as $customer)
                     <option class="dropup" value="{{$customer->id}}"
                         {{$customer->id == $operation->customer_id ? 'selected' : '' }}> {{$customer->name}} </option>
@@ -45,7 +45,7 @@
             <label class="control-label" for="sdate">Starting Date</label>
 
             <div class="input-group">
-                <input type="date" id="sdate" name="sdate"
+                <input type="datetime" id="sdate" name="sdate"
                     class="form-control {{ $errors->has('sdate') ? ' is-invalid' : '' }}"
                     value="{{ old('sdate') ??  $operation->startdate}}" onfocusout="validateSdate()">
                 @if ($errors->has('sdate'))
@@ -148,6 +148,18 @@
         </div>
         @section( 'javascript' )
         <script>
+                        jQuery.datetimepicker.setDateFormatter('moment');
+                 $("#sdate").datetimepicker({
+                timepicker:true,
+                datepicker:true,
+                // format: "Y-M-d"
+                format: "YYYY-MM-DD H:mm:ss"
+                // autoclose: true,
+                // todayBtn: true,
+                // startDate: "2013-02-14 10:00",
+                // minuteStep: 10
+                // step: 30,
+            });
             const oid = document.getElementById( 'oid' );
                     const customer = document.getElementById( 'customer' );
                     const sdate = document.getElementById( 'sdate' );
@@ -156,10 +168,10 @@
                     const ctype = document.getElementById( 'ctype' );
                     const tone = document.getElementById( 'tone' );
                     const operation_reg_form = document.getElementById( 'operation_reg_form' );
-            
+
                     operation_reg_form.addEventListener( 'submit', function ( event ) {
                         event.preventDefault();
-                        if ( 
+                        if (
                             validateOid() &&
                             validateCustomer() &&
                             validateSdate() &&
@@ -168,15 +180,15 @@
                             validateCtype() &&
                             validateTone() &&
                             validateTariff()
-                            
+
                         ) {
                             operation_reg_form.submit();
                         } else {
                             return false;
                         }
                     } );
-            
-                    
+
+
                     function validateOid() {
                         if ( checkIfEmpty( oid ) ) {
                             return false;
@@ -184,7 +196,7 @@
                             return true;
                         }
                     }
-            
+
                     function validateCustomer() {
                         if ( checkIfEmpty( customer ) ) {
                             return false;
@@ -228,7 +240,7 @@
                             return false;
                         } else {
                             return true;
-            
+
                         }
                     }
                     function validateTariff() {
@@ -239,10 +251,10 @@
                             return false;
                         } else {
                             return true;
-            
-                        } 
+
+                        }
                     }
-            
+
         </script>
 
         @endsection

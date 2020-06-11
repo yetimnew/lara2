@@ -129,8 +129,11 @@ class PerformanceByTruckController extends Controller
     public function all_trucks_by_date(Request $request)
     {
         $trucks = Truck::active()->orderBy('plate')->get();
-        $start = $request->input('startDate');
-        $end = $request->input('endDate');
+        $start1 = $request->input('startDate');
+        $start =  $start1 . ' 00:00:00';
+
+        $end1 = $request->input('endDate');
+        $end = $end1 . ' 23:59:59';
 
         $diff = abs(strtotime($end) - strtotime($start));
 

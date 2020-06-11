@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Place;
 use App\Distance;
+use App\Performance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -12,9 +13,7 @@ class DistanceController extends Controller
 {
     public function index()
     {
-
-        $distances =  Distance::where('status', 1)
-
+        $distances =  Distance::where('status', 1)->orderBy('destination_name')
             ->get();
 
         return view('operation.distance.index')
@@ -23,7 +22,7 @@ class DistanceController extends Controller
 
     public function create()
     {
-        $places = Place::all();
+        $places = Place::orderBy('name')->get();
         $distance = new Distance;
         return view('operation.distance.create')
             ->with('distance', $distance)
@@ -99,9 +98,15 @@ class DistanceController extends Controller
     public function destroy($id)
     {
         $distance = Distance::findOrFail($id);
-
-        $distance->delete();
-        Session::flash('info', 'The distance b/n ' . $distance->origin_name . ' and ' . $distance->destination_name . ' deleted successfuly');
-        return redirect()->back();
+        // dd($distance);
+        $performance = Performance::where('destination_id', '=', $distance->destination_id)->first();
+        if (isset($performance)) {
+            Session::flash('error', 'UNABLE TO DELETE!!  Distance is registerd In performance FO Number ' . $performance->FOnumber);
+            return redirect()->back();
+        } else {
+            $distance->delete();
+            Session::flash('info', 'The distance b/n ' . $distance->origin_name . ' and ' . $distance->destination_name . ' deleted successfuly');
+            return redirect()->back();
+        }
     }
 }

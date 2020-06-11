@@ -67,14 +67,18 @@
                 @foreach ($operationsReport as $td)
                 <tr>
                     <td class='m-1 p-1'>{{++$no}}</td>
-                    <td class='m-1 p-1'>{{$td->operationid}} <span class="pull-right"><a href="#"> <i
-                                    class="fa fa-info-circle" aria-hidden="true"></i></a></span>
+                    <td class='m-1 p-1'>{{$td->operationid}}
+
+                        <span class="pull-right"> <a href="{{route('operation.show',['id'=> $td->id])}}"> <i
+                                    class="fa fa-info-circle" aria-hidden="true"></i></span>
+
                     </td>
                     <td class='m-1 p-1'>{{$td->name}}</td>
                     <td class='m-1 p-1'>{{$td->stratdate}}</td>
                     <td class='m-1 p-1 text-right'>{{number_format($td->Tone_Given,2)}}</td>
                     <td class='m-1 p-1 text-right'>{{number_format($td->tonkm,2)}}</td>
                     <td class='m-1 p-1 text-right'>{{number_format($td->Tone,2)}}</td>
+                    {{-- <td class='m-1 p-1 text-right'>{{number_format($td->ostone,2)}}</td> --}}
 
                     <td class='m-1 p-1 text-right'>{{number_format($td->Tone_Given - $td->Tone  ,2)}}
                     </td>
@@ -111,13 +115,21 @@
         <script>
             $( document ).ready( function () {
 
-                $( '#operation_performance' ).DataTable( {
+           let  t =  $( '#operation_performance' ).DataTable( {
                     dom: 'Bfrtip',
+
+                    "order":[[1, 'asc']],
                     buttons: [
                         'excel', 'pdf', 'print'
                     ]
                 } );
+
+                t.on('order.dt search.dt', function(){
+                    t.column(0, {search: 'applied', order: 'applied'}).nodes()
+                    .each(function(cell , i){
+                    cell.innerHTML = i + 1;
+                    })
+                }).draw()
                 } );
-        </script>
         </script>
         @endsection

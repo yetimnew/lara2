@@ -13,9 +13,9 @@ class PerformanceCreated extends Notification
     use Queueable;
 
 
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->$user = $user;
     }
 
     public function via($notifiable)
@@ -25,19 +25,17 @@ class PerformanceCreated extends Notification
 
     public function toArray($notifiable)
     {
-        return [
-         
-        ];
+        return [];
     }
 
     public function toDatabase($notifiable)
     {
         // dd($notifiable);
         return [
-            'id'=> $notifiable->id,
-            'name'=> $notifiable->name,
-            'repliedTime'=> Carbon::now(),
-            'title'=> 'New Performance Created!'
+            'id' => $notifiable->id,
+            'name' => $notifiable->name,
+            'repliedTime' => Carbon::now(),
+            'title' => 'New Performance Created!',
         ];
     }
 }

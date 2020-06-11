@@ -41,6 +41,11 @@ class DriverTuck extends Model
     {
         return $this->belongsToMany('App\Performance');
     }
+    public function drivers()
+    {
+        return $this->belongsToMany('App\Driver');
+    }
+
     public function getDateDifferenceAttribute()
     {
         $date_recived = new DateTime($this->date_recived);

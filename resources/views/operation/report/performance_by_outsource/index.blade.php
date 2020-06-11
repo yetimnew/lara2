@@ -8,19 +8,59 @@
     </li>
     <li class="breadcrumb-item active">Performance</li>
 </ol>
+<div class="row col-12">
+    <h3 class="text-center"> REPORT : Performance By Outsource</h3>
+    <div class="col-10">
+        <form method="post" action="{{route('outsource_performance_report.store')}}" class="form-horizontal"
+            id="truck_form">
+            @csrf
+            <div class="row">
 
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Customer Name</label>
+                            <select name="customer" class="form-control" id="customer" required
+                                onfocusout="validateDestination()">
+                                <option class="dropup" value="-1"> Select All</option>
+                                @foreach ($oursources as $oursource)
+                                <option class="dropup" value="{{$oursource->id}}"> {{$oursource->name}} </option>
+                                @endforeach
+                            </select>
+
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="inputCity">Start Date</label>
+                            <input id="startDate" name="startDate" type="date" placeholder="Start Date"
+                                class="form-control" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputState">End Date</label>
+                            <input id="endDate" name="endDate" type="date" placeholder="End Date" class="form-control"
+                                required>
+
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip"></label>
+                            <button class="btn btn-secondary btn-block" type="submit" name="register"
+                                id="register">Search</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+    </div>
+
+</div>
 <div class="col-md-12">
     <div class="card text-left">
         <div class="card-header">
             <div class="d-flex align-items-center">
                 <h2>All Outsource Performances </h2>
-                @can('osperformance creat')
-                <div class="ml-auto">
-                    <a href="{{route('osperformance.create')}}" class="btn btn-outline-primary"><i
-                            class="fafa-plus mr-1"></i>Add OS Performance</a>
 
-                </div>
-                @endcan
             </div>
         </div>
 
@@ -41,10 +81,11 @@
                             <th>Ton KM</th>
                             <th>DWC</th>
                             <th>DWOC</th>
+                            <th>Total KM</th>
+                            <th>Tariff</th>
+                            <th>Revenue</th>
 
-                            @can('osperformance view')
-                            <th class="text-center" width="4%">Details</th>
-                            @endcan
+
                         </tr>
                     </thead>
                     <tbody>
@@ -65,13 +106,11 @@
                             <td class='m-1 p-1'>{{number_format($pr->tonkm,2)}}</td>
                             <td class='m-1 p-1'>{{$pr->DistanceWCargo}}</td>
                             <td class='m-1 p-1'>{{$pr->DistanceWOCargo}}</td>
+                            <td class='m-1 p-1'>{{number_format($pr->totalkm,2)}}</td>
+                            <td class='m-1 p-1'>{{$pr->tariff}}</td>
+                            <td class='m-1 p-1 text-right'>{{number_format($pr->revenue,2)}}</td>
 
-                            @can('osperformance view')
-                            <td class='m-1 p-1 text-center'>
-                                <a href="{{route('osperformance.show',['id'=> $pr->id])}}"> <i class="fa fa-edit "></i>
-                                </a>
-                            </td>
-                            @endcan
+
                         </tr>
                         @endforeach
                         @else

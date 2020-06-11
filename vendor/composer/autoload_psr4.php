@@ -74,6 +74,7 @@ return array(
     'League\\Fractal\\' => array($vendorDir . '/league/fractal/src'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
     'Laravel\\Tinker\\' => array($vendorDir . '/laravel/tinker/src'),
+    'LaravelDaily\\LaravelCharts\\' => array($vendorDir . '/laraveldaily/laravel-charts/src'),
     'JakubOnderka\\PhpConsoleHighlighter\\' => array($vendorDir . '/jakub-onderka/php-console-highlighter/src'),
     'JakubOnderka\\PhpConsoleColor\\' => array($vendorDir . '/jakub-onderka/php-console-color/src'),
     'Illuminate\\' => array($vendorDir . '/laravel/framework/src/Illuminate'),
@@ -92,6 +93,7 @@ return array(
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
     'DebugBar\\' => array($vendorDir . '/maximebf/debugbar/src/DebugBar'),
     'Cron\\' => array($vendorDir . '/dragonmantank/cron-expression/src/Cron'),
+    'ConsoleTVs\\Charts\\' => array($vendorDir . '/consoletvs/charts/src'),
     'Complex\\' => array($vendorDir . '/markbaker/complex/classes/src'),
     'Collective\\Html\\' => array($vendorDir . '/laravelcollective/html/src'),
     'Clue\\React\\Buzz\\' => array($vendorDir . '/clue/buzz-react/src'),
@@ -99,5 +101,6 @@ return array(
     'BeyondCode\\LaravelWebSockets\\' => array($vendorDir . '/beyondcode/laravel-websockets/src'),
     'BeyondCode\\DumpServer\\' => array($vendorDir . '/beyondcode/laravel-dump-server/src'),
     'Barryvdh\\Debugbar\\' => array($vendorDir . '/barryvdh/laravel-debugbar/src'),
+    'Balping\\JsonRaw\\' => array($vendorDir . '/balping/json-raw-encoder/src'),
     'App\\' => array($baseDir . '/app'),
 );
