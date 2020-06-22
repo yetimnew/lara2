@@ -90,7 +90,7 @@
                 @foreach ($driver_truck as $dt)
                 <option class="dropup" value="{{$dt->id}}"
                     {{$dt->id == $performance->driver_truck_id ? 'selected' : '' }}>
-                    {{$dt->plate}}-{{$dt->name}} {{$dt->is_attached ? '-- Att.-- ': '--Dett.--'}} {{ $dt->id}}
+                    {{$dt->name}} - {{$dt->plate}} {{$dt->is_attached ? 'A': 'D'}}
                 </option>
                 @endforeach
             </select>
@@ -137,54 +137,56 @@
             </div>
         </div>
 
-            <div class="form-group required">
-                <label class="control-label">Origion Place</label>
-                <select name="origion" class="form-control{{ $errors->has('origion') ? ' is-invalid' : '' }} select origin_place"
-                    id="origion" onfocusout="validateOrigion()">
-                    <option class="dropup"> </option>
-                    @foreach ($place as $operation)
-                    <option class="dropup"
-                        value="{{ $operation->id}}  @if(old('origion') == $operation->id) {{ 'selected' }} @endif"
-                        {{$operation->id == $performance->orgion_id ? 'selected' : '' }}> {{ $operation->name}} </option>
-                    @endforeach
-                </select>
-                @if ($errors->has('origion'))
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('origion') }}</strong>
-                </span>
-                @endif
-                <span class="invalid-feedback" role="alert"></span>
-            </div>
-
-            <div class="form-group required">
-                <label class="control-label">Destination Place</label>
-                <select name="destination"
-                    class="form-control {{ $errors->has('destination') ? ' is-invalid' : '' }} select destination_place" id="destination"
-                    onfocusout="validateDestination()">
-                    <option class="dropup"> </option>
-                    @foreach ($place as $operation)
-                    <option class="dropup" value="{{$operation->id}}"
-                        {{$operation->id == $performance->destination_id ? 'selected' : '' }}> {{$operation->name}}
-                    </option>
-                    @endforeach
-                </select>
-                @if ($errors->has('destination'))
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('destination') }}</strong>
-                </span>
-                @endif
-                <span class="invalid-feedback" role="alert"></span>
-            </div>
-
-
-
-
-    <div class="form-group required">
-        <div class="input-group">
-
-            <button type="button" id="viewDistance">Calculate Distance</button> <span class="badge badge-dark"  id="something"></span>
+        <div class="form-group required">
+            <label class="control-label">Origion Place</label>
+            <select name="origion"
+                class="form-control{{ $errors->has('origion') ? ' is-invalid' : '' }} select origin_place" id="origion"
+                onfocusout="validateOrigion()">
+                <option class="dropup"> </option>
+                @foreach ($place as $operation)
+                <option class="dropup"
+                    value="{{ $operation->id}}  @if(old('origion') == $operation->id) {{ 'selected' }} @endif"
+                    {{$operation->id == $performance->orgion_id ? 'selected' : '' }}> {{ $operation->name}} </option>
+                @endforeach
+            </select>
+            @if ($errors->has('origion'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('origion') }}</strong>
+            </span>
+            @endif
+            <span class="invalid-feedback" role="alert"></span>
         </div>
+
+        <div class="form-group required">
+            <label class="control-label">Destination Place</label>
+            <select name="destination"
+                class="form-control {{ $errors->has('destination') ? ' is-invalid' : '' }} select destination_place"
+                id="destination" onfocusout="validateDestination()">
+                <option class="dropup"> </option>
+                @foreach ($place as $operation)
+                <option class="dropup" value="{{$operation->id}}"
+                    {{$operation->id == $performance->destination_id ? 'selected' : '' }}> {{$operation->name}}
+                </option>
+                @endforeach
+            </select>
+            @if ($errors->has('destination'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('destination') }}</strong>
+            </span>
+            @endif
+            <span class="invalid-feedback" role="alert"></span>
+        </div>
+
+
+
+
+        <div class="form-group required">
+            <div class="input-group">
+
+                <button type="button" id="viewDistance">Calculate Distance</button> <span class="badge badge-dark"
+                    id="something"></span>
             </div>
+        </div>
 
         <div class="form-group required">
             <label class="control-label">Distance with cargo</label>
@@ -321,7 +323,6 @@
 
         @section( 'javascript' )
         <script>
-
             // In your Javascript (external .js resource or <script> tag)
                 $(document).ready(function() {
                     $('.origin_place').select2({
@@ -330,6 +331,10 @@
                          });
                     $('.destination_place').select2({
                         placeholder: "Select Destination Place",
+                        allowClear: true
+                         });
+                    $('#truck').select2({
+                        placeholder: "Select Driver and Truck",
                         allowClear: true
                          });
                 });
@@ -608,11 +613,7 @@
                 // console.log(origionval )
 
                 var urlPath = '{{ route("performace.distance") }}';
-            // console.log(urlPath)
                 e.preventDefault();
-
-
-
                 $.ajax({
                    type:'POST',
                    url: urlPath,

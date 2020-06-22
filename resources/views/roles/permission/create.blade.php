@@ -1,10 +1,10 @@
 @extends( 'master.app' )
-@section( 'title', 'TIMS | Driver Registration' )
+@section( 'title', 'TIMS | Permmsion Registration' )
 
 @section( 'content' )
 
 <div class="col-md-12">
-    {{-- @include('master.error') --}}
+    @include('master.error')
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">

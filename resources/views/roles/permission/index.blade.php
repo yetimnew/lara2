@@ -1,5 +1,5 @@
 @extends( 'master.app' )
-@section( 'title', 'TIMS | Customer' )
+@section( 'title', 'TIMS | Permission' )
 @section('content')
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{{route('dasboard')}}">Home</a>

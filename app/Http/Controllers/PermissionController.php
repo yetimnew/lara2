@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -31,7 +32,7 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:40',
+            'name' => 'required|max:40|unique:permissions',
         ]);
 
         $name = $request['name'];
@@ -94,7 +95,7 @@ class PermissionController extends Controller
 
         $permission->delete();
 
-        return redirect()->route('permission')
-            ->with('flash_message', 'Permission deleted!');
+        return redirect()->route('permission');
+        Session::flash('success', 'Permmsion  Deleted successfuly');
     }
 }

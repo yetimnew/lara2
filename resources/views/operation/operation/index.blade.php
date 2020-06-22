@@ -79,7 +79,6 @@
                             </td>
                             @endcan
 
-
                         </tr>
                         @endforeach
                         @else

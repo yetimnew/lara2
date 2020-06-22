@@ -23,7 +23,7 @@
 			</div>
 		</div>
 
-{{-- {{dd($trucks)}} --}}
+{{-- {{dd($drivers)}} --}}
 		<div class="card-body">
 			<form method="post" action="{{route('drivertruck.store')}}" class="form-horizontal"
 				id="driver_truck_create">
@@ -39,7 +39,7 @@
 								<option class="dropup" value=""> Select One</option>
 								@foreach ($trucks as $truck)
 								<option class="dropup" value="{{$truck->id}}|{{$truck->plate}}"> {{$truck->plate}} </option>
-							
+
 								@endforeach
 
 							</select>
@@ -58,8 +58,8 @@
 							<select name="dname" class="form-control {{ $errors->has('dname') ? ' is-invalid' : '' }}"
 								id="dname" onfocusout="validateDname()">
 								<option class="dropup" value=""> Select One</option>
-								@foreach ($drivers as $dr) 
-							<option class="dropup" value="{{$dr->id}}|{{$dr->driverID}}"> {{$dr->name}} </option>
+								@foreach ($drivers as $dr)
+							<option class="dropup" value="{{$dr->id}}|{{$dr->driverid}}"> {{$dr->name}} </option>
 								@endforeach
 
 							</select>
@@ -118,7 +118,7 @@
 	jQuery.datetimepicker.setDateFormatter('moment');
 		  $("#rdate").datetimepicker({
 		timepicker:false,
-		datepicker:true,        
+		datepicker:true,
 		format: "Y-M-D"
 		// format: "YYYY-MM-DD H:mm a"
 		// autoclose: true,

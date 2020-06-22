@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Charts\PerformanceChart;
 use App\Place;
 use App\Truck;
-use App\Driver;
 use App\Distance;
 use App\Operation;
 use Carbon\Carbon;
 use App\Performance;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -18,41 +16,67 @@ use Illuminate\Support\Facades\Session;
 use App\Notifications\PerformanceCreated;
 use App\Http\Requests\PerformanceCreateRequest;
 use App\Http\Requests\PerformanceUpdateRequest;
-use Illuminate\Notifications\Notification;
+use App\Outsource_performance;
+use Yajra\DataTables\Facades\DataTables;
 
 class PerformanceController extends Controller
 {
-    public function index()
+    public function index(Request  $request)
     {
+        if ($request->ajax()) {
 
-
-
-        $performances =  DB::table('performances')
-            ->select(
-                'performances.*',
-                'performances.driver_truck_id',
-                'drivers.name as dname',
-                'trucks.plate as plate',
-                'places.name as orgion'
-            )
-            ->LEFTJOIN('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
-            ->LEFTJOIN('drivers', 'drivers.id', '=', 'driver_truck.driver_id')
-            ->LEFTJOIN('trucks', 'trucks.id', '=', 'driver_truck.truck_id')
-            ->JOIN('places', 'places.id', '=', 'performances.orgion_id')
-            ->where('driver_truck.status', 1)
-            ->where('drivers.status', 1)
-            ->where('trucks.status', 1)
-            ->orderBy('performances.created_at', 'DESC')
-            ->get();
-        $statuslist = $this->statusList();
-        $trucks = Truck::all();
-        $drivers = Driver::all();
-
-        return view('operation.performance.index')
-            ->with('performances', $performances)
-            ->with('trucks', $trucks)
-            ->with('statuslist', $statuslist)
-            ->with('drivers', $drivers);
+            $performances =  DB::table('performances')
+                ->select(
+                    // 'performances.*',
+                    'performances.id as id',
+                    'performances.FOnumber as fo',
+                    'performances.driver_truck_id as td',
+                    'drivers.name as dname',
+                    'trucks.plate as plate',
+                    'performances.DateDispach as ddate',
+                    'places.name as orgion',
+                    'performances.tonkm as tonkm',
+                    'performances.CargoVolumMT as tone',
+                    'performances.is_returned as is_returned',
+                    'performances.trip as trip'
+                )
+                ->LEFTJOIN('driver_truck', 'driver_truck.id', '=', 'performances.driver_truck_id')
+                ->LEFTJOIN('drivers', 'drivers.id', '=', 'driver_truck.driver_id')
+                ->LEFTJOIN('trucks', 'trucks.id', '=', 'driver_truck.truck_id')
+                ->JOIN('places', 'places.id', '=', 'performances.destination_id')
+                ->where('driver_truck.status', 1)
+                ->where('drivers.status', 1)
+                ->where('trucks.status', 1)
+                ->orderBy('performances.created_at', 'DESC')
+                // ->limit(400)
+                ->get();
+            return DataTables::of($performances)
+                ->addColumn('details', function ($performances) {
+                    $button = '<a href="' . route('performace.show', $performances->id) . '"> <i class="fa fa-edit"></a>';
+                    return $button;
+                })->editColumn('tone', function ($data) {
+                    return number_format($data->tone, 2);
+                })->editColumn('tonkm', function ($data) {
+                    return number_format($data->tonkm, 2);
+                })->editColumn('is_returned', function ($data) {
+                    if ($data->is_returned == 1) {
+                        $button = 'Returned';
+                    } else {
+                        $button = 'Not Returned';
+                    }
+                    return $button;
+                })->editColumn('trip', function ($data) {
+                    if ($data->trip == 1) {
+                        $button = 'Trip';
+                    } else {
+                        $button = 'Part Of Trip';
+                    }
+                    return $button;
+                })
+                ->rawColumns(['details'])
+                ->make(true);
+        }
+        return view('operation.performance.index');
     }
 
     public function create()
@@ -101,47 +125,58 @@ class PerformanceController extends Controller
 
     public function store(PerformanceCreateRequest $request)
     {
+        $available_tone = Operation::where('id', $request->operation)->sum('volume');
 
-        $performance = new Performance;
-        $performance->trip = $request->trip;
-        $performance->LoadType = $request->chinet;
-        $performance->FOnumber = $request->fo;
-        $performance->operation_id = $request->operation;
-        $performance->driver_truck_id = $request->truck;
-        $performance->DateDispach = $request->ddate;
-        $performance->orgion_id = $request->origion;
-        $performance->destination_id = $request->destination;
-        $performance->DistanceWCargo = $request->diswc;
-        $performance->DistanceWOCargo = $request->diswoc;
-        $performance->tonkm = $request->tonkm;
-        $performance->CargoVolumMT = $request->cargovol;
-        //  $performance->tonkm = (($request->diswc ) * ($request->cargovol)) ;
-        $performance->fuelInLitter = $request->fuell;
-        $performance->fuelInBirr = $request->fuelb;
-        $performance->perdiem = $request->perdiem;
-        $performance->workOnGoing = $request->wog;
-        $performance->other = $request->other;
-        $performance->comment = $request->comment;
-        $performance->user_id = Auth::user()->id;
+        $liffted_ton_erte = Performance::where('operation_id', $request->operation)->sum('CargoVolumMT');
+        $liffted_ton_os = Outsource_performance::where('operation_id', $request->operation)->sum('CargoVolumMT');
+        $total_uplifted =  $liffted_ton_erte +  $liffted_ton_os;
 
-        $performance->save();
-        $unreturended = Performance::where('driver_truck_id', '=', $performance->driver_truck_id)->where('is_returned', '=', 0)->get();
-        if ($unreturended->count() > 0) {
-            Session::flash('error', 'This Truck Or Driver is not returned yet. Don not forget to return');
-            return redirect()->route('performace');
+        if ($total_uplifted <  $available_tone) {
+            $performance = new Performance;
+            $performance->trip = $request->trip;
+            $performance->LoadType = $request->chinet;
+            $performance->FOnumber = $request->fo;
+            $performance->operation_id = $request->operation;
+            $performance->driver_truck_id = $request->truck;
+            $performance->DateDispach = $request->ddate;
+            $performance->orgion_id = $request->origion;
+            $performance->destination_id = $request->destination;
+            $performance->DistanceWCargo = $request->diswc;
+            $performance->DistanceWOCargo = $request->diswoc;
+            $performance->tonkm = $request->tonkm;
+            $performance->CargoVolumMT = $request->cargovol;
+            //  $performance->tonkm = (($request->diswc ) * ($request->cargovol)) ;
+            $performance->fuelInLitter = $request->fuell;
+            $performance->fuelInBirr = $request->fuelb;
+            $performance->perdiem = $request->perdiem;
+            $performance->workOnGoing = $request->wog;
+            $performance->other = $request->other;
+            $performance->comment = $request->comment;
+            $performance->user_id = Auth::user()->id;
+
+            $performance->save();
+            $unreturended = Performance::where('driver_truck_id', '=', $performance->driver_truck_id)->where('is_returned', '=', 0)->get();
+            if ($unreturended->count() > 0) {
+                Session::flash('error', 'This Truck Or Driver is not returned yet. Do not forget to return');
+                return redirect()->route('performace');
+            } else {
+
+                Session::flash('success', 'Performance  registerd successfuly');
+                return redirect()->route('performace');
+            }
+
+            auth()->user()->notify(new PerformanceCreated);
         } else {
-
-            Session::flash('success', 'Performance  registerd successfuly');
-            return redirect()->route('performace');
+            Session::flash('error', 'NOT REGISTERED This Operation is Full');
+            return redirect()->route('performace.create');
         }
-
-        auth()->user()->notify(new PerformanceCreated);
     }
+
 
 
     public function show($id)
     {
-        $performance = Performance::findOrFail($id);
+        $performance = Performance::with('destination')->findOrFail($id);
         $start =  Carbon::parse($performance->DateDispach);
         $end  =  Carbon::parse($performance->returned_date);
         $difinday = $end->diffInDays($start);

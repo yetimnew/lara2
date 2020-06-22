@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Charts\\PerformanceChart' => $baseDir . '/app/Charts/PerformanceChart.php',
     'App\\Console\\Commands\\BackupDatabase' => $baseDir . '/app/Console/Commands/BackupDatabase.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Customer' => $baseDir . '/app/Customer.php',
@@ -27,6 +28,7 @@ return array(
     'App\\Http\\Controllers\\DashbordController' => $baseDir . '/app/Http/Controllers/DashbordController.php',
     'App\\Http\\Controllers\\DistanceController' => $baseDir . '/app/Http/Controllers/DistanceController.php',
     'App\\Http\\Controllers\\DriverController' => $baseDir . '/app/Http/Controllers/DriverController.php',
+    'App\\Http\\Controllers\\DriverDashboardController' => $baseDir . '/app/Http/Controllers/DriverDashboardController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\OperationController' => $baseDir . '/app/Http/Controllers/OperationController.php',
     'App\\Http\\Controllers\\OutsourceController' => $baseDir . '/app/Http/Controllers/OutsourceController.php',
@@ -42,6 +44,9 @@ return array(
     'App\\Http\\Controllers\\TruckDriverController' => $baseDir . '/app/Http/Controllers/TruckDriverController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
     'App\\Http\\Controllers\\VehecleController' => $baseDir . '/app/Http/Controllers/VehecleController.php',
+    'App\\Http\\Controllers\\ZoneController' => $baseDir . '/app/Http/Controllers/ZoneController.php',
+    'App\\Http\\Controllers\\operation\\Reports\\OutsourcePerformanceReportController' => $baseDir . '/app/Http/Controllers/operation/Reports/OutsourcePerformanceReportController.php',
+    'App\\Http\\Controllers\\operation\\Reports\\PerformanceAllContoller' => $baseDir . '/app/Http/Controllers/operation/Reports/PerformanceAllContoller.php',
     'App\\Http\\Controllers\\operation\\Reports\\PerformanceByTruckController' => $baseDir . '/app/Http/Controllers/operation/Reports/PerformanceByTruckController.php',
     'App\\Http\\Controllers\\operation\\Reports\\performanceByDriverController' => $baseDir . '/app/Http/Controllers/operation/Reports/performanceByDriverController.php',
     'App\\Http\\Controllers\\operation\\Reports\\performanceByModelController' => $baseDir . '/app/Http/Controllers/operation/Reports/performanceByModelController.php',
@@ -57,6 +62,7 @@ return array(
     'App\\Http\\Middleware\\CheckForMaintenanceMode' => $baseDir . '/app/Http/Middleware/CheckForMaintenanceMode.php',
     'App\\Http\\Middleware\\CheckRole' => $baseDir . '/app/Http/Middleware/CheckRole.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
+    'App\\Http\\Middleware\\LastUserActivity' => $baseDir . '/app/Http/Middleware/LastUserActivity.php',
     'App\\Http\\Middleware\\RedirectIfAuthenticated' => $baseDir . '/app/Http/Middleware/RedirectIfAuthenticated.php',
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
@@ -85,6 +91,8 @@ return array(
     'App\\Truck' => $baseDir . '/app/Truck.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\Vehecletype' => $baseDir . '/app/Vehecletype.php',
+    'App\\Woreda' => $baseDir . '/app/Woreda.php',
+    'App\\Zone' => $baseDir . '/app/Zone.php',
     'Balping\\JsonRaw\\Encoder' => $vendorDir . '/balping/json-raw-encoder/src/Encoder.php',
     'Balping\\JsonRaw\\Raw' => $vendorDir . '/balping/json-raw-encoder/src/Raw.php',
     'Balping\\JsonRaw\\Replacer' => $vendorDir . '/balping/json-raw-encoder/src/Replacer.php',

@@ -11,8 +11,9 @@ class Region extends Model
     {
         return $this->hasMany('App\Operation');
     }
-    public function places()
+    public function zones()
     {
-        return $this->hasMany('App\Place');
+        return $this->hasMany('App\Zone');
     }
+
 }

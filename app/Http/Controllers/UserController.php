@@ -30,7 +30,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::get();
-        $permissions = Permission::all();
+        $permissions = Permission::orederBy('name')->get();
         return view('users.create')
             ->with('permissions', $permissions)
             ->with('roles', $roles);

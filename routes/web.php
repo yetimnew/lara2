@@ -6,7 +6,7 @@ Route::group(['middleware' => ['auth']], function () {
     //Dashbord
     Route::get('/', 'DashbordController@index');
     Route::get('/home', 'DashbordController@index')->name('home');
-    Route::get('/driverdashboard', 'DriverDashbordController@index')->name('driver');
+    // Route::get('/driverdashboard', 'DriverDashbordController@index')->name('driver');
     Route::get('/get-post-chart-data', 'DashbordController@getMonthlyPostData')->name('dashboard.show');
     // Route::get('/mukera', 'DashbordController@monthlyperformance')->name('mukera');
     Route::get('/markasread', function () {
@@ -110,7 +110,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/statustype/destroy/{id}', ['uses' => 'StatustypeController@destroy', 'as' => 'statustype.destroy']);
 
     // statusTypeF
-    Route::get('/performace/allperfprmance',              ['uses' => 'PerformanceController@allperformance', 'as' => 'performace.allperformance']);
+    // Route::get('/performace/allperfprmance',              ['uses' => 'PerformanceController@allperformance', 'as' => 'performace.allperformance']);
     Route::get('/performace',              ['uses' => 'PerformanceController@index', 'as' => 'performace']);
     Route::get('/performace/create',       ['uses' => 'PerformanceController@create', 'as' => 'performace.create'])->middleware('permission:performance create');
     Route::post('/performace/store',       ['uses' => 'PerformanceController@store', 'as' => 'performace.store']);
@@ -140,8 +140,28 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/place/create',                             ['uses' => 'PlaceController@create', 'as' => 'place.create']);
     Route::post('/place/store',                             ['uses' => 'PlaceController@store', 'as' => 'place.store']);
     Route::get('/place/edit/{id}',                          ['uses' => 'PlaceController@edit', 'as' => 'place.edit']);
+    Route::get('/place/show/{id}',                          ['uses' => 'PlaceController@show', 'as' => 'place.show']);
     Route::post('/place/update/{id}',                       ['uses' => 'PlaceController@update', 'as' => 'place.update']);
     Route::delete('/place/destroy/{id}',                       ['uses' => 'PlaceController@destroy', 'as' => 'place.destroy']);
+    Route::get('/allplace',                                    ['uses' => 'PlaceController@allPlaces', 'as' => 'placeall']);
+    // Woreda
+    Route::get('/woreda',                                    ['uses' => 'WoredaController@index', 'as' => 'woreda']);
+    Route::get('/woreda/create',                             ['uses' => 'WoredaController@create', 'as' => 'woreda.create']);
+    Route::post('/woreda/store',                             ['uses' => 'WoredaController@store', 'as' => 'woreda.store']);
+    Route::get('/woreda/edit/{id}',                          ['uses' => 'WoredaController@edit', 'as' => 'woreda.edit']);
+    Route::get('/woreda/show/{id}',                          ['uses' => 'WoredaController@show', 'as' => 'woreda.show']);
+    Route::post('/woreda/update/{id}',                       ['uses' => 'WoredaController@update', 'as' => 'woreda.update']);
+    Route::delete('/woreda/destroy/{id}',                       ['uses' => 'WoredaController@destroy', 'as' => 'woreda.destroy']);
+    Route::get('/allworeda',                                    ['uses' => 'WoredaController@allworedas', 'as' => 'woredaall']);
+    // Woreda
+    Route::get('/zone',                                    ['uses' => 'ZoneController@index', 'as' => 'zone']);
+    Route::get('/zone/create',                             ['uses' => 'ZoneController@create', 'as' => 'zone.create']);
+    Route::post('/zone/store',                             ['uses' => 'ZoneController@store', 'as' => 'zone.store']);
+    Route::get('/zone/edit/{id}',                          ['uses' => 'ZoneController@edit', 'as' => 'zone.edit']);
+    Route::get('/zone/show/{id}',                          ['uses' => 'ZoneController@show', 'as' => 'zone.show']);
+    Route::post('/zone/update/{id}',                       ['uses' => 'ZoneController@update', 'as' => 'zone.update']);
+    Route::delete('/zone/destroy/{id}',                       ['uses' => 'ZoneController@destroy', 'as' => 'zone.destroy']);
+    Route::get('/allzone',                                    ['uses' => 'ZoneController@allzones', 'as' => 'zoneall']);
 
     // OUTSOURCE
     Route::get('/outsource',                                    ['uses' => 'OutsourceController@index', 'as' => 'outsource']);
@@ -167,6 +187,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/distance/edit/{id}',                          ['uses' => 'DistanceController@edit', 'as' => 'distance.edit']);
     Route::post('/distance/update/{id}',                       ['uses' => 'DistanceController@update', 'as' => 'distance.update']);
     Route::get('/distance/destroy/{id}',                       ['uses' => 'DistanceController@destroy', 'as' => 'distance.destroy']);
+    Route::get('/distance/alldistance',                             ['uses' => 'DistanceController@allDistance', 'as' => 'distance.alldistance']);
 
     Route::get('/check_distance/{id}',                         ['uses' => 'CheckDistanceController@check', 'as' => 'check']);
 

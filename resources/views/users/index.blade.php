@@ -35,17 +35,18 @@
 				<th width="5%">Is admin</th>
 				<th width="5%"> Roles</th>
 				<th>Roles </th>
+				<th>is Online </th>
 				<th width="5%">Edit</th>
 				<th width="5%">Delete</th>
 
 			</tr>
 		</thead>
 		<tbody>
-			{{-- {{ dd($permissions)}} --}}
+			{{-- {{ dd($users)}} --}}
 			<?php $no = 0 ?>
 			@if ($users->count()> 0)
-			@foreach ($users as $user)
-			<tr>
+            @foreach ($users as $user)
+         	<tr>
 				<td>{{++$no}}</td>
 
 				<td> <img src="{{asset($user->profile->image)}}" alt="" width="50" height="50" class="rounded-circle"
@@ -55,7 +56,15 @@
 				<td>{{$user->email}}</td>
 				<td>{{$user->active}}</td>
 				<td>{{$user->roles()->pluck('name')->implode(' ')}}</td>
-				<td>{{$user->permissions()->pluck('name')->implode(' , ')}}</td>
+                <td>{{$user->permissions()->pluck('name')->implode(' , ')}}</td>
+
+                <td>
+               @if ($user->isOnline())
+               <p class="text-success">Online</p>
+               @else
+               <p class="text-danger">Offline</p>
+               @endif
+                </td>
 				<td class='m-1 p-1 text-center'><a href="{{route('user.edit',['id'=> $user->id])}}"><i
 							class="fa fa-edit "></i> </a>
 				</td>
@@ -64,7 +73,7 @@
 
 					<form action="{{route('user.destroy',['id'=> $user->id])}}" id="detach-form-{{$user->id}}"
 						style="display: none">
-						@csrf 
+						@csrf
 						@method('DELETE')
 					</form>
 

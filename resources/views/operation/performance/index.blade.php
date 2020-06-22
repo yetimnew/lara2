@@ -30,62 +30,23 @@
 
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-bordered table-sm table-striped" id="drivers">
+                <table class="table table-bordered table-sm table-striped" id="performance_table">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>FO</th>
-                            <th>Driver_truck</th>
+                            <th>Driver</th>
+                            <th>Plate</th>
                             <th>Date Dispach</th>
-                            <th>Origion </th>
+                            <th>Destination </th>
                             <th>Ton KM</th>
                             <th>VolumMT</th>
                             <th>Is Returned?</th>
                             <th>Type of Trip</th>
-                            @can('performance view')
                             <th class="text-center" width="4%">Details</th>
-                            @endcan
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php $no = 0 ?>
-                        @if ($performances->count()> 0)
-                        @foreach ($performances as $pr)
 
-                        <tr>
-                            <td class='m-1 p-1'></td>
-                            <td class='m-1 p-1'>{{$pr->FOnumber}}</td>
-                            <td class='m-1 p-1'>{{$pr->plate}} - {{$pr->dname}}</td>
-                            <td class='m-1 p-1' data-toggle="tooltip" data-placement="top" title="">{{$pr->DateDispach}}
-                            </td>
-                            <td class='m-1 p-1'>{{$pr->orgion}}</td>
-                            <td class='m-1 p-1 text-right'>{{number_format($pr->tonkm, 2)}}</td>
-                            <td class='m-1 p-1 text-center'>{{number_format($pr->CargoVolumMT,2)}}</td>
-                            @if($pr->is_returned == 0)
-                            <td class='m-1 p-1'><span class="badge badge-danger">Not Returned</span></td>
-                            @else
-                            <td class='m-1 p-1'> <span class="badge badge-primary"> Returned</span></td>
-                            @endif
-                            @if($pr->trip == 1)
-                            <td class='m-1 p-1'><span class="badge badge-info">Main Trip</span></td>
-                            @else
-                            <td class='m-1 p-1'> <span class="badge badge-default"> Part of Trip</span></td>
-                            @endif
-                            @can('performance view')
-                            <td class='m-1 p-1 text-center'><a href="{{route('performace.show',['id'=> $pr->id])}}"> <i
-                                        class="fa fa-edit "></i>
-                                </a>
-                            </td>
-                            @endcan
-                        </tr>
-                        @endforeach
-                        @else
-                        <tr>
-                            <td class='m-1 p-1 text-center' colspan="19">No Data Avilable</td>
-                        </tr>
-                        @endif
-
-                    </tbody>
 
                 </table>
             </div>
@@ -98,27 +59,31 @@
 </div>
 @endsection
 @section('javascript')
-<script src="{{ asset('js/jquery.dataTables.min.js') }}">
-</script>
 <script>
     $( document ).ready( function () {
-		// $('#drivers').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
-			let t =	$( '#drivers' ).DataTable({
-					// "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-					"pageLength": 25,
-					'columnDefs': [ {
-						// 'targets': [16,17,18], /* column index */
-						'orderable': false, /* true or false */
-
-				}]
-				});
-                t.on('order.dt search.dt', function(){
-                    t.column(0, {search: 'applied', order: 'applied'}).nodes()
-                    .each(function(cell , i){
-                    cell.innerHTML = i + 1;
-                    })
-                }).draw()
-			} );
+                $( '#performance_table' ).DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: '{{ url('performace') }}',
+                    columns: [
+                                { data: 'id', name: 'id' },
+                                { data: 'fo', name: 'fo' },
+                                { data: 'dname', name: 'dname' },
+                                { data: 'plate', name: 'plate' },
+                                { data: 'ddate', name: 'ddate' },
+                                { data: 'orgion', name: 'orgion' },
+                                { data: 'tonkm', name: 'tonkm' },
+                                { data: 'tone', name: 'tone' },
+                                { data: 'is_returned', name: 'is_returned' },
+                                { data: 'trip', name: 'trip' },
+                                {
+                                    data: 'details',
+                                    name: 'details',
+                                    orderable: false
+                                    }
+                            ],
+                });
+            } );
 </script>
 
 @endsection

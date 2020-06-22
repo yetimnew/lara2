@@ -686,6 +686,7 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
     );
 
     public static $classMap = array (
+        'App\\Charts\\PerformanceChart' => __DIR__ . '/../..' . '/app/Charts/PerformanceChart.php',
         'App\\Console\\Commands\\BackupDatabase' => __DIR__ . '/../..' . '/app/Console/Commands/BackupDatabase.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Customer' => __DIR__ . '/../..' . '/app/Customer.php',
@@ -707,6 +708,7 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
         'App\\Http\\Controllers\\DashbordController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashbordController.php',
         'App\\Http\\Controllers\\DistanceController' => __DIR__ . '/../..' . '/app/Http/Controllers/DistanceController.php',
         'App\\Http\\Controllers\\DriverController' => __DIR__ . '/../..' . '/app/Http/Controllers/DriverController.php',
+        'App\\Http\\Controllers\\DriverDashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DriverDashboardController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\OperationController' => __DIR__ . '/../..' . '/app/Http/Controllers/OperationController.php',
         'App\\Http\\Controllers\\OutsourceController' => __DIR__ . '/../..' . '/app/Http/Controllers/OutsourceController.php',
@@ -722,6 +724,9 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
         'App\\Http\\Controllers\\TruckDriverController' => __DIR__ . '/../..' . '/app/Http/Controllers/TruckDriverController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Controllers\\VehecleController' => __DIR__ . '/../..' . '/app/Http/Controllers/VehecleController.php',
+        'App\\Http\\Controllers\\ZoneController' => __DIR__ . '/../..' . '/app/Http/Controllers/ZoneController.php',
+        'App\\Http\\Controllers\\operation\\Reports\\OutsourcePerformanceReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/operation/Reports/OutsourcePerformanceReportController.php',
+        'App\\Http\\Controllers\\operation\\Reports\\PerformanceAllContoller' => __DIR__ . '/../..' . '/app/Http/Controllers/operation/Reports/PerformanceAllContoller.php',
         'App\\Http\\Controllers\\operation\\Reports\\PerformanceByTruckController' => __DIR__ . '/../..' . '/app/Http/Controllers/operation/Reports/PerformanceByTruckController.php',
         'App\\Http\\Controllers\\operation\\Reports\\performanceByDriverController' => __DIR__ . '/../..' . '/app/Http/Controllers/operation/Reports/performanceByDriverController.php',
         'App\\Http\\Controllers\\operation\\Reports\\performanceByModelController' => __DIR__ . '/../..' . '/app/Http/Controllers/operation/Reports/performanceByModelController.php',
@@ -737,6 +742,7 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
         'App\\Http\\Middleware\\CheckRole' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckRole.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
+        'App\\Http\\Middleware\\LastUserActivity' => __DIR__ . '/../..' . '/app/Http/Middleware/LastUserActivity.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
@@ -765,6 +771,8 @@ class ComposerStaticInit41bf1e49aba71a1714b764866fc8106e
         'App\\Truck' => __DIR__ . '/../..' . '/app/Truck.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\Vehecletype' => __DIR__ . '/../..' . '/app/Vehecletype.php',
+        'App\\Woreda' => __DIR__ . '/../..' . '/app/Woreda.php',
+        'App\\Zone' => __DIR__ . '/../..' . '/app/Zone.php',
         'Balping\\JsonRaw\\Encoder' => __DIR__ . '/..' . '/balping/json-raw-encoder/src/Encoder.php',
         'Balping\\JsonRaw\\Raw' => __DIR__ . '/..' . '/balping/json-raw-encoder/src/Raw.php',
         'Balping\\JsonRaw\\Replacer' => __DIR__ . '/..' . '/balping/json-raw-encoder/src/Replacer.php',

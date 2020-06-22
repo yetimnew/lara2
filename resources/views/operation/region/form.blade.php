@@ -26,14 +26,14 @@
         @section( 'javascript' )
         <script>
             const name = document.getElementById( 'name' );
-                
+
                 const region_reg = document.getElementById( 'region_reg' );
-            
+
                 region_reg.addEventListener( 'submit', function ( event ) {
                     event.preventDefault();
                     if (
                           validateName()
-                    
+
                     ) {
                         region_reg.submit();
                     } else {
@@ -46,7 +46,7 @@
                     if ( checkIfEmpty( name ) ) {
                         return false;
                     }
-                  
+
                     if(!meetLength( name, 3, 255 )){
                         return false;
                     }
@@ -54,7 +54,7 @@
                         return true;
                     }
                 }
-              
+
         </script>
 
         @endsection

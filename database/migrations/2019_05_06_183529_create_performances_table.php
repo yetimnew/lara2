@@ -20,14 +20,14 @@ class CreatePerformancesTable extends Migration
             $table->string('FOnumber');
             $table->unsignedBigInteger('operation_id');
             $table->foreign('operation_id')->references('id')->on('operations')->onDelete('restrict');
-            
+
             $table->unsignedBigInteger('driver_truck_id');
             $table->foreign('driver_truck_id')->references('id')->on('driver_truck')->onDelete('restrict');
-            
+
             $table->dateTime('DateDispach');
             $table->unsignedBigInteger('orgion_id');
             $table->foreign('orgion_id')->references('id')->on('places')->onDelete('restrict');
-            
+
             $table->unsignedBigInteger('destination_id');
             $table->foreign('destination_id')->references('id')->on('places')->onDelete('restrict');
 
@@ -45,7 +45,7 @@ class CreatePerformancesTable extends Migration
             $table->boolean('is_returned')->default(0);
             $table->dateTime('returned_date')->nullable();
             $table->bigInteger('user_id')->nullable();
-           
+
             $table->softDeletes();
             $table->timestamps();
         });

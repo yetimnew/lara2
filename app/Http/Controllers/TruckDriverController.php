@@ -29,6 +29,7 @@ class TruckDriverController extends Controller
 
     public function create()
     {
+
         $truckss = Truck::all();
         $dr = Driver::all();
 
@@ -166,9 +167,7 @@ class TruckDriverController extends Controller
 
     public function edit($id)
     {
-        // dd($id);
         $driver_trucks = DriverTuck::findOrFail($id);
-        // dd($driver_trucks->id);
 
         $dts = DB::table('driver_truck')
             ->select('driver_truck.*', 'drivers.name as NAME')
@@ -286,42 +285,37 @@ class TruckDriverController extends Controller
         Session::flash('success', 'Truck and Driver Detached successfuly');
         return redirect()->route('drivertruck');
     }
+
     public function ready_trucks()
     {
         $trucks =  DB::table('trucks')
-            ->select('trucks.id', 'trucks.plate', 'driver_truck.driver_id', 'trucks.status', 'driver_truck.status', 'driver_truck.is_attached')
-            ->leftjoin('driver_truck', 'driver_truck.truck_id', '=', 'trucks.id')
-            ->whereNull('driver_truck.status')
-            ->orwhere('driver_truck.status', '=', 1)
-            ->whereNull('driver_truck.is_attached')
-            ->orwhere('driver_truck.is_attached', '=', 0)
-            ->where('trucks.status', '=', 1)
-            ->groupBy('trucks.plate')
-            ->orderBy('trucks.plate')
-            // ->tosql();
-            ->get();
+        ->select(
+            'trucks.*',
+            DB::raw('SUM(driver_truck.is_attached) as tone'),
+        )
+        ->leftJoin('driver_truck', 'trucks.id', '=', 'driver_truck.truck_id')
+        ->where('trucks.status','=', 1)
+        ->GROUPBY ('trucks.id')
+        ->havingRaw('tone = 0')
+        ->orHavingRaw('tone  is null')
+        ->orderBy('trucks.plate')
+        ->get();
         return $trucks;
     }
     public function ready_drivers()
     {
         $drivers =  DB::table('drivers')
-            ->select(
-                'drivers.id',
-                'drivers.driverid as driverID',
-                'drivers.name',
-                'driver_truck.id as DTID',
-                'drivers.status',
-                'driver_truck.status'
-            )
-            ->leftjoin('driver_truck', 'driver_truck.driver_id', '=', 'drivers.id')
-            ->whereNull('driver_truck.status')
-            ->orwhere('driver_truck.status', '=', 0)
-            ->whereNull('driver_truck.is_attached')
-            ->orwhere('driver_truck.is_attached', '=', 0)
-            ->where('drivers.status', '=', 1)
-            ->groupBy('drivers.name')
-            ->orderBy('drivers.name', 'asc')
-            ->get();
+        ->select(
+            'drivers.*',
+            DB::raw('SUM(driver_truck.is_attached) as tone'),
+        )
+        ->leftJoin('driver_truck', 'drivers.id', '=', 'driver_truck.driver_id')
+        ->where('drivers.status','=', 1)
+        ->GROUPBY ('drivers.id')
+        ->havingRaw('tone = 0')
+        ->orHavingRaw('tone  is null')
+        ->orderBy('drivers.name')
+        ->get();
         return $drivers;
     }
 }

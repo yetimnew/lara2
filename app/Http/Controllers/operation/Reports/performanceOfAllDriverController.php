@@ -46,9 +46,7 @@ class performanceOfAllDriverController extends Controller
 
         return view('operation.report.performance_of_all_driver.index')
             ->with('tds', $tds);
-        // ->with('drivers', $drivers);
     }
-
 
     public function store(Request $request)
     {

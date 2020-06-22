@@ -43,7 +43,7 @@
                         <div class="col-lg-8">
                             <h4 class="col-form-label ">{{$truck->vehecletype->name}}</h4>
                         </div>
-                    </div>>
+                    </div>
                     <div class="form-group row m-0">
                         <label class="col-form-label col-lg-4">Chassis Number</label>
                         <div class="col-lg-8">

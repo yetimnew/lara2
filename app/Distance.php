@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Distance extends Model
 {
-    protected $guarded =[];
+    protected $guarded = [];
 }

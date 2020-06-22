@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Place;
+use App\Operation;
 use App\Region;
+use App\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -11,7 +12,7 @@ class RegionController extends Controller
 {
     public function index()
     {
-        $regions = Region::with('places')->get();
+        $regions = Region::with('zones')->get();
         return view('operation.region.index')->with('regions', $regions);
     }
 
@@ -41,13 +42,15 @@ class RegionController extends Controller
         return redirect()->route('region');
     }
 
-
-
     public function edit($id)
     {
         $region = Region::findOrFail($id);
+        $zones = Zone::where('region_id', '=', $region->id)->get();
         // return $region;
-        return view('operation.region.edit')->with('region', $region);
+        // return $region;
+        return view('operation.region.edit')
+            ->with('zones', $zones)
+            ->with('region', $region);
     }
 
     public function update(Request $request, $id)
@@ -69,16 +72,22 @@ class RegionController extends Controller
     public function destroy($id)
     {
         $region = Region::findOrFail($id);
-        $place = Place::where('region_id', '=', $region)->get();
-        if (isset($place)) {
-            Session::flash('error', 'UNABLE TO DELETE!!  Distance is registerd by this Region');
+        $zones = Zone::where('region_id', '=', $region->id)->get();
+
+        if ($zones->count() >= 1) {
+            Session::flash('error', 'UNABLE TO DELETE!!  Zone is registerd by this Region');
             return redirect()->back();
         } else {
-            $region->delete();
-            Session::flash('success', 'Region Deleted successfully!!');
+            $operation = Operation::where('region_id', '=', $region->id)->get();
+            if ($operation->count() >= 1) {
+                Session::flash('error', 'UNABLE TO DELETE!!  Operation is registerd by this Region');
+                return redirect()->back();
+            } else {
 
-
-            return redirect()->back();
+                $region->delete();
+                Session::flash('success', 'Region Deleted successfully!!');
+                return redirect()->back();
+            }
         }
     }
 }

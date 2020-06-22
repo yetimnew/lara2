@@ -47,10 +47,10 @@
                 <li class="{{ Request::is('operation*') ? 'active' : ''}}"><a
                         href="{{route('operation')}}">Operation</a>
                 </li>
-                <li class="{{ Request::is('place') ? 'active' : ''}}"><a href="{{route('place')}}">Operations Place</a>
-                </li>
-                <li class="{{ Request::is('region') ? 'active' : ''}}"><a href="{{route('region')}}">Operations
-                        Region</a></li>
+                <li class="{{ Request::is('region') ? 'active' : ''}}"><a href="{{route('region')}}">Region</a></li>
+                <li class="{{ Request::is('zone') ? 'active' : ''}}"><a href="{{route('zone')}}">Zone</a></li>
+                <li class="{{ Request::is('woreda') ? 'active' : ''}}"><a href="{{route('woreda')}}">Woreda</a></li>
+                <li class="{{ Request::is('place') ? 'active' : ''}}"><a href="{{route('place')}}"> Place</a></li>
                 <li class="{{ Request::is('distance') ? 'active' : ''}}"><a href="{{route('distance')}}">Distance
 
                     </a></li>
@@ -117,8 +117,7 @@
                         href="{{ route('performance_by_status')}}">Status By Date</a> </li>
                 <li class="{{ Request::is('performance_by_model') ? 'active' : ''}}"><a
                         href="{{ route('performance_by_model')}}">Performance By Model</a> </li>
-                <li><a href="{{ route('performance_by_model')}}">Detached Driver&Truck</a>
-                </li>
+
                 <li class="{{ Request::is('performace/datediff') ? 'active' : ''}}"><a
                         href="{{ route('performace.datediff')}}">Dispach and Return Date</a>
                 </li>

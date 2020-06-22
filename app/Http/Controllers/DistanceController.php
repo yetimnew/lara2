@@ -8,6 +8,8 @@ use App\Performance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Yajra\DataTables\Contracts\DataTable;
+use Yajra\DataTables\Facades\DataTables;
 
 class DistanceController extends Controller
 {
@@ -71,7 +73,8 @@ class DistanceController extends Controller
     public function edit($id)
     {
         $distances = Distance::all();
-        $places = Place::all();
+        // $places = Place::all();
+        $places = Place::orderBy('name')->get();
         $distance = Distance::findOrFail($id);
         return view('operation.distance.edit')
             ->with('distance', $distance)
@@ -81,6 +84,7 @@ class DistanceController extends Controller
 
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $this->validate($request, [
             'origin' => 'required',
             'destination' => 'required|different:origin',
@@ -88,6 +92,8 @@ class DistanceController extends Controller
         ]);
 
         $distance = Distance::findOrFail($id);
+        $distance->origin_id = $request->origin;
+        $distance->destination_id = $request->destination;
         $distance->km = $request->km;
 
         $distance->save();
@@ -108,5 +114,14 @@ class DistanceController extends Controller
             Session::flash('info', 'The distance b/n ' . $distance->origin_name . ' and ' . $distance->destination_name . ' deleted successfuly');
             return redirect()->back();
         }
+    }
+    public function allDistance()
+    {
+        $distances =  Distance::where('status', 1)->orderBy('destination_name')
+            ->get();
+
+        return DataTables::of($distances)->addColumn('action', function () {
+            '<a onclick="showData(. $distances->id.)" class="btn btn-sm"> show </a>' . '' . '<a onclick="showData(. $distances->id.)" class="btn btn-sm"> show </a>';
+        })->make(true);
     }
 }

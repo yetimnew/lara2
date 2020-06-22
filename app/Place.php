@@ -8,15 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Place extends Model
 {
     protected $fillable = [
-        'id', 
+        'id',
         'name',
         'region_id',
         'comment',
         'status'
     ];
-    public function region()
+
+    public function woreda()
     {
-        return $this->belongsTo('App\Region');
+        return $this->belongsTo('App\Woreda');
     }
     public function scopeActive($query)
     {

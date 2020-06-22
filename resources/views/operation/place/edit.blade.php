@@ -28,18 +28,16 @@
 						</div>
 
 					</div>
-					<!--                                          the right side begins here-->
-				</div>
+                </form>
 
 
+                <div class="card-footer">
+                    the footer
+                </div>
 		</div>
 	</div>
-	<div class="card-footer">
-		the footer
-	</div>
 
-	</form>
-</div>
-</div>
+
+
 
 @endsection

@@ -65,7 +65,7 @@
                             <td class='p-1'>{{ number_format($truck->serviceIntervalKM , 2)}}</td>
                             <td class='p-1'>{{$truck->productionDate->format('d/m/Y')}}</td>
                             <td class='p-1'>{{$truck->serviceStartDate->format('d/m/Y')}}</td>
-                            @can('truck edit')
+                            @can('truck view')
                             <td class='m-1 p-1 text-center'><a href="{{route('truck.show',['id'=> $truck->id])}}"><i
                                         class="fa fa-edit"> </i></a>
                             </td>

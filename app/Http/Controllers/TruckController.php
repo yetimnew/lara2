@@ -136,36 +136,34 @@ class TruckController extends Controller
     }
     public function freeTrucks()
     {
-        $free_trucks=   DB::table('trucks')
+        $free_trucks =   DB::table('trucks')
             ->select(
                 'trucks.*',
                 DB::raw('SUM(driver_truck.is_attached) as tone'),
             )
             ->leftJoin('driver_truck', 'trucks.id', '=', 'driver_truck.truck_id')
-            ->where('trucks.status','=', 1)
-            ->GROUPBY ('trucks.id')
+            ->where('trucks.status', '=', 1)
+            ->GROUPBY('trucks.id')
             ->havingRaw('tone = 0')
             ->orHavingRaw('tone  is null')
             ->orderBy('trucks.plate')
             ->get();
 
-            $free_drivers=   DB::table('drivers')
+        $free_drivers =   DB::table('drivers')
             ->select(
                 'drivers.*',
                 DB::raw('SUM(driver_truck.is_attached) as tone'),
             )
             ->leftJoin('driver_truck', 'drivers.id', '=', 'driver_truck.driver_id')
-            ->where('drivers.status','=', 1)
-            ->GROUPBY ('drivers.id')
+            ->where('drivers.status', '=', 1)
+            ->GROUPBY('drivers.id')
             ->havingRaw('tone = 0')
             ->orHavingRaw('tone  is null')
             ->orderBy('drivers.name')
             ->get();
-            // dd( $free_drivers);
+        // dd( $free_drivers);
         return view('operation.truck.free_trucks')
-        ->with('free_trucks', $free_trucks)
-        ->with('free_drivers', $free_drivers);
-
+            ->with('free_trucks', $free_trucks)
+            ->with('free_drivers', $free_drivers);
     }
-
 }

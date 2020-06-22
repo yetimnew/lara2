@@ -94,6 +94,27 @@
                         </div>
                     </div>
                     <div class="form-group row m-0">
+                        <label class="col-form-label col-lg-4 m-0">Destination Region</label>
+                        <div class="col-lg-8 m-0">
+                            <h4 class="col-form-label m-0 ">{{$osperformance->destination->woreda->zone->region->name}}
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="form-group row m-0">
+                        <label class="col-form-label col-lg-4 m-0">Destination Zone</label>
+                        <div class="col-lg-8 m-0">
+                            <h4 class="col-form-label m-0 ">{{$osperformance->destination->woreda->zone->name}}
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="form-group row m-0">
+                        <label class="col-form-label col-lg-4 m-0">Destination Woreda</label>
+                        <div class="col-lg-8 m-0">
+                            <h4 class="col-form-label m-0 ">{{$osperformance->destination->woreda->name}}
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="form-group row m-0">
                         <label class="col-form-label col-lg-4 m-0">Destination Place</label>
                         <div class="col-lg-8 m-0">
                             <h4 class="col-form-label m-0 ">{{$osperformance->destination->name}}</h4>
@@ -178,7 +199,7 @@
                         </div>
                     </div>
                 </div>
-                @can('performanceos edit')
+                @can('osperformance edit')
                 <div class='ml-1 p-1'>
                     <a href="{{route('osperformance.edit',['id'=> $osperformance->id])}}" class="btn btn-info"> <i
                             class="fa fa-edit"></i> Edit </a>
@@ -187,7 +208,7 @@
                 @endcan
 
 
-                @can('performanceos delete')
+                @can('osperformance delete')
                 <div class='m-1 p-1'>
                     <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$osperformance->id}})"
                         data-target="#DeleteModal" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
@@ -235,7 +256,7 @@
     function deleteData(id)
      {
          var id = id;
-         var url = '{{ route("performace.destroy", ":id") }}';
+         var url = '{{ route("osperformance.destroy", ":id") }}';
          url = url.replace(':id', id);
          $("#deleteForm").attr('action', url);
      }

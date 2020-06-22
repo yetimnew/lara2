@@ -7,22 +7,58 @@ use App\Notifications\PerformanceCreated;
 use App\Operation;
 use App\Outsource;
 use App\Outsource_performance;
+use App\Performance;
 use App\Place;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Yajra\DataTables\Facades\DataTables;
 
 class OutsourcePerformanceController extends Controller
 {
-    public function index()
+    public function index(Request  $request)
     {
-        $osperformances =  Outsource_performance::with('operation')
-            ->with('orgion')
-            ->with('destination')
-            ->orderBy('DateDispach', 'DESC')
-            ->get();
-        return view('operation.osperformance.index')
-            ->with('osperformances', $osperformances);
+        if ($request->ajax()) {
+            $osperformances = DB::table('outsource_performances')
+                ->select(
+                    'outsource_performances.id as id',
+                    'outsources.name as osname',
+                    'operations.operationid as operationid',
+                    'outsource_performances.FOnumber as fo',
+                    'outsource_performances.DateDispach as ddate',
+                    'outsource_performances.plate_number as plate',
+                    'places.name as orgion',
+                    'outsource_performances.tonkm as tonkm',
+                    'outsource_performances.CargoVolumMT as tone',
+                    'outsource_performances.trip as trip'
+                )
+                ->JOIN('places', 'places.id', '=', 'outsource_performances.destination_id')
+                ->JOIN('operations', 'operations.id', '=', 'outsource_performances.operation_id')
+                ->JOIN('outsources', 'outsources.id', '=', 'outsource_performances.outsource_id')
+                ->orderBy('outsource_performances.created_at', 'DESC')
+                ->get();
+
+            return DataTables::of($osperformances)
+                ->addColumn('details', function ($osperformances) {
+                    $button = '<a href="' . route('osperformance.show', $osperformances->id) . '"> <i class="fa fa-edit"></a>';
+                    return $button;
+                })->editColumn('tone', function ($data) {
+                    return number_format($data->tone, 2);
+                })->editColumn('tonkm', function ($data) {
+                    return number_format($data->tonkm, 2);
+                })->editColumn('trip', function ($data) {
+                    if ($data->trip == 1) {
+                        $button = 'Trip';
+                    } else {
+                        $button = 'Part Of Trip';
+                    }
+                    return $button;
+                })
+                ->rawColumns(['details'])
+                ->make(true);
+        }
+        return view('operation.osperformance.index');
     }
 
     public function create()
@@ -80,33 +116,42 @@ class OutsourcePerformanceController extends Controller
 
         ]);
 
-        // dd($request->all());
-        $osperformance = new Outsource_performance;
-        $osperformance->trip = $request->trip;
-        $osperformance->LoadType = $request->chinet;
-        $osperformance->outsource_id = $request->custormer;
-        $osperformance->FOnumber = $request->fo;
-        $osperformance->operation_id = $request->operation;
-        $osperformance->driver_name = $request->driver_name;
-        $osperformance->plate_number = $request->plate_number;
-        $osperformance->DateDispach = $request->ddate;
-        $osperformance->orgion_id = $request->origion;
-        $osperformance->destination_id = $request->destination;
-        $osperformance->DistanceWCargo = $request->diswc;
-        $osperformance->DistanceWOCargo = $request->diswoc;
-        $osperformance->tonkm = $request->tonkm;
-        $osperformance->CargoVolumMT = $request->cargovol;
-        $osperformance->tariff = $request->tariff;
-        $osperformance->comment = $request->comment;
-        $osperformance->user_id = Auth::user()->id;
+        $available_tone = Operation::where('id', $request->operation)->sum('volume');
+        $liffted_ton_erte = Performance::where('operation_id', $request->operation)->sum('CargoVolumMT');
+        $liffted_ton_os = Outsource_performance::where('operation_id', $request->operation)->sum('CargoVolumMT');
+        $total_uplifted =  $liffted_ton_erte +  $liffted_ton_os;
+        // dd($total_uplifted);
+        if ($total_uplifted < $available_tone) {
+            $osperformance = new Outsource_performance;
+            $osperformance->trip = $request->trip;
+            $osperformance->LoadType = $request->chinet;
+            $osperformance->outsource_id = $request->custormer;
+            $osperformance->FOnumber = $request->fo;
+            $osperformance->operation_id = $request->operation;
+            $osperformance->driver_name = $request->driver_name;
+            $osperformance->plate_number = $request->plate_number;
+            $osperformance->DateDispach = $request->ddate;
+            $osperformance->orgion_id = $request->origion;
+            $osperformance->destination_id = $request->destination;
+            $osperformance->DistanceWCargo = $request->diswc;
+            $osperformance->DistanceWOCargo = $request->diswoc;
+            $osperformance->tonkm = $request->tonkm;
+            $osperformance->CargoVolumMT = $request->cargovol;
+            $osperformance->tariff = $request->tariff;
+            $osperformance->comment = $request->comment;
+            $osperformance->user_id = Auth::user()->id;
 
-        // dd($osperformance);
+            // dd($osperformance);
 
-        $osperformance->save();
-        auth()->user()->notify(new PerformanceCreated);
+            // $osperformance->save();
+            // auth()->user()->notify(new PerformanceCreated);
 
-        Session::flash('success', 'Performance  registerd successfuly');
-        return redirect()->route('osperformance');
+            Session::flash('success', 'Performance  registerd successfuly');
+            return redirect()->route('osperformance');
+        } else {
+            Session::flash('error', 'NOT REGISTERED This Operation is Full');
+            return redirect()->route('osperformance.create');
+        }
     }
 
 
@@ -186,7 +231,7 @@ class OutsourcePerformanceController extends Controller
     {
         $osperformance = Outsource_performance::findOrFail($id);
         $osperformance->delete();
-        Session::flash('success', 'Performance deleted successfuly');
+        Session::flash('success', 'Outsource Performance deleted successfuly');
         return redirect()->route('osperformance');
     }
 

@@ -16,8 +16,9 @@ class CreatePlacesTable extends Migration
         Schema::create('places', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->unsignedBigInteger('region_id')->index();
-            $table->foreign('region_id')->references('id')->on('regions')->onDelete('restrict');
+
+            $table->unsignedBigInteger('woreda_id')->default(1);
+            $table->foreign('woreda_id')->references('id')->on('woredas')->onDelete('restrict');
 
             $table->text('comment')->nullable();
             $table->boolean('status')->default(1);
